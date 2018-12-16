@@ -1,5 +1,5 @@
-package Zone42;
+package Consommateur;
 
-public class Bos_taurus extends Herbivore {
+public class Bos_taurus extends Vegetarien {
 
 }

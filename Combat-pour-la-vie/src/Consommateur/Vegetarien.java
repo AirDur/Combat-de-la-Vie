@@ -1,5 +1,5 @@
-package Zone42;
+package Consommateur;
 
-public class Herbivore extends Consommateur {
+public class Vegetarien extends Consommateur {
 
 }

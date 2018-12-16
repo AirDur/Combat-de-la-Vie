@@ -1,5 +1,5 @@
-package Zone42;
+package Consommateur;
 
-public class Mouton extends Herbivore {
+public class Mouton extends Vegetarien {
 
 }

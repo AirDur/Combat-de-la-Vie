@@ -1,5 +1,6 @@
-package Zone42;
+package Aliment;
 
-public class Vegetaux extends Etre_vivant {
+
+public class Vegetaux extends Aliment{
 
 }

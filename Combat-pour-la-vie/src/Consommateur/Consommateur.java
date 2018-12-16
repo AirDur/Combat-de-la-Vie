@@ -1,5 +1,5 @@
-package Zone42;
+package Consommateur;
 
-public class Consommateur extends Etre_vivant {
+public class Consommateur {
 
 }

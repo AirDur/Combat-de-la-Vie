@@ -1,4 +1,4 @@
-package Zone42;
+package Consommateur;
 
 public class Taureau extends Bos_taurus{
 

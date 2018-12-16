@@ -1,4 +1,4 @@
-package Zone42;
+package Aliment;
 
 public class Plante extends Vegetaux {
 

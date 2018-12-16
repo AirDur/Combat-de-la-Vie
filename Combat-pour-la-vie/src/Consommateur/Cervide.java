@@ -1,5 +1,5 @@
-package Zone42;
+package Consommateur;
 
-public class Cervide extends Herbivore {
+public class Cervide extends Vegetarien {
 
 }
