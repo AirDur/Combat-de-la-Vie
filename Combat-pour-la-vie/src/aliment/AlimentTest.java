@@ -2,9 +2,9 @@ package aliment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-class TestAliment {
+class AlimentTest {
 
 	@Test
 	void testAliment() {
