@@ -2,8 +2,8 @@ package consommateur;
 
 public class Belier extends Mouton{
 
-	public Belier(Sexe s, int v) {
-		super(s, v);
+	public Belier(int v) {
+		super(Sexe.male, v);
 		// TODO Auto-generated constructor stub
 	}
 
