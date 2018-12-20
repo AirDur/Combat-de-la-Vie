@@ -6,10 +6,12 @@ import consommateur.Consommateur;
 public class Zone42 {
 	private boolean lock;
 	private ArrayList<Consommateur> list_consommateur;
+	private Integer tailleGrille;
 	private Grille grille;
 	
-	public Zone42() {
-		grille = new Grille();
+	public Zone42(int a) {
+		tailleGrille = a;
+		grille = new Grille(tailleGrille, tailleGrille);
 	}
 	
 	public void faire_passer_le_temps() {};
