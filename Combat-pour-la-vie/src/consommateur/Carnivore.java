@@ -1,8 +1,20 @@
 package consommateur;
 
-public class Carnivore extends Consommateur{
+import aliment.Aliment;
+
+public class Carnivore extends Consommateur {
 	
-	public void combattre() {}
+	public Carnivore(Sexe s, int v) {
+		super(s, v);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void combattre(Consommateur c) {}
 	public void se_reproduit() {}
-	public void attaque() {}
+	
+	@Override
+	public void manger(Aliment a) {
+		// TODO Auto-generated method stub
+		
+	}
 }
