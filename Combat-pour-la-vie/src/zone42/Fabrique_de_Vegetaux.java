@@ -7,7 +7,7 @@ import aliment.*;
  * en paramètre du constructeur.
  * 
  * @author Romain Duret
- *
+ * @see vegetal
  */
 public abstract class Fabrique_de_Vegetaux {
 
