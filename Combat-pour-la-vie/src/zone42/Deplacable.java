@@ -8,4 +8,12 @@ package zone42;
  */
 public interface Deplacable {
 
+	public Case emplacement = new Case();
+	
+	/**
+	 * Déplace l'entité vers la nouvelle case.
+	 * @return 0 si erreur, 1 si déplacement ok.
+	 */
+	public int se_deplacer(Case c);
+	
 }
