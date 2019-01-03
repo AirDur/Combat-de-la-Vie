@@ -1,14 +1,14 @@
 package consommateur;
 
-import aliment.Aliment;
-import aliment.Vegetaux;
+import aliment.*;
+import zone42.*;
 
-public abstract class Consommateur {
+public abstract class Consommateur implements Deplacable {
 	
 	private Integer quantite_consommee_par_tour;
 	private Integer vie;
 	private Integer force_combat;
-	
+	private Case emplacement;
 	/**
 	 * Sexe du Consommateur
 	 */
@@ -31,6 +31,7 @@ public abstract class Consommateur {
 		vivant = true;
 		sexe = s;
 		vie = v;
+		emplacement = new Case(8,9);
 	}
 	
 	public void chercher_la_nourriture(){}

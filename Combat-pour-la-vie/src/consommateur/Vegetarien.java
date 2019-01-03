@@ -1,6 +1,7 @@
 package consommateur;
 
 import aliment.Aliment;
+import zone42.Case;
 
 public class Vegetarien extends Consommateur {
 	
@@ -18,6 +19,12 @@ public class Vegetarien extends Consommateur {
 		else 
 			System.out.println("Error : can't eat");
 		
+	}
+
+	@Override
+	public int se_deplacer(Case c) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
