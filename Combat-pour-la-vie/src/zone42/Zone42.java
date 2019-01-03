@@ -94,15 +94,5 @@ public class Zone42 implements Runnable{
 		return 0;
 	}
 	
-	/**
-	 * Main de test pour les cycles
-	 * @param args
-	 */
-	public static void main(String [] args) {
-		Zone42 zone = new Zone42(10);
-		Thread le_thread = new Thread(zone,"Cycle");
-		
-		le_thread.start();
-		
-	}
+	
 }

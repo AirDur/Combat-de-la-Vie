@@ -8,7 +8,10 @@ class Zone42Test {
 
 	@Test
 	void test() {
-		fail("Not yet implemented");
+		Zone42 zone = new Zone42(10);
+		Thread le_thread = new Thread(zone,"Cycle");
+		
+		le_thread.start();
 	}
 
 }
