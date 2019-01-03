@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import aliment.*;
 import consommateur.*;
 
-public class Zone42 {
+public class Zone42 implements Runnable{
 	
 	/**
 	 * verrou pour empêcher l'interface graphique de travailler tant que Zone42 n'a pas fini son travail.
@@ -24,9 +24,29 @@ public class Zone42 {
 	 */
 	private Grille grille;
 	
+	private int cycle=0;
+	
 	public Zone42(int a) {
 		tailleGrille = a;
 		grille = Grille.getinstance(tailleGrille, tailleGrille);
+	}
+	
+	/**
+	 * Methode qui incrément les cycle toutes les
+	 * temps millisecondes
+	 */
+	public void run() {
+		System.out.println("Lancement du jeu");
+		long temps=1000;
+		try {
+			while(true) {
+				Thread.sleep(temps);
+				System.out.println("cycle "+cycle++);
+			}
+		}catch(InterruptedException e) {
+			System.out.println("Thread interrupted.");
+		}
+		
 	}
 	
 	public void faire_passer_le_temps() {};
@@ -70,5 +90,13 @@ public class Zone42 {
 	 */
 	public int initialisation() {
 		return 0;
+	}
+	
+	public static void main(String [] args) {
+		Zone42 zone = new Zone42(10);
+		Thread le_thread = new Thread(zone,"Cycle");
+		
+		le_thread.start();
+		
 	}
 }
