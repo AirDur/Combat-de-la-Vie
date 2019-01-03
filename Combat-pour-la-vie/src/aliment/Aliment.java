@@ -1,5 +1,7 @@
 package aliment;
 
+import zone42.Case;
+
 /**
  * 
  * @author Romain Duret
@@ -13,6 +15,11 @@ public class Aliment {
 	private Integer propriete_nutritive;
 	
 	private Integer temps_avant_decomposition;
+	
+	/**
+	 * Emplacement de l'aliment sur la grille.
+	 */
+	private Case emplacement;
 	
 	public Aliment() {
 		setPropriete_nutritive(0);

@@ -24,6 +24,10 @@ public abstract class Fabrique_de_Vegetaux {
 	 * Type de vegetaux que produit la fabrique
 	 */
 	private TypeVegetaux type;
+	/**
+	 * Emplacement du consommateur sur la grille.
+	 */
+	private Case emplacement;
 	
 	public Fabrique_de_Vegetaux(int i, TypeVegetaux tv) {
 		duree_de_vie = i;
