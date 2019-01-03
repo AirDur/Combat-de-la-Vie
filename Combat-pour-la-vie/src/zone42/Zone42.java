@@ -26,7 +26,7 @@ public class Zone42 {
 	
 	public Zone42(int a) {
 		tailleGrille = a;
-		grille = new Grille(tailleGrille, tailleGrille);
+		grille = Grille.getinstance(tailleGrille, tailleGrille);
 	}
 	
 	public void faire_passer_le_temps() {};

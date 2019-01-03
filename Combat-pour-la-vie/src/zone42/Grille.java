@@ -16,11 +16,11 @@ public class Grille {
 	private Case[][] tab;
 	
 	/**
-	 * Constructeur
+	 * Constructeur implémenté par le design pattern Singleton
 	 * @param a nombre de colonne
 	 * @param b nombre de ligne
 	 */
-	public Grille(int a, int b) {
+	private Grille(int a, int b) {
 		x = a;
 		y = b;
 		tab = new Case[x][y];
@@ -29,5 +29,24 @@ public class Grille {
 				tab[i][j] = new Case(i, j);
 			}
 		}
+	}
+	
+	public static Grille instance =null;
+	public static Grille getinstance(int a, int b) {
+		if (instance==null) instance = new Grille(a,b);
+		return instance;
+	}
+	
+	public String toString() {
+		String chaine="x="+x+"y="+y;
+		
+		return chaine;
+	}
+	
+	public static void main(String [] args) {
+		Grille lagrille = Grille.getinstance(5, 5);
+		Grille lagrille2 = Grille.getinstance(1, 2);
+		
+		System.out.println(lagrille2);
 	}
 }
