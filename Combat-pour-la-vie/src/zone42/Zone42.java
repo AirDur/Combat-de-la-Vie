@@ -23,7 +23,9 @@ public class Zone42 implements Runnable{
 	 * la grille en elle-même
 	 */
 	private Grille grille;
-	
+	/**
+	 * L'unité du temps du jeu le cycle
+	 */
 	private int cycle=0;
 	
 	public Zone42(int a) {
