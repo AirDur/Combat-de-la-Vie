@@ -5,15 +5,46 @@ import zone42.*;
 
 public abstract class Consommateur implements Deplacable {
 	
-	private Integer quantite_consommee_par_tour;
+	/**
+	 * Compteur pour la faim. Va entre 0 et 100.
+	 */
+	private Integer compteur_faim;
+	/**
+	 * Déclare l'état de la faim de l'individu (dépend du compteur_faim)
+	 */
+	private EtatFaim etat_faim;
+	/**
+	 * Vie de l'animal.
+	 */
 	private Integer vie;
+	/**
+	 * Force de combat pour les affrontements
+	 */
 	private Integer force_combat;
-	private Case emplacement;
+	
 	/**
 	 * Sexe du Consommateur
 	 */
 	private Sexe sexe;
-	private Integer energie_deplacement;
+	
+	/**
+	 * Capacité de déplacement qu'un consommateur peut effectuer durant un tour.
+	 */
+	private Integer capacite_maximale_de_deplacement;
+	
+	/**
+	 * Age du consommateur (en durée de cycle)
+	 */
+	private Integer age;
+	
+	/**
+	 * Durée de vie du consommateur (+/- 20%)
+	 */
+	private Integer duree_de_vie;
+	/**
+	 * Emplacement du consommateur sur la grille.
+	 */
+	private Case emplacement;
 	
 	/**
 	 * Permet de vérifier si le Consommateur est mort
@@ -45,5 +76,7 @@ public abstract class Consommateur implements Deplacable {
 			vivant = false;
 		}
 	}
+	
+	public void se_defendre() {};
 
 }
