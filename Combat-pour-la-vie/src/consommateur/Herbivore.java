@@ -3,9 +3,9 @@ package consommateur;
 import aliment.Aliment;
 import zone42.Case;
 
-public class Vegetarien extends Consommateur {
+public class Herbivore extends Consommateur {
 	
-	public Vegetarien(Sexe s, int v) {
+	public Herbivore(Sexe s, int v) {
 		super(s, v);
 		// TODO Auto-generated constructor stub
 	}
