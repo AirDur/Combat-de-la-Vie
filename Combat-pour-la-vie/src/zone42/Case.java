@@ -18,7 +18,23 @@ public class Case {
 	 * @param b	Ordonnée
 	 */
 	public Case(int a, int b) {
-		val_x = a;
-		val_y = b;
+		setVal_x(a);
+		setVal_y(b);
+	}
+
+	public int getVal_x() {
+		return val_x;
+	}
+
+	public void setVal_x(int val_x) {
+		this.val_x = val_x;
+	}
+
+	public int getVal_y() {
+		return val_y;
+	}
+
+	public void setVal_y(int val_y) {
+		this.val_y = val_y;
 	}
 }
