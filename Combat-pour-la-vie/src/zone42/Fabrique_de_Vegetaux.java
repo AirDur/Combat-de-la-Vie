@@ -17,6 +17,11 @@ public abstract class Fabrique_de_Vegetaux {
 	private Integer duree_de_vie;
 	
 	/**
+	 * Age de la fabrique
+	 */
+	private Integer age_fabrique;
+	
+	/**
 	 * Etat de la machine
 	 */
 	private EtatFabrique etat;
@@ -46,12 +51,17 @@ public abstract class Fabrique_de_Vegetaux {
 	 */
 	private Integer cycle_courant;
 	
-	public Fabrique_de_Vegetaux(int vie, int quantite, int cycle, TypeVegetaux tv) {
+	public Fabrique_de_Vegetaux(int vie, int quantite, int cycle, TypeVegetaux tv, Case c) {
 		duree_de_vie = vie;
+		age_fabrique = 0;
+		
 		type = tv;
+		
 		cycle_de_production = cycle;
 		cycle_courant = 0;
 		quantite_de_production = 0;
+		
+		emplacement = c;
 		
 		if(vie > 0) 
 			etat = EtatFabrique.enmarche;
@@ -61,36 +71,52 @@ public abstract class Fabrique_de_Vegetaux {
 	
 	/**
 	 * Vérifie si le cycle actuel correspond bien à un cycle de production. 
+	 * Vérifie si la fabrique tombe en panne lors de production de vegetaux
 	 * Si ça correspond, elle renvoit un vegetal produit, sinon, elle renvoi null en incrémentant le compteur
 	 * @return vegetal ou null
 	 */
 	public Vegetaux utilisation() {
-		if(cycle_courant == cycle_de_production) {
-			cycle_courant = 0;
-			return creerVegetaux();
-		} else {
-			cycle_courant++;
-			return null;
+		age_fabrique++;
+		if(etat == EtatFabrique.enmarche) {
+			if(cycle_courant == cycle_de_production) {
+				cycle_courant = 0;
+				devientEnPanne();
+				return creerVegetaux();
+			} else {
+				cycle_courant++;
+				return null;
+			}
 		}
+		else return null;
 	}
 	
 	/**
-	 * Créer un vegetal. 
-	 * Si la fabrique est en panne, elle retourne null.
-	 * @return vegetal ou null
+	 * Vérifie si ça devientEnPanne.
+	 * (voir https://cdn.discordapp.com/attachments/516909121153269762/530749121594916864/unknown.png )
+	 */
+	private void devientEnPanne() {
+		if(age_fabrique > (0.8 * this.duree_de_vie)) {
+			//TODO laisser ça à Thomas
+		}
+		if(age_fabrique > (1.2 * this.duree_de_vie)) {
+			etat = EtatFabrique.enpanne;
+		}
+	}
+
+	/**
+	 * Créer un vegetal.
+	 * @return vegetal
 	 */
 	private Vegetaux creerVegetaux() {
-		if(etat == EtatFabrique.enmarche) {
-			Vegetaux vegetal = null;
-	        switch(this.type)
-	        {
-	            case foin: vegetal = new Foin(); break;
-	            case herbe: vegetal = new Herbe(); break;
-	            case plante: vegetal = new Plante(); break;
-	            case pomme: vegetal = new Pomme(); break;
-	        }
-	        return vegetal;
-		}
-		else return null;
+		//TODO gestion des emplacements
+		Vegetaux vegetal = null;
+        switch(this.type)
+        {
+            case foin: vegetal = new Foin(); break;
+            case herbe: vegetal = new Herbe(); break;
+            case plante: vegetal = new Plante(); break;
+            case pomme: vegetal = new Pomme(); break;
+        }
+        return vegetal;
 	}
 }
