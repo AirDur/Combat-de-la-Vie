@@ -104,19 +104,29 @@ public abstract class Fabrique_de_Vegetaux {
 	}
 
 	/**
-	 * Créer un vegetal.
-	 * @return vegetal
+	 * Créer un vegetal et le retourne. S'il n'y a pas d'emplacement Libre, retourne null
+	 * @return vegetal ou null
 	 */
 	private Vegetaux creerVegetaux() {
-		//TODO gestion des emplacements
-		Vegetaux vegetal = null;
-        switch(this.type)
-        {
-            case foin: vegetal = new Foin(); break;
-            case herbe: vegetal = new Herbe(); break;
-            case plante: vegetal = new Plante(); break;
-            case pomme: vegetal = new Pomme(); break;
-        }
-        return vegetal;
+		
+		Case c = getEmplacementLibre();
+		if(c != null) {
+			Vegetaux vegetal = null;
+	        switch(this.type)
+	        {
+	            case foin: 		vegetal = new Foin(c); break;
+	            case herbe: 	vegetal = new Herbe(c); break;
+	            case plante:	vegetal = new Plante(c); break;
+	            case pomme: 	vegetal = new Pomme(c); break;
+	        }
+	        return vegetal;
+		} else
+			return null;
+		
+	}
+
+	private Case getEmplacementLibre() {
+		//TODO à faire
+		return null;
 	}
 }
