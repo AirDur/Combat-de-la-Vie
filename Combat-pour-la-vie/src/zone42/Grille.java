@@ -70,14 +70,4 @@ public class Grille {
 		return chaine;
 	}
 	
-	/**
-	 * main pour tester le singleton
-	 * @param args
-	 */
-	public static void main(String [] args) {
-		Grille lagrille = Grille.getinstance(5, 5);
-		Grille lagrille2 = Grille.getinstance(1, 2);
-		
-		System.out.println(lagrille2);
-	}
 }
