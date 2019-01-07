@@ -10,6 +10,7 @@ public class Case {
 
 	private int val_x;
 	private int val_y;
+	private EtatCase ec;
 
 	/**
 	 * Constructeur
@@ -20,6 +21,7 @@ public class Case {
 	public Case(int a, int b) {
 		setVal_x(a);
 		setVal_y(b);
+		setEc(EtatCase.libre);
 	}
 
 	public int getVal_x() {
@@ -36,5 +38,13 @@ public class Case {
 
 	public void setVal_y(int val_y) {
 		this.val_y = val_y;
+	}
+
+	public EtatCase getEc() {
+		return ec;
+	}
+
+	public void setEc(EtatCase ec) {
+		this.ec = ec;
 	}
 }

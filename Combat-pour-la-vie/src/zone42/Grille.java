@@ -69,5 +69,9 @@ public class Grille {
 		}
 		return chaine;
 	}
+
+	public EtatCase getEtat(Case c) {
+		return c.getEc();
+	}
 	
 }

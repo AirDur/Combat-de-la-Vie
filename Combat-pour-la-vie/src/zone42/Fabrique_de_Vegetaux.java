@@ -75,13 +75,13 @@ public abstract class Fabrique_de_Vegetaux {
 	 * Si ça correspond, elle renvoit un vegetal produit, sinon, elle renvoi null en incrémentant le compteur
 	 * @return vegetal ou null
 	 */
-	public Vegetaux utilisation() {
+	public Vegetaux utilisation(Grille g) {
 		age_fabrique++;
 		if(etat == EtatFabrique.enmarche) {
 			if(cycle_courant == cycle_de_production) {
 				cycle_courant = 0;
 				devientEnPanne();
-				return creerVegetaux();
+				return creerVegetaux(g);
 			} else {
 				cycle_courant++;
 				return null;
@@ -107,9 +107,9 @@ public abstract class Fabrique_de_Vegetaux {
 	 * Créer un vegetal et le retourne. S'il n'y a pas d'emplacement Libre, retourne null
 	 * @return vegetal ou null
 	 */
-	private Vegetaux creerVegetaux() {
+	private Vegetaux creerVegetaux(Grille g) {
 		
-		Case c = getEmplacementLibre();
+		Case c = getEmplacementLibre(g);
 		if(c != null) {
 			Vegetaux vegetal = null;
 	        switch(this.type)
@@ -125,8 +125,11 @@ public abstract class Fabrique_de_Vegetaux {
 		
 	}
 
-	private Case getEmplacementLibre() {
-		//TODO à faire
+	private Case getEmplacementLibre(Grille g) {
+		//TODO
+		if(g.getEtat(new Case(1, 1)) == EtatCase.libre) {
+			return new Case(1,1);
+		}
 		return null;
 	}
 }
