@@ -126,7 +126,7 @@ public abstract class Fabrique_de_Vegetaux {
 	}
 
 	private Case getEmplacementLibre(Grille g) {
-		//TODO
+		//TODO a faire
 		if(g.getEtat(new Case(1, 1)) == EtatCase.libre) {
 			return new Case(1,1);
 		}
