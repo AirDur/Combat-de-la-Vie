@@ -1,5 +1,7 @@
 package zone42;
 
+import java.util.ArrayList;
+
 import aliment.*;
 
 /**
@@ -59,7 +61,7 @@ public abstract class Fabrique_de_Vegetaux {
 		
 		cycle_de_production = cycle;
 		cycle_courant = 0;
-		quantite_de_production = 0;
+		quantite_de_production = quantite;
 		
 		setEmplacement(c);
 		
@@ -72,16 +74,21 @@ public abstract class Fabrique_de_Vegetaux {
 	/**
 	 * Vérifie si le cycle actuel correspond bien à un cycle de production. 
 	 * Vérifie si la fabrique tombe en panne lors de production de vegetaux
-	 * Si ça correspond, elle renvoit un vegetal produit, sinon, elle renvoi null en incrémentant le compteur
-	 * @return vegetal ou null
+	 * Si ça correspond, elle renvoit un arraylist de vegetaux produit selon la quantite maximale de production de la machine.
+	 *  sinon, elle renvoi null en incrémentant le compteur
+	 * @return un arraylist de vegetaux ou null
 	 */
-	public Vegetaux utilisation(Grille g) {
+	public ArrayList<Vegetaux> utilisation(Grille g) {
 		age_fabrique++;
 		if(etat == EtatFabrique.enmarche) {
 			if(cycle_courant == cycle_de_production) {
+				ArrayList<Vegetaux> alv = new ArrayList<Vegetaux>();
+				for(int i = 0; i < quantite_de_production; i++) {
+					alv.add(creerVegetaux(g));
+				}
 				cycle_courant = 0;
 				devientEnPanne();
-				return creerVegetaux(g);
+				return alv;
 			} else {
 				cycle_courant++;
 				return null;
