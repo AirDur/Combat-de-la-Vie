@@ -74,4 +74,11 @@ public class Grille {
 		return c.getEc();
 	}
 	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
 }
