@@ -39,6 +39,7 @@ public class Grille {
 		for(int i = 0; i < x; i++) {
 			for(int j = 0; j < x; j++) {
 				tab[i][j] = new Case(i, j);
+				tab[i][j].setEc(EtatCase.libre);
 			}
 		}
 	}
@@ -58,20 +59,44 @@ public class Grille {
 	 * Affichage de la grille
 	 */
 	public String toString() {
-		String chaine = "";
+		String chaine = "Tableau de taille " + x + "*" + y + " : \n";
 		for(int i = 0; i < x; i++) {
-			chaine = chaine + "[";
+			chaine = chaine + "[ ";
 			for(int j = 0; j < x; j++) {
+				EtatCase ec = tab[i][j].getEc();
+				switch(ec) {
+				case libre: chaine = chaine + " ";
+					break;
+				case fabriqueVegetaux: chaine = chaine + "f";
+					break;
+				case vegetal: chaine = chaine + "v";
+					break;
+				default: chaine = chaine + ".";
+					break; 
+				}
+				
 				chaine = chaine + " a ";
-				tab[i][j] = new Case(i, j);
 			}
-			chaine = chaine + "]\n";
+			chaine = chaine + " ]\n";
 		}
 		return chaine;
 	}
 
 	public EtatCase getEtat(Case c) {
 		return c.getEc();
+	}
+	
+	public EtatCase getEtat(int x, int y) {
+		return tab[x-1][y-1].getEc();
+	}
+	
+	public void setEtat(EtatCase ec, int x, int y) {
+		tab[x-1][y-1].setEc(ec);
+	}
+	
+	public void setEtat(EtatCase ec, Case c) {
+		System.out.println("test - : " + tab.length + " / " + tab[0].length);
+		tab[c.getVal_x()][c.getVal_y()].setEc(ec);
 	}
 	
 	public int getX() {

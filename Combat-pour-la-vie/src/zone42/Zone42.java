@@ -141,10 +141,19 @@ public class Zone42 implements Runnable{
 	public int initialisation() {
 		//Initialisation des listes
 		list_aliment = new ArrayList<Aliment>();
-		list_farbique_vegetaux = new ArrayList<Fabrique_de_Vegetaux>();
+		list_farbique_vegetaux = new ArrayList<Fabrique_de_Vegetaux>(20);
 		list_herbivore = new ArrayList<Herbivore>();
 		list_carnivore = new ArrayList<Carnivore>();
 		
+		Case c = new Case(10, 15);
+		
+		list_farbique_vegetaux.add(new Fabrique_de_Vegetaux(100,1, 5, TypeVegetaux.plante, c));
+		grille.setEtat(EtatCase.fabriqueVegetaux, c);
+		
 		return 1;
+	}
+	
+	public String toString() {
+		return grille.toString();
 	}
 }

@@ -11,7 +11,7 @@ import aliment.*;
  * @author Romain Duret
  * @see Vegetaux
  */
-public abstract class Fabrique_de_Vegetaux {
+public class Fabrique_de_Vegetaux {
 
 	/**
 	 * Durée de vie en cycle de la fabrique
