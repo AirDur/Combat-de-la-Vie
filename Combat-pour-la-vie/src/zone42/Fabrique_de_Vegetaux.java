@@ -149,21 +149,21 @@ public class Fabrique_de_Vegetaux {
 		Case c_fabrique = getEmplacement();
 		int x = c_fabrique.getVal_x();
 		int y = c_fabrique.getVal_y();
-		if(x-1 >= 0 && g.getEtat(new Case(x-1, y)) == EtatCase.libre) {
+		if(x-1 >= 0 && g.getEtat(x-1, y) == EtatCase.libre) {
 			return new Case(x-1, y);
-		} else if(y-1 >= 0 && g.getEtat(new Case(x, y-1)) == EtatCase.libre) {
+		} else if(y-1 >= 0 && g.getEtat(x, y-1) == EtatCase.libre) {
 			return new Case(x, y-1);
-		} else if(x+1 < g.getX() && g.getEtat(new Case(x+1, y)) == EtatCase.libre) {
+		} else if(x+1 < g.getX() && g.getEtat(x+1, y) == EtatCase.libre) {
 			return new Case(x+1, y);
-		} else if(y+1 < g.getY() && g.getEtat(new Case(x, y+1)) == EtatCase.libre) {
+		} else if(y+1 < g.getY() && g.getEtat(x, y+1) == EtatCase.libre) {
 			return new Case(x, y-1);
-		} else if(x-1 >= 0 && y-1 >= 0 && g.getEtat(new Case(x-1, y-1)) == EtatCase.libre) {
+		} else if(x-1 >= 0 && y-1 >= 0 && g.getEtat(x-1, y-1) == EtatCase.libre) {
 			return new Case(x-1, y-1);
-		} else if(x-1 >= 0 && y+1 < g.getY() && g.getEtat(new Case(x-1, y+1)) == EtatCase.libre) {
+		} else if(x-1 >= 0 && y+1 < g.getY() && g.getEtat(x-1, y+1) == EtatCase.libre) {
 			return new Case(x-1, y+11);
-		} else if(x+1 < g.getX() && y-1 >= 0 && g.getEtat(new Case(x+1, y-1)) == EtatCase.libre) {
+		} else if(x+1 < g.getX() && y-1 >= 0 && g.getEtat(x+1, y-1) == EtatCase.libre) {
 			return new Case(x+1, y-1);
-		} else if(x+1 < g.getX() && y+1 < g.getY() && g.getEtat(new Case(x+1, y+1)) == EtatCase.libre) {
+		} else if(x+1 < g.getX() && y+1 < g.getY() && g.getEtat(x+1, y+1) == EtatCase.libre) {
 			return new Case(x+1, y+11);
 		} else {
 			return null;

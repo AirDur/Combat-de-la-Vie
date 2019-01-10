@@ -65,17 +65,15 @@ public class Grille {
 			for(int j = 0; j < x; j++) {
 				EtatCase ec = tab[i][j].getEc();
 				switch(ec) {
-				case libre: chaine = chaine + " ";
+				case libre: chaine = chaine + ".";
 					break;
 				case fabriqueVegetaux: chaine = chaine + "f";
 					break;
 				case vegetal: chaine = chaine + "v";
 					break;
-				default: chaine = chaine + ".";
+				default: chaine = chaine + "X";
 					break; 
 				}
-				
-				chaine = chaine + " a ";
 			}
 			chaine = chaine + " ]\n";
 		}

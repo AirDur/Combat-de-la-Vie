@@ -17,7 +17,7 @@ public class Zone42 implements Runnable{
 	 * Liste de Fabrique d'aliment de la Zone42
 	 */
 	
-	private ArrayList<Fabrique_de_Vegetaux> list_farbique_vegetaux;
+	private ArrayList<Fabrique_de_Vegetaux> list_fabrique_vegetaux;
 	
 	/**
 	 * Liste d'aliment de la Zone42
@@ -66,7 +66,17 @@ public class Zone42 implements Runnable{
 		}
 	}
 	
-	public void faire_passer_le_temps() {};
+	public void faire_passer_le_temps() {
+		for(Fabrique_de_Vegetaux fv : list_fabrique_vegetaux) {
+			ArrayList<Vegetaux> al = fv.utilisation(grille);
+			if(al != null) {
+				for(Vegetaux v : al) {
+					grille.setEtat(EtatCase.vegetal, v.getEmplacement().getVal_x(), v.getEmplacement().getVal_y());
+				}
+				list_aliment.addAll(al);
+			}	
+		}
+	};
 	
 	public void lock() {
 		setLock(true);
@@ -141,19 +151,23 @@ public class Zone42 implements Runnable{
 	public int initialisation() {
 		//Initialisation des listes
 		list_aliment = new ArrayList<Aliment>();
-		list_farbique_vegetaux = new ArrayList<Fabrique_de_Vegetaux>(20);
+		list_fabrique_vegetaux = new ArrayList<Fabrique_de_Vegetaux>(20);
 		list_herbivore = new ArrayList<Herbivore>();
 		list_carnivore = new ArrayList<Carnivore>();
 		
 		Case c = new Case(10, 15);
 		
-		list_farbique_vegetaux.add(new Fabrique_de_Vegetaux(100,1, 5, TypeVegetaux.plante, c));
+		list_fabrique_vegetaux.add(new Fabrique_de_Vegetaux(100,1, 1, TypeVegetaux.plante, c));
+		grille.setEtat(EtatCase.fabriqueVegetaux, c);
+		
+		c = new Case(8, 5);
+		list_fabrique_vegetaux.add(new Fabrique_de_Vegetaux(100,1, 1, TypeVegetaux.foin, c));
 		grille.setEtat(EtatCase.fabriqueVegetaux, c);
 		
 		return 1;
 	}
 	
 	public String toString() {
-		return grille.toString();
+		return "Zone appell grille : " + grille.toString();
 	}
 }
