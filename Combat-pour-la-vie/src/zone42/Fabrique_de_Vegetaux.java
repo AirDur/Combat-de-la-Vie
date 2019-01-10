@@ -61,7 +61,7 @@ public abstract class Fabrique_de_Vegetaux {
 		cycle_courant = 0;
 		quantite_de_production = 0;
 		
-		emplacement = c;
+		setEmplacement(c);
 		
 		if(vie > 0) 
 			etat = EtatFabrique.enmarche;
@@ -125,11 +125,49 @@ public abstract class Fabrique_de_Vegetaux {
 		
 	}
 
+	/**
+	 * Soit la fabrique de végétaux placé en position 5 sur la grille ci-dessous :
+	 * ---------
+	 * | 7 8 9 |
+	 * | 4 5 6 |
+	 * | 1 2 3 |
+	 * ---------
+	 * 
+	 * La fonction va vérifier si les cases, dans l'ordre, 4, 8, 6, 2 puis 7, 1, 9 et 3 sont libres
+	 * Si l'une d'entre elles l'est, elle est retourné. Sinon, on retourne null.
+	 * @param g grille pour vérifier si une case est libre ou non.
+	 * @return case disponible ou null.
+	 */
 	private Case getEmplacementLibre(Grille g) {
-		//TODO a faire
-		if(g.getEtat(new Case(1, 1)) == EtatCase.libre) {
-			return new Case(1,1);
+		Case c_fabrique = getEmplacement();
+		int x = c_fabrique.getVal_x();
+		int y = c_fabrique.getVal_y();
+		if(x-1 >= 0 && g.getEtat(new Case(x-1, y)) == EtatCase.libre) {
+			return new Case(x-1, y);
+		} else if(y-1 >= 0 && g.getEtat(new Case(x, y-1)) == EtatCase.libre) {
+			return new Case(x, y-1);
+		} else if(x+1 < g.getX() && g.getEtat(new Case(x+1, y)) == EtatCase.libre) {
+			return new Case(x+1, y);
+		} else if(y+1 < g.getY() && g.getEtat(new Case(x, y+1)) == EtatCase.libre) {
+			return new Case(x, y-1);
+		} else if(x-1 >= 0 && y-1 >= 0 && g.getEtat(new Case(x-1, y-1)) == EtatCase.libre) {
+			return new Case(x-1, y-1);
+		} else if(x-1 >= 0 && y+1 < g.getY() && g.getEtat(new Case(x-1, y+1)) == EtatCase.libre) {
+			return new Case(x-1, y+11);
+		} else if(x+1 < g.getX() && y-1 >= 0 && g.getEtat(new Case(x+1, y-1)) == EtatCase.libre) {
+			return new Case(x+1, y-1);
+		} else if(x+1 < g.getX() && y+1 < g.getY() && g.getEtat(new Case(x+1, y+1)) == EtatCase.libre) {
+			return new Case(x+1, y+11);
+		} else {
+			return null;
 		}
-		return null;
+	}
+
+	public Case getEmplacement() {
+		return emplacement;
+	}
+
+	public void setEmplacement(Case emplacement) {
+		this.emplacement = emplacement;
 	}
 }
