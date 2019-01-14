@@ -84,7 +84,8 @@ public class Fabrique_de_Vegetaux {
 			if(cycle_courant == cycle_de_production) {
 				ArrayList<Vegetaux> alv = new ArrayList<Vegetaux>();
 				for(int i = 0; i < quantite_de_production; i++) {
-					alv.add(creerVegetaux(g));
+					Vegetaux veg = creerVegetaux(g);
+					if(veg!=null) alv.add(veg);
 				}
 				cycle_courant = 0;
 				devientEnPanne();
@@ -116,9 +117,9 @@ public class Fabrique_de_Vegetaux {
 	 */
 	private Vegetaux creerVegetaux(Grille g) {
 		
-		Case c = getEmplacementLibre(g);
-		System.out.println("On donne la case "+c.getVal_x()+","+c.getVal_y());
+		Case c = getEmplacementLibre(g,3);
 		if(c != null) {
+			System.out.println("On donne la case "+c.getVal_x()+","+c.getVal_y());
 			Vegetaux vegetal = null;
 	        switch(this.type)
 	        {
@@ -171,10 +172,10 @@ public class Fabrique_de_Vegetaux {
 		}
 	}*/
 	
-	private Case getEmplacementLibre(Grille g) {
+	private Case getEmplacementLibre(Grille g, int r) {
 		
 		int x,y;
-		int r=2;
+		//int r=2;
 		
 		Case c_fabrique = getEmplacement();
 		int x_emplacement = c_fabrique.getVal_x();
@@ -183,33 +184,42 @@ public class Fabrique_de_Vegetaux {
 		
 		
 		for(x=x_emplacement ,y=y_emplacement-r ;x>-r+x_emplacement ;x--,y++) {
-			System.out.println("Case ("+x+","+y+")");
-			if( g.getEtat(x,y) == EtatCase.libre){
-				return new Case(x,y);
+			if(x>=0 && x<g.getX() && y>=0 && y<g.getY() ) {
+				System.out.println("Case ("+x+","+y+")");
+				if( g.getEtat(x,y) == EtatCase.libre){
+					return new Case(x,y);
+				}
 			}
 		}
 		
 		for(x=x_emplacement-r ,y=y_emplacement ;x<x_emplacement ;x++,y++) {
-			System.out.println("Case ("+x+","+y+")");
-			if( g.getEtat(x,y) == EtatCase.libre){
-				return new Case(x,y);
+			if(x>=0 && x<g.getX() && y>=0 && y<g.getY() ) {
+				System.out.println("Case ("+x+","+y+")");
+				if( g.getEtat(x,y) == EtatCase.libre){
+					return new Case(x,y);
+				}
 			}
 		}
 		//
-		for(x=x_emplacement ,y=y_emplacement+r ;x<r+x_emplacement ;x++,y++) {
-			System.out.println("Case ("+x+","+y+")*");
-			if( g.getEtat(x,y) == EtatCase.libre){
-				return new Case(x,y);
+		for(x=x_emplacement ,y=y_emplacement+r ;x<r+x_emplacement ;x++,y--) {
+			if(x>=0 && x<g.getX() && y>=0 && y<g.getY() ) {
+				System.out.println("Case ("+x+","+y+")");
+				if( g.getEtat(x,y) == EtatCase.libre){
+					return new Case(x,y);
+				}
 			}
 		}
 		
-		for(x=r+x_emplacement ,y=y_emplacement ;x>x_emplacement ;x--,y++) {
-			System.out.println("Case ("+x+","+y+")");
-			if( g.getEtat(x,y) == EtatCase.libre){
-				return new Case(x,y);
+		for(x=r+x_emplacement ,y=y_emplacement ;x>x_emplacement ;x--,y--) {
+			if(x>=0 && x<g.getX() && y>=0 && y<g.getY() ) {
+				System.out.println("Case ("+x+","+y+")");
+				if( g.getEtat(x,y) == EtatCase.libre){
+					return new Case(x,y);
+				}
 			}
 		}
 		
+		if(r>1) return getEmplacementLibre(g, r-1);
 		return null;
 		
 	}
