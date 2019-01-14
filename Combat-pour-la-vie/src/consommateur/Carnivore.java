@@ -11,9 +11,6 @@ public class Carnivore extends Consommateur {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void combattre(Consommateur c) {}
-	public void se_reproduit() {}
-	
 	@Override
 	public int manger(Aliment a) {
 		return 0;

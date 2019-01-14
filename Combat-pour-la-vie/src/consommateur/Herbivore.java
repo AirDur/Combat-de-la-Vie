@@ -11,8 +11,6 @@ public class Herbivore extends Consommateur {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void se_defendre() {}
-
 	@Override
 	public int manger(Aliment a) {
 		if(a.getClass().toString() == "Vegetaux") 
