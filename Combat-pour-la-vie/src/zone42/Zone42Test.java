@@ -8,7 +8,7 @@ class Zone42Test {
 
 	@Test
 	void test() throws InterruptedException {
-		Zone42 zone = new Zone42(20);
+		Zone42 zone = new Zone42(10);
 		//Thread le_thread = new Thread(zone,"Cycle");
 		
 		//le_thread.start();
@@ -25,7 +25,7 @@ class Zone42Test {
 	
 	@Test
 	void testGrille() throws InterruptedException {
-		Zone42 zone2 = new Zone42(30);
+		Zone42 zone2 = new Zone42(10);
 		zone2.initialisation();
 		Thread le_thread = new Thread(zone2,"Cycle");
 		

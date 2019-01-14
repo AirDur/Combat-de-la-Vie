@@ -60,9 +60,9 @@ public class Grille {
 	 */
 	public String toString() {
 		String chaine = "Tableau de taille " + x + "*" + y + " : \n";
-		for(int i = 0; i < x; i++) {
+		for(int j = 0; j < x; j++) {
 			chaine = chaine + "[ ";
-			for(int j = 0; j < x; j++) {
+			for(int i = 0; i < x; i++) {
 				EtatCase ec = tab[i][j].getEc();
 				switch(ec) {
 				case libre: chaine = chaine + ".";
@@ -85,11 +85,11 @@ public class Grille {
 	}
 	
 	public EtatCase getEtat(int x, int y) {
-		return tab[x-1][y-1].getEc();
+		return tab[x][y].getEc();
 	}
 	
 	public void setEtat(EtatCase ec, int x, int y) {
-		tab[x-1][y-1].setEc(ec);
+		tab[x][y].setEc(ec);
 	}
 	
 	public void setEtat(EtatCase ec, Case c) {

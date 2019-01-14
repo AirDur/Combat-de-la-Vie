@@ -71,6 +71,7 @@ public class Zone42 implements Runnable{
 			ArrayList<Vegetaux> al = fv.utilisation(grille);
 			if(al != null) {
 				for(Vegetaux v : al) {
+					System.out.println("vegetaux x = "+ v.getEmplacement().getVal_x() +"vegetaux y = "+v.getEmplacement().getVal_y());
 					grille.setEtat(EtatCase.vegetal, v.getEmplacement().getVal_x(), v.getEmplacement().getVal_y());
 				}
 				list_aliment.addAll(al);
@@ -155,14 +156,14 @@ public class Zone42 implements Runnable{
 		list_herbivore = new ArrayList<Herbivore>();
 		list_carnivore = new ArrayList<Carnivore>();
 		
-		Case c = new Case(10, 15);
+		Case c = new Case(2, 7);
 		
 		list_fabrique_vegetaux.add(new Fabrique_de_Vegetaux(100,1, 1, TypeVegetaux.plante, c));
 		grille.setEtat(EtatCase.fabriqueVegetaux, c);
 		
-		c = new Case(8, 5);
+		/*c = new Case(8, 5);
 		list_fabrique_vegetaux.add(new Fabrique_de_Vegetaux(100,1, 1, TypeVegetaux.foin, c));
-		grille.setEtat(EtatCase.fabriqueVegetaux, c);
+		grille.setEtat(EtatCase.fabriqueVegetaux, c);*/
 		
 		return 1;
 	}
