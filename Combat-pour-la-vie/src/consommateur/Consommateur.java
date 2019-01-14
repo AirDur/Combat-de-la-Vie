@@ -65,8 +65,6 @@ public abstract class Consommateur implements Deplacable {
 		emplacement = new Case(8,9);
 	}
 
-    public abstract int manger(Aliment a);
-    
     /**
      * Déplace l'animal vers la case indiqué
      * @param c case
@@ -104,5 +102,7 @@ public abstract class Consommateur implements Deplacable {
     public abstract Consommateur se_reproduire(Consommateur c);
     
     public abstract Consommateur recherche_reproducteur(Grille g);
+    
+    public abstract int manger(Aliment a);
 
 }
