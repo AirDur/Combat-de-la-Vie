@@ -71,7 +71,7 @@ public abstract class Consommateur implements Deplacable {
      * Déplace l'animal vers la case indiqué
      * @param c case
      * @param g grille
-     * @return 1 si ça marche, 0 si la case est occupée, trop loin ou l'animal mort.
+     * @return 1 si ça marche, 0 si la case est occupée, trop loin ou le Consommateur mort.
      */
     public int se_deplacer(Case c, Grille g) {
     	if(vivant && c.getEc() == EtatCase.libre && capacite_maximale_de_deplacement < c.distance(emplacement)) {
@@ -83,8 +83,17 @@ public abstract class Consommateur implements Deplacable {
     		return 0;
     }
     
+    /**
+     * Si le Consommateur est vivant et ses PV en dessous de zero, alors il devient "mort" (vivant = false)
+     * @return 1 s'il meurt, 0 s'il reste vivant
+     */
     public int meurt() {
-    	return 0;
+    	if(vie <= 0 && vivant) {
+    		vivant = false;
+    		return 1;
+    	}
+    	else
+    		return 0;
     }
     
     public int se_defendre(Consommateur c) {
