@@ -64,19 +64,36 @@ public abstract class Consommateur implements Deplacable {
 		vie = v;
 		emplacement = new Case(8,9);
 	}
-	
-	public void chercher_la_nourriture(){}
-	
-	public abstract void manger(Aliment a);
-	
-	public void se_deplacer() {}
-	
-	public void meurt() {
-		if(vie < 0) {
-			vivant = false;
-		}
-	}
-	
-	public void se_defendre() {};
+
+    public abstract int manger(Aliment a);
+    
+    /**
+     * Déplace l'animal vers la case indiqué
+     * @param c case
+     * @param g grille
+     * @return 1 si ça marche, 0 si la case est occupée.
+     */
+    public int se_deplacer(Case c, Grille g) {
+    	if(c.getEc() == EtatCase.libre) {
+    		g.setEtat(EtatCase.libre, emplacement);
+    		g.setEtat(EtatCase.animal, c);
+    		emplacement = c;
+    		return 1;
+    	} else
+    		return 0;
+    }
+    
+    public int meurt() {
+    	return 0;
+    }
+    
+    public int se_defendre(Consommateur c) {
+    	return 0;
+    }
+    public abstract Aliment recherche_aliment(Grille g);
+
+    public abstract Consommateur se_reproduire(Consommateur c);
+    
+    public abstract Consommateur recherche_reproducteur(Grille g);
 
 }
