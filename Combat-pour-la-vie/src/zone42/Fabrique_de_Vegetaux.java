@@ -195,7 +195,7 @@ public class Fabrique_de_Vegetaux {
 				return new Case(x,y);
 			}
 		}
-		
+		//
 		for(x=x_emplacement ,y=y_emplacement+r ;x<r+x_emplacement ;x++,y++) {
 			System.out.println("Case ("+x+","+y+")*");
 			if( g.getEtat(x,y) == EtatCase.libre){
