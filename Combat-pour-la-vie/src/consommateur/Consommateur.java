@@ -71,10 +71,10 @@ public abstract class Consommateur implements Deplacable {
      * Déplace l'animal vers la case indiqué
      * @param c case
      * @param g grille
-     * @return 1 si ça marche, 0 si la case est occupée.
+     * @return 1 si ça marche, 0 si la case est occupée, trop loin ou l'animal mort.
      */
     public int se_deplacer(Case c, Grille g) {
-    	if(c.getEc() == EtatCase.libre) {
+    	if(vivant && c.getEc() == EtatCase.libre && capacite_maximale_de_deplacement < c.distance(emplacement)) {
     		g.setEtat(EtatCase.libre, emplacement);
     		g.setEtat(EtatCase.animal, c);
     		emplacement = c;
