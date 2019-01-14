@@ -47,4 +47,13 @@ public class Case {
 	public void setEc(EtatCase ec) {
 		this.ec = ec;
 	}
+
+	/**
+	 * renvoi la distance de déplacement entre deux cases
+	 * @param emplacement 
+	 * @return distance de déplacement entre deux cases
+	 */
+	public Integer distance(Case emplacement) {
+		return Math.abs(this.val_x - emplacement.val_x) + Math.abs(this.val_y - emplacement.val_y);
+	}
 }
