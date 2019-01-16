@@ -22,12 +22,6 @@ public class Herbivore extends Consommateur {
 	}
 
 	@Override
-	public int se_deplacer(Case c) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public Aliment recherche_aliment(Grille g) {
 		// TODO Auto-generated method stub
 		return null;
@@ -44,5 +38,27 @@ public class Herbivore extends Consommateur {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public Consommateur faire_passer_le_temps(Grille g) {
+    	if(check_faim()) {
+    		Aliment ar = recherche_aliment(g);
+    		if(ar != null) {
+    			manger(ar);
+    		} else {
+    			//se_deplacer(ac);
+    		}
+    		//se déplace
+    		return null;
+    	} else {
+    		Consommateur r = recherche_reproducteur(g);
+    		if(r != null) {
+    			return se_reproduire(r);
+    		} else {
+    			deplacement_aleatoire();
+    			return null;
+    		}
+    	}
+    }
 
 }

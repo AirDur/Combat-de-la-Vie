@@ -3,7 +3,7 @@ package consommateur;
 import aliment.*;
 import zone42.*;
 
-public abstract class Consommateur implements Deplacable {
+public abstract class Consommateur {
 	
 	/**
 	 * Compteur pour la faim. Va entre 0 et 100.
@@ -94,14 +94,42 @@ public abstract class Consommateur implements Deplacable {
     		return 0;
     }
     
+    /**
+     * Se défend d'une attaque d'un Carnivore.
+     * @param c
+     * @return
+     */
     public int se_defendre(Consommateur c) {
     	return 0;
     }
+
+	public boolean check_faim() {
+    	if(etat_faim != EtatFaim.satisfait)
+    		return false;
+    	else 
+    		return true;
+    }
+	
+	protected Case deplacement_aleatoire() {
+		return null;
+	}
+	
     public abstract Aliment recherche_aliment(Grille g);
+    
+    public abstract Consommateur faire_passer_le_temps(Grille g);
 
     public abstract Consommateur se_reproduire(Consommateur c);
     
-    public abstract Consommateur recherche_reproducteur(Grille g);
+    public Consommateur recherche_reproducteur(Grille g) {
+    	//retourne autour si un consommateur est de même classe et de sexe opposé.
+    	Sexe sexe_partenaire;
+    	if(sexe == Sexe.femelle) {
+    		sexe_partenaire = Sexe.male;
+    	} else {
+    		sexe_partenaire = Sexe.femelle;
+    	}
+    	return null;
+    }
     
     public abstract int manger(Aliment a);
 

@@ -1,7 +1,6 @@
 package zone42;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 import aliment.*;
 import consommateur.*;
@@ -11,6 +10,7 @@ public class Zone42 implements Runnable{
 	/**
 	 * verrou pour empêcher l'interface graphique de travailler tant que Zone42 n'a pas fini son travail.
 	 */
+	@Deprecated
 	private boolean lock;
 	
 	/**
@@ -67,6 +67,7 @@ public class Zone42 implements Runnable{
 	}
 	
 	public void faire_passer_le_temps() {
+		// fabriques de végétaux : 
 		for(Fabrique_de_Vegetaux fv : list_fabrique_vegetaux) {
 			ArrayList<Vegetaux> al = fv.utilisation(grille);
 			if(al != null) {
@@ -77,19 +78,29 @@ public class Zone42 implements Runnable{
 				list_aliment.addAll(al);
 			}	
 		}
+		// check herbivore :
+		
+		// check carnivore :
+		
+		// clean (virer aliment périmé et les animaux morts).
 	};
 	
+	@Deprecated
 	public void lock() {
 		setLock(true);
 	}
+	
+	@Deprecated
 	public void delock() {
 		setLock(false);
 	}
 
+	@Deprecated
 	public boolean isLock() {
 		return lock;
 	}
 
+	@Deprecated
 	public void setLock(boolean lock) {
 		this.lock = lock;
 	}
@@ -109,9 +120,8 @@ public class Zone42 implements Runnable{
 	 * @param c Carnivore à rajouter
 	 * @return 1 si ok, 0 si erreur
 	 */
-	public int supprime_carnivore( Carnivore c) {
-		list_carnivore.remove(c);
-		return 1;
+	public boolean supprime_carnivore(Carnivore c) {
+		return list_carnivore.remove(c);
 	}
 	
 	/**
@@ -129,9 +139,8 @@ public class Zone42 implements Runnable{
 	 * @param h Herbivore à supprimer
 	 * @return 1 si ok, 0 si erreur
 	 */
-	public int supprime_herbivore( Herbivore h) {
-		list_carnivore.remove(h);
-		return 1;
+	public boolean supprime_herbivore(Herbivore h) {
+		return list_herbivore.remove(h);
 	}
 	
 	/**
