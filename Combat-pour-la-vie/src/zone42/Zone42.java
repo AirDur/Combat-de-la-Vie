@@ -154,6 +154,14 @@ public class Zone42 implements Runnable{
 		return 1;
 	}
 	
+	public int getTaille() {
+		return this.tailleGrille;
+	}
+	
+	public Grille getGrille_info() {
+		return grille;
+	}
+	
 	/**
 	 * Initilialise la zone selon les paramètres passés par l'utilisateur
 	 * @return 1 si ok, 0 si erreur
@@ -165,14 +173,14 @@ public class Zone42 implements Runnable{
 		list_herbivore = new ArrayList<Herbivore>();
 		list_carnivore = new ArrayList<Carnivore>();
 		
-		Case c = new Case(2, 7);
-		
+		Case c = new Case(0, 0);
 		list_fabrique_vegetaux.add(new Fabrique_de_Vegetaux(100,1, 1, TypeVegetaux.plante, c));
 		grille.setEtat(EtatCase.fabriqueVegetaux, c);
 		
-		/*c = new Case(8, 5);
-		list_fabrique_vegetaux.add(new Fabrique_de_Vegetaux(100,1, 1, TypeVegetaux.foin, c));
-		grille.setEtat(EtatCase.fabriqueVegetaux, c);*/
+		Case c2 = new Case(1, 8);
+		list_fabrique_vegetaux.add(new Fabrique_de_Vegetaux(100,1, 1, TypeVegetaux.plante, c2));
+		grille.setEtat(EtatCase.fabriqueVegetaux, c2);
+		
 		
 		return 1;
 	}
