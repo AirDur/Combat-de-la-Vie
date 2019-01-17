@@ -59,6 +59,7 @@ public abstract class Carnivore extends Consommateur {
 
 	private Consommateur recherche_proie() {
 		Grille g = Grille.getinstance();
+		//???
 		// TODO Auto-generated method stub
 		return null;
 	}
