@@ -87,7 +87,7 @@ public class Zone42 implements Runnable {
 	public void faire_passer_le_temps() {
 		// fabriques de végétaux : 
 		for(Fabrique_de_Vegetaux fv : list_fabrique_vegetaux) {
-			ArrayList<Vegetaux> al = fv.utilisation(grille);
+			ArrayList<Vegetaux> al = fv.utilisation();
 			if(al != null) {
 				for(Vegetaux v : al) {
 					System.out.println("vegetaux x = "+ v.getEmplacement().getVal_x() +"vegetaux y = "+v.getEmplacement().getVal_y());

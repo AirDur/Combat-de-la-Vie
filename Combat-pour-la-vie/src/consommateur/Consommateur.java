@@ -1,5 +1,7 @@
 package consommateur;
 
+import java.util.ArrayList;
+
 import aliment.*;
 import zone42.*;
 
@@ -44,7 +46,7 @@ public abstract class Consommateur {
 	/**
 	 * Emplacement du consommateur sur la grille.
 	 */
-	private Case emplacement;
+	protected Case emplacement;
 	
 	/**
 	 * Permet de vérifier si le Consommateur est mort
@@ -58,11 +60,13 @@ public abstract class Consommateur {
 	 * @param s sexe du consommateur, pour gérer la reproduction
 	 * @param v vie du consommateur
 	 */
-	public Consommateur(Sexe s, int v) {
+	public Consommateur(Sexe s, int v, Case c) {
 		vivant = true;
 		sexe = s;
 		vie = v;
-		emplacement = new Case(8,9);
+		emplacement = c;
+		Grille g = Grille.getinstance();
+		g.setEtat(EtatCase.consommateur, emplacement);
 	}
 
     /**
@@ -86,13 +90,13 @@ public abstract class Consommateur {
      * Si le Consommateur est vivant et ses PV en dessous de zero, alors il devient "mort" (vivant = false)
      * @return 1 s'il meurt, 0 s'il reste vivant
      */
-    public int meurt() {
+    public boolean meurt() {
     	if(vie <= 0 && vivant) {
     		vivant = false;
-    		return 1;
+    		return true;
     	}
     	else
-    		return 0;
+    		return false;
     }
     
     /**
@@ -100,8 +104,19 @@ public abstract class Consommateur {
      * @param c
      * @return
      */
-    public int se_defendre(Consommateur c) {
-    	return 0;
+    public boolean se_defendre(Consommateur c) {
+    	// perd (force_attaque - force_defenseur) de vie.
+    	int i = c.getForce_combat() - (this.getForce_combat()/2);
+    	if(i > 0) {
+    		this.vie = vie - i;
+    	}
+    	// si encore vivant, contre_attaque (
+    	if(!meurt()) {
+    		c.vie = c.vie -(this.getForce_combat()/2);
+    		return false;
+    	} else {
+    		return true;
+    	}
     }
 
 	public boolean check_faim() {
@@ -111,8 +126,21 @@ public abstract class Consommateur {
     		return true;
     }
 	
-	protected Case deplacement_aleatoire() {
-		return null;
+	protected Case deplacement_aleatoire(int r) {
+    	Grille g = Grille.getinstance();
+		ArrayList<Case> al = g.getCaseAutour(emplacement, r);
+		System.out.println("deplacemnt : taille de getcaseautour : " + al.size());
+		if(al.size() > 0) {
+			int i = Math_methods.randomWithRange(0, al.size()-1);
+			Case c = al.get(i);
+			System.out.println(c.toString());
+			g.setEtat(EtatCase.libre, emplacement);
+			emplacement = c;
+			g.setEtat(EtatCase.consommateur, emplacement);
+			return c;
+		} else
+			return emplacement;
+		
 	}
 	
     public abstract Aliment recherche_aliment();
@@ -135,13 +163,25 @@ public abstract class Consommateur {
     
     public abstract int manger(Aliment a);
     
-	
+	public String toString() {
+		return "Consommateur de type " + this.getClass().getName().toString() + " : \n"
+				+ "Case : " + this.emplacement.toString();
+	}
+    
 	protected Sexe getSexe() {
 		return sexe;
 	}
 
 	protected void setSexe(Sexe sexe) {
 		this.sexe = sexe;
+	}
+
+	protected Integer getForce_combat() {
+		return force_combat;
+	}
+
+	protected void setForce_combat(Integer force_combat) {
+		this.force_combat = force_combat;
 	}
 
 }

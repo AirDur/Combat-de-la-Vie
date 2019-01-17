@@ -1,11 +1,12 @@
 package consommateur;
 
 import aliment.Aliment;
+import zone42.Case;
 
 public abstract class Herbivore extends Consommateur {
 	
-	public Herbivore(Sexe s, int v) {
-		super(s, v);
+	public Herbivore(Sexe s, int v, Case c) {
+		super(s, v, c);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -47,7 +48,7 @@ public abstract class Herbivore extends Consommateur {
     		if(r != null) {
     			return se_reproduire(r);
     		} else {
-    			deplacement_aleatoire();
+    			deplacement_aleatoire(1);
     			return null;
     		}
     	}

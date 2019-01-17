@@ -78,13 +78,13 @@ public class Fabrique_de_Vegetaux {
 	 *  sinon, elle renvoi null en incrémentant le compteur
 	 * @return un arraylist de vegetaux ou null
 	 */
-	public ArrayList<Vegetaux> utilisation(Grille g) {
+	public ArrayList<Vegetaux> utilisation() {
 		age_fabrique++;
 		if(etat == EtatFabrique.enmarche) {
 			if(cycle_courant == cycle_de_production) {
 				ArrayList<Vegetaux> alv = new ArrayList<Vegetaux>();
 				for(int i = 0; i < quantite_de_production; i++) {
-					Vegetaux veg = creerVegetaux(g);
+					Vegetaux veg = creerVegetaux();
 					if(veg!=null) alv.add(veg);
 				}
 				cycle_courant = 0;
@@ -115,9 +115,9 @@ public class Fabrique_de_Vegetaux {
 	 * Créer un vegetal et le retourne. S'il n'y a pas d'emplacement Libre, retourne null
 	 * @return vegetal ou null
 	 */
-	private Vegetaux creerVegetaux(Grille g) {
+	private Vegetaux creerVegetaux() {
 		
-		Case c = getEmplacementLibre(g,3);
+		Case c = getEmplacementLibre(3);
 		if(c != null) {
 			System.out.println("On donne la case "+c.getVal_x()+","+c.getVal_y());
 			Vegetaux vegetal = null;
@@ -172,11 +172,12 @@ public class Fabrique_de_Vegetaux {
 		}
 	}*/
 	
-	private Case getEmplacementLibre(Grille g, int r) {
+	private Case getEmplacementLibre(int r) {
 		
 		int x,y;
 		//int r=2;
 		
+		Grille g = Grille.getinstance();
 		Case c_fabrique = getEmplacement();
 		int x_emplacement = c_fabrique.getVal_x();
 		int y_emplacement = c_fabrique.getVal_y();
@@ -219,7 +220,7 @@ public class Fabrique_de_Vegetaux {
 			}
 		}
 		
-		if(r>1) return getEmplacementLibre(g, r-1);
+		if(r>1) return getEmplacementLibre(r-1);
 		return null;
 		
 	}

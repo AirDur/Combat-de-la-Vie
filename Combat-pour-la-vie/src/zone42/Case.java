@@ -56,4 +56,8 @@ public class Case {
 	public Integer distance(Case emplacement) {
 		return Math.abs(this.val_x - emplacement.val_x) + Math.abs(this.val_y - emplacement.val_y);
 	}
+	
+	public String toString() {
+		return "Case [" + val_x + ", " + val_y + "] - état : "+ ec;
+	}
 }

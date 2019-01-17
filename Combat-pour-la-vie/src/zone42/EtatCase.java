@@ -4,5 +4,5 @@ public enum EtatCase {
 	libre,
 	fabriqueVegetaux,
 	vegetal, 
-	animal
+	animal, consommateur
 }

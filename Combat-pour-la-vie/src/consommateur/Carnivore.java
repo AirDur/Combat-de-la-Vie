@@ -1,13 +1,13 @@
 package consommateur;
 
 import aliment.Aliment;
+import zone42.Case;
 import zone42.Grille;
 
 public abstract class Carnivore extends Consommateur {
 	
-	public Carnivore(Sexe s, int v) {
-		super(s, v);
-		// TODO Auto-generated constructor stub
+	public Carnivore(Sexe s, int v, Case c) {
+		super(s, v, c);
 	}
 	
 	@Override
@@ -51,7 +51,7 @@ public abstract class Carnivore extends Consommateur {
     		if(r != null) {
     			return se_reproduire(r);
     		} else {
-    			deplacement_aleatoire();
+    			deplacement_aleatoire(1);
     			return null;
     		}
     	}

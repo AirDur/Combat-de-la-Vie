@@ -1,5 +1,7 @@
 package zone42;
 
+import java.util.ArrayList;
+
 /**
  * Espace où les differents entités peuvent se mouvoir.
  * 
@@ -56,7 +58,7 @@ public class Grille {
 	}
 	
 	public static Grille getinstance() {
-		if (instance == null) instance = new Grille(0,0);
+		if (instance == null) instance = new Grille(30, 30);
 		return instance;
 	}
 	
@@ -75,6 +77,8 @@ public class Grille {
 				case fabriqueVegetaux: chaine = chaine + "f";
 					break;
 				case vegetal: chaine = chaine + "v";
+					break;
+				case consommateur: chaine = chaine + "i";
 					break;
 				default: chaine = chaine + "X";
 					break; 
@@ -98,7 +102,6 @@ public class Grille {
 	}
 	
 	public void setEtat(EtatCase ec, Case c) {
-		System.out.println("test - : " + tab.length + " / " + tab[0].length);
 		tab[c.getVal_x()][c.getVal_y()].setEc(ec);
 	}
 	
@@ -108,5 +111,43 @@ public class Grille {
 	
 	public int getY() {
 		return y;
+	}
+
+	public ArrayList<Case> getCaseAutour(Case emplacement, int r) {
+		ArrayList<Case> al = new ArrayList<Case>();
+		
+		int x_emplacement = emplacement.getVal_x();
+		int y_emplacement = emplacement.getVal_y();
+		int i, j;
+		
+		for(i = x_emplacement , j = y_emplacement-r ; i > -r+x_emplacement ; i--, j++) {
+			if(i>=0 && i<getX() && j>=0 && j<getY() && getEtat(i,j) == EtatCase.libre){
+					al.add(tab[i][j]);
+			}
+		}
+		
+		for(i = x_emplacement-r , j = y_emplacement ; i < x_emplacement ; i++, j++) {
+			if(i>=0 && i<getX() && j>=0 && j<getY() && getEtat(i,j) == EtatCase.libre){
+				al.add(tab[i][j]);
+			}
+		}
+		for(i = x_emplacement ,j = y_emplacement+r ;i < r+x_emplacement ; i++, j--) {
+			if(i>=0 && i<getX() && j>=0 && j<getY() && getEtat(i,j) == EtatCase.libre){
+				al.add(tab[i][j]);
+			}
+		}
+		
+		for(i = r+x_emplacement ,j = y_emplacement ;i > x_emplacement ;i--,j--) {
+			if(i>=0 && i<getX() && j>=0 && j<getY() && getEtat(i,j) == EtatCase.libre){
+				al.add(tab[i][j]);
+			}
+		}
+		
+		if(r>1) al.addAll(this.getCaseAutour(emplacement, r-1));
+		return al;
+	}
+
+	public Case getCaseProche(Case emplacement, Case emplacement2) {
+		return new Case(1,1);
 	}
 }
