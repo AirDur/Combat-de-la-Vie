@@ -4,7 +4,7 @@ import aliment.Aliment;
 import zone42.Case;
 import zone42.Grille;
 
-public class Carnivore extends Consommateur {
+public abstract class Carnivore extends Consommateur {
 	
 	public Carnivore(Sexe s, int v) {
 		super(s, v);
@@ -20,12 +20,6 @@ public class Carnivore extends Consommateur {
 
 	@Override
 	public Aliment recherche_aliment(Grille g) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Consommateur se_reproduire(Consommateur c) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -68,4 +62,7 @@ public class Carnivore extends Consommateur {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public abstract Consommateur se_reproduire(Consommateur c);
 }

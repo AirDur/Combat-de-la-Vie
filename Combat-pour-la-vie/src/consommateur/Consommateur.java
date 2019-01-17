@@ -26,7 +26,7 @@ public abstract class Consommateur {
 	 * Sexe du Consommateur
 	 */
 	private Sexe sexe;
-	
+
 	/**
 	 * Capacité de déplacement qu'un consommateur peut effectuer durant un tour.
 	 */
@@ -117,7 +117,7 @@ public abstract class Consommateur {
     public abstract Aliment recherche_aliment(Grille g);
     
     public abstract Consommateur faire_passer_le_temps(Grille g);
-
+    
     public abstract Consommateur se_reproduire(Consommateur c);
     
     public Consommateur recherche_reproducteur(Grille g) {
@@ -132,5 +132,14 @@ public abstract class Consommateur {
     }
     
     public abstract int manger(Aliment a);
+    
+	
+	protected Sexe getSexe() {
+		return sexe;
+	}
+
+	protected void setSexe(Sexe sexe) {
+		this.sexe = sexe;
+	}
 
 }
