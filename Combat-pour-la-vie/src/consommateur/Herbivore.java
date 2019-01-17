@@ -1,8 +1,6 @@
 package consommateur;
 
 import aliment.Aliment;
-import zone42.Case;
-import zone42.Grille;
 
 public abstract class Herbivore extends Consommateur {
 	
@@ -22,21 +20,21 @@ public abstract class Herbivore extends Consommateur {
 	}
 
 	@Override
-	public Aliment recherche_aliment(Grille g) {
+	public Aliment recherche_aliment() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Consommateur recherche_reproducteur(Grille g) {
+	public Consommateur recherche_reproducteur() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
-	public Consommateur faire_passer_le_temps(Grille g) {
+	public Consommateur faire_passer_le_temps() {
     	if(check_faim()) {
-    		Aliment ar = recherche_aliment(g);
+    		Aliment ar = recherche_aliment();
     		if(ar != null) {
     			manger(ar);
     		} else {
@@ -45,7 +43,7 @@ public abstract class Herbivore extends Consommateur {
     		//se déplace
     		return null;
     	} else {
-    		Consommateur r = recherche_reproducteur(g);
+    		Consommateur r = recherche_reproducteur();
     		if(r != null) {
     			return se_reproduire(r);
     		} else {

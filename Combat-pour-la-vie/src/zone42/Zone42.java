@@ -5,7 +5,7 @@ import java.util.*;
 import aliment.*;
 import consommateur.*;
 
-public class Zone42 implements Runnable{
+public class Zone42 implements Runnable {
 	
 	/**
 	 * verrou pour empêcher l'interface graphique de travailler tant que Zone42 n'a pas fini son travail.
@@ -43,11 +43,29 @@ public class Zone42 implements Runnable{
 	 */
 	private int cycle=0;
 	
-	public Zone42(int a) {
+	/**
+	 * attribut pour design pattern Singleton
+	 * Instancié à null (pas d'instance créé)
+	 */
+	public static Zone42 instance = null;
+	
+	/**
+	 * Constructeur implémenté par le design pattern Singleton
+	 */
+	private Zone42(int a) {
 		tailleGrille = a;
 		grille = Grille.getinstance(tailleGrille, tailleGrille);
 	}
 	
+	/**
+	 * Récupère l'instance Zone42 ou en créé une s'il y en a toujours pas.
+	 * @param a 
+	 * @return une nouvelle zone42 si instance==null, sinon LA Zone 42.
+	 */
+	public static Zone42 getInstance(int a) {
+		if (instance == null) instance = new Zone42(a);
+		return instance;
+	}
 	
 	/**
 	 * Methode qui incrément les cycle toutes les

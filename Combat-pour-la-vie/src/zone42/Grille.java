@@ -55,6 +55,11 @@ public class Grille {
 		return instance;
 	}
 	
+	public static Grille getinstance() {
+		if (instance == null) instance = new Grille(0,0);
+		return instance;
+	}
+	
 	/**
 	 * Affichage de la grille
 	 */

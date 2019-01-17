@@ -71,7 +71,8 @@ public abstract class Consommateur {
      * @param g grille
      * @return 1 si ça marche, 0 si la case est occupée, trop loin ou le Consommateur mort.
      */
-    public int se_deplacer(Case c, Grille g) {
+    public int se_deplacer(Case c) {
+    	Grille g = Grille.getinstance(0, 0);
     	if(vivant && c.getEc() == EtatCase.libre && capacite_maximale_de_deplacement < c.distance(emplacement)) {
     		g.setEtat(EtatCase.libre, emplacement);
     		g.setEtat(EtatCase.animal, c);
@@ -114,15 +115,16 @@ public abstract class Consommateur {
 		return null;
 	}
 	
-    public abstract Aliment recherche_aliment(Grille g);
+    public abstract Aliment recherche_aliment();
     
-    public abstract Consommateur faire_passer_le_temps(Grille g);
+    public abstract Consommateur faire_passer_le_temps();
     
     public abstract Consommateur se_reproduire(Consommateur c);
     
-    public Consommateur recherche_reproducteur(Grille g) {
+    public Consommateur recherche_reproducteur() {
     	//retourne autour si un consommateur est de même classe et de sexe opposé.
     	Sexe sexe_partenaire;
+    	Grille g = Grille.getinstance();
     	if(sexe == Sexe.femelle) {
     		sexe_partenaire = Sexe.male;
     	} else {

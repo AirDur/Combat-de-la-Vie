@@ -32,7 +32,7 @@ public class Main {
 		
 		Main obj = new Main();
 		
-		Zone42 zone2 = new Zone42(20);
+		Zone42 zone2 = Zone42.getInstance(20);
 		Fenetre fen_jeu = obj.CreerFenetre(zone2.getTaille(), zone2);
 		zone2.initialisation();
 		while(true) {
