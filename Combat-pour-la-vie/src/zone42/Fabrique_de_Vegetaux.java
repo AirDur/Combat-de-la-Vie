@@ -116,8 +116,7 @@ public class Fabrique_de_Vegetaux {
 	 * @return vegetal ou null
 	 */
 	private Vegetaux creerVegetaux() {
-		
-		Case c = getEmplacementLibre(3);
+				Case c = Grille.getinstance().getCaseAutour(emplacement, 3).get(0);
 		if(c != null) {
 			System.out.println("On donne la case "+c.getVal_x()+","+c.getVal_y());
 			Vegetaux vegetal = null;
@@ -133,98 +132,6 @@ public class Fabrique_de_Vegetaux {
 			return null;
 		
 	}
-
-	/**
-	 * Soit la fabrique de végétaux placé en position 5 sur la grille ci-dessous :
-	 * ---------
-	 * | 7 8 9 |
-	 * | 4 5 6 |
-	 * | 1 2 3 |
-	 * ---------
-	 * 
-	 * La fonction va vérifier si les cases, dans l'ordre, 4, 8, 6, 2 puis 7, 1, 9 et 3 sont libres
-	 * Si l'une d'entre elles l'est, elle est retourné. Sinon, on retourne null.
-	 * @param g grille pour vérifier si une case est libre ou non.
-	 * @return case disponible ou null.
-	 */
-	/*private Case getEmplacementLibre(Grille g) {
-		Case c_fabrique = getEmplacement();
-		int x = c_fabrique.getVal_x();
-		int y = c_fabrique.getVal_y();
-		if(x-1 >= 0 && g.getEtat(x-1, y) == EtatCase.libre) {
-			return new Case(x-1, y);
-		} else if(y-1 >= 0 && g.getEtat(x, y-1) == EtatCase.libre) {
-			return new Case(x, y-1);
-		} else if(x+1 < g.getX() && g.getEtat(x+1, y) == EtatCase.libre) {
-			return new Case(x+1, y);
-		} else if(y+1 < g.getY() && g.getEtat(x, y+1) == EtatCase.libre) {
-			return new Case(x, y-1);
-		} else if(x-1 >= 0 && y-1 >= 0 && g.getEtat(x-1, y-1) == EtatCase.libre) {
-			return new Case(x-1, y-1);
-		} else if(x-1 >= 0 && y+1 < g.getY() && g.getEtat(x-1, y+1) == EtatCase.libre) {
-			return new Case(x-1, y+11);
-		} else if(x+1 < g.getX() && y-1 >= 0 && g.getEtat(x+1, y-1) == EtatCase.libre) {
-			return new Case(x+1, y-1);
-		} else if(x+1 < g.getX() && y+1 < g.getY() && g.getEtat(x+1, y+1) == EtatCase.libre) {
-			return new Case(x+1, y+11);
-		} else {
-			return null;
-		}
-	}*/
-	
-	private Case getEmplacementLibre(int r) {
-		
-		int x,y;
-		//int r=2;
-		
-		Grille g = Grille.getinstance();
-		Case c_fabrique = getEmplacement();
-		int x_emplacement = c_fabrique.getVal_x();
-		int y_emplacement = c_fabrique.getVal_y();
-		System.out.println("x_emplacement = "+x_emplacement+" / y_emplacement = "+y_emplacement);
-		
-		
-		for(x=x_emplacement ,y=y_emplacement-r ;x>-r+x_emplacement ;x--,y++) {
-			if(x>=0 && x<g.getX() && y>=0 && y<g.getY() ) {
-				System.out.println("Case ("+x+","+y+")");
-				if( g.getEtat(x,y) == EtatCase.libre){
-					return new Case(x,y);
-				}
-			}
-		}
-		
-		for(x=x_emplacement-r ,y=y_emplacement ;x<x_emplacement ;x++,y++) {
-			if(x>=0 && x<g.getX() && y>=0 && y<g.getY() ) {
-				System.out.println("Case ("+x+","+y+")");
-				if( g.getEtat(x,y) == EtatCase.libre){
-					return new Case(x,y);
-				}
-			}
-		}
-		//
-		for(x=x_emplacement ,y=y_emplacement+r ;x<r+x_emplacement ;x++,y--) {
-			if(x>=0 && x<g.getX() && y>=0 && y<g.getY() ) {
-				System.out.println("Case ("+x+","+y+")");
-				if( g.getEtat(x,y) == EtatCase.libre){
-					return new Case(x,y);
-				}
-			}
-		}
-		
-		for(x=r+x_emplacement ,y=y_emplacement ;x>x_emplacement ;x--,y--) {
-			if(x>=0 && x<g.getX() && y>=0 && y<g.getY() ) {
-				System.out.println("Case ("+x+","+y+")");
-				if( g.getEtat(x,y) == EtatCase.libre){
-					return new Case(x,y);
-				}
-			}
-		}
-		
-		if(r>1) return getEmplacementLibre(r-1);
-		return null;
-		
-	}
-	
 
 	public Case getEmplacement() {
 		return emplacement;

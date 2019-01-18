@@ -101,16 +101,16 @@ public abstract class Consommateur {
     
     /**
      * Se défend d'une attaque d'un Carnivore.
+     * Le défenseur perd (force_attaque - force_defenseur/2) de vie.
+     * S'il est encore vivant, il contre attaque et inflige forge_defenseur/2 de vie.
      * @param c
-     * @return
+     * @return true si l'attaque provoque un mort, false sinon.
      */
     public boolean se_defendre(Consommateur c) {
-    	// perd (force_attaque - force_defenseur) de vie.
     	int i = c.getForce_combat() - (this.getForce_combat()/2);
     	if(i > 0) {
     		this.vie = vie - i;
     	}
-    	// si encore vivant, contre_attaque (
     	if(!meurt()) {
     		c.vie = c.vie -(this.getForce_combat()/2);
     		return false;
@@ -119,13 +119,22 @@ public abstract class Consommateur {
     	}
     }
 
-	public boolean check_faim() {
+    /**
+     * Vérifie si l'animal a faim.
+     * @return true s'il a faim ou famine, false sinon.
+     */
+	private boolean check_faim() {
     	if(etat_faim != EtatFaim.satisfait)
     		return false;
     	else 
     		return true;
     }
 	
+	/**
+	 * Déplace aléatoirement l'animal dans une zone de rayon r
+	 * @param r rayon maximal de déplacement
+	 * @return Case de déplacement
+	 */
 	protected Case deplacement_aleatoire(int r) {
     	Grille g = Grille.getinstance();
 		ArrayList<Case> al = g.getCaseAutour(emplacement, r);
@@ -143,13 +152,24 @@ public abstract class Consommateur {
 		
 	}
 	
-    public abstract Aliment recherche_aliment();
-    
-    public abstract Consommateur faire_passer_le_temps();
-    
-    public abstract Consommateur se_reproduire(Consommateur c);
-    
-    public Consommateur recherche_reproducteur() {
+	/**
+	 * Change l'état de faim de l'animal en fonction de son compteur_faim.
+	 */
+	private void change_etat_faim() {
+		if(compteur_faim >= 70) {
+			etat_faim = EtatFaim.satisfait;
+		} else if(compteur_faim < 70 && compteur_faim >= 25 ) {
+			etat_faim = EtatFaim.faim;
+		} else if(compteur_faim < 25) {
+			etat_faim = EtatFaim.famine;
+		}
+	}
+	
+	/**
+	 * recherche un reproducteur proche.
+	 * @return Consommateur
+	 */
+	public Consommateur recherche_reproducteur() {
     	//retourne autour si un consommateur est de même classe et de sexe opposé.
     	Sexe sexe_partenaire;
     	Grille g = Grille.getinstance();
@@ -160,6 +180,12 @@ public abstract class Consommateur {
     	}
     	return null;
     }
+	
+    public abstract Aliment recherche_aliment();
+    
+    public abstract Consommateur faire_passer_le_temps();
+    
+    public abstract Consommateur se_reproduire(Consommateur c);
     
     public abstract int manger(Aliment a);
     

@@ -63,7 +63,8 @@ public class Grille {
 	}
 	
 	/**
-	 * Affichage de la grille
+	 * Affichage de la grille 
+	 * @return un string
 	 */
 	public String toString() {
 		String chaine = "Tableau de taille " + x + "*" + y + " : \n";
@@ -89,30 +90,12 @@ public class Grille {
 		return chaine;
 	}
 
-	public EtatCase getEtat(Case c) {
-		return c.getEc();
-	}
-	
-	public EtatCase getEtat(int x, int y) {
-		return tab[x][y].getEc();
-	}
-	
-	public void setEtat(EtatCase ec, int x, int y) {
-		tab[x][y].setEc(ec);
-	}
-	
-	public void setEtat(EtatCase ec, Case c) {
-		tab[c.getVal_x()][c.getVal_y()].setEc(ec);
-	}
-	
-	public int getX() {
-		return x;
-	}
-	
-	public int getY() {
-		return y;
-	}
-
+	/**
+	 * Retourne toutes les cases libres autour de emplacement
+	 * @param emplacement une Case
+	 * @param r rayon de toutes les cases libres demandés.
+	 * @return un arryalist de case libre
+	 */
 	public ArrayList<Case> getCaseAutour(Case emplacement, int r) {
 		ArrayList<Case> al = new ArrayList<Case>();
 		
@@ -150,4 +133,81 @@ public class Grille {
 	public Case getCaseProche(Case emplacement, Case emplacement2) {
 		return new Case(1,1);
 	}
+	
+	/*
+	Case getEmplacementLibre(int r, Case c_fabrique) {
+		
+		int x,y;
+		//int r=2;
+		
+		int x_emplacement = c_fabrique.getVal_x();
+		int y_emplacement = c_fabrique.getVal_y();
+		System.out.println("x_emplacement = "+x_emplacement+" / y_emplacement = "+y_emplacement);
+		
+		
+		for(x=x_emplacement ,y=y_emplacement-r ;x>-r+x_emplacement ;x--,y++) {
+			if(x>=0 && x<this.getX() && y>=0 && y<g.getY() ) {
+				System.out.println("Case ("+x+","+y+")");
+				if( g.getEtat(x,y) == EtatCase.libre){
+					return new Case(x,y);
+				}
+			}
+		}
+		
+		for(x=x_emplacement-r ,y=y_emplacement ;x<x_emplacement ;x++,y++) {
+			if(x>=0 && x<g.getX() && y>=0 && y<g.getY() ) {
+				System.out.println("Case ("+x+","+y+")");
+				if( g.getEtat(x,y) == EtatCase.libre){
+					return new Case(x,y);
+				}
+			}
+		}
+		//
+		for(x=x_emplacement ,y=y_emplacement+r ;x<r+x_emplacement ;x++,y--) {
+			if(x>=0 && x<g.getX() && y>=0 && y<g.getY() ) {
+				System.out.println("Case ("+x+","+y+")");
+				if( g.getEtat(x,y) == EtatCase.libre){
+					return new Case(x,y);
+				}
+			}
+		}
+		
+		for(x=r+x_emplacement ,y=y_emplacement ;x>x_emplacement ;x--,y--) {
+			if(x>=0 && x<g.getX() && y>=0 && y<g.getY() ) {
+				System.out.println("Case ("+x+","+y+")");
+				if( g.getEtat(x,y) == EtatCase.libre){
+					return new Case(x,y);
+				}
+			}
+		}
+		
+		if(r>1) return getEmplacementLibre(r-1, c_fabrique);
+		return null;
+		
+	}*/
+	
+	public EtatCase getEtat(Case c) {
+		return c.getEc();
+	}
+	
+	public EtatCase getEtat(int x, int y) {
+		return tab[x][y].getEc();
+	}
+	
+	public void setEtat(EtatCase ec, int x, int y) {
+		tab[x][y].setEc(ec);
+	}
+	
+	public void setEtat(EtatCase ec, Case c) {
+		tab[c.getVal_x()][c.getVal_y()].setEc(ec);
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
 }
