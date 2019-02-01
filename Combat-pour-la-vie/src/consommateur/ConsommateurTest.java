@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import aliment.Cadavre;
+import aliment.Foin;
 import zone42.Case;
 import zone42.Grille;
 
@@ -29,6 +31,20 @@ class ConsommateurTest {
 		System.out.println("Test / after : " +c.toString());
 		c.deplacement_aleatoire(2);
 		System.out.println("Test / after : " +c.toString());
+	}
+	
+	@Test
+	void testManger_Herbivore() {
+		Herbivore h = new Chevreuil(Sexe.femelle, 9, new Case(9,0));
+		assertEquals(true, h.manger(new Foin(new Case(8,0))));
+		assertEquals(false, h.manger(new Cadavre(new Case(8,0))));
+	}
+	
+	@Test
+	void testManger_Carnivore() {
+		Carnivore h = new Loup(Sexe.femelle, 9, new Case(9,0));
+		assertEquals(false, h.manger(new Foin(new Case(8,0))));
+		assertEquals(true, h.manger(new Cadavre(new Case(8,0))));
 	}
 
 }
