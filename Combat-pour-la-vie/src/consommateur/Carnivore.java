@@ -12,11 +12,15 @@ public abstract class Carnivore extends Consommateur {
 	
 	@Override
 	public boolean manger(Aliment a) {
-		if(a.getClass() == Cadavre.class) {
+		if(a instanceof aliment.Cadavre) {
+			int n = a.getPropriete_nutritive();
+			setCompteur_faim(getCompteur_faim() + n);
+			change_etat_faim();
+			return true;
+		}
+		else {
 			return false;
 		}
-		int n = a.getPropriete_nutritive();
-		return true;
 	}
 
 	@Override

@@ -13,13 +13,12 @@ public abstract class Herbivore extends Consommateur {
 	@Override
 	public boolean manger(Aliment a) {
 		if(a instanceof aliment.Vegetaux) {
-			System.out.println("todo"); //TODO
 			int n = a.getPropriete_nutritive();
-			//todo
+			setCompteur_faim(getCompteur_faim() + n);
+			change_etat_faim();
 			return true;
 		}
 		else {
-			System.out.println("Error : can't eat");
 			return false;
 		}
 	}
