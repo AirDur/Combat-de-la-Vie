@@ -65,6 +65,8 @@ public abstract class Consommateur {
 		sexe = s;
 		vie = v;
 		emplacement = c;
+		compteur_faim = 100;
+		etat_faim = EtatFaim.satisfait;
 		Grille g = Grille.getinstance();
 		g.setEtat(EtatCase.consommateur, emplacement);
 	}
@@ -155,7 +157,7 @@ public abstract class Consommateur {
 	/**
 	 * Change l'état de faim de l'animal en fonction de son compteur_faim.
 	 */
-	private void change_etat_faim() {
+	protected void change_etat_faim() {
 		if(compteur_faim >= 70) {
 			etat_faim = EtatFaim.satisfait;
 		} else if(compteur_faim < 70 && compteur_faim >= 25 ) {
@@ -208,6 +210,15 @@ public abstract class Consommateur {
 
 	protected void setForce_combat(Integer force_combat) {
 		this.force_combat = force_combat;
+	}
+
+	protected Integer getCompteur_faim() {
+		return compteur_faim;
+	}
+
+	protected void setCompteur_faim(Integer compteur_faim) {
+		if(0 <= compteur_faim && compteur_faim < 100)
+			this.compteur_faim = compteur_faim;
 	}
 
 }
