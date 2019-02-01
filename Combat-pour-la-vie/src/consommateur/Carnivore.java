@@ -39,7 +39,7 @@ public abstract class Carnivore extends Consommateur {
     			Consommateur ac = recherche_proie();
     			
     			if(ac !=  null) {
-    				
+    				attaquer(ac);
     			} else {
     				//se_deplacer(ac);
     			}
@@ -56,6 +56,10 @@ public abstract class Carnivore extends Consommateur {
     		}
     	}
     }
+	
+	private boolean attaquer(Consommateur c) {
+		return c.se_defendre(this);
+	}
 
 	private Consommateur recherche_proie() {
 		Grille g = Grille.getinstance();
