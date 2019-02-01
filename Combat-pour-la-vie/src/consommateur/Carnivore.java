@@ -1,6 +1,6 @@
 package consommateur;
 
-import aliment.Aliment;
+import aliment.*;
 import zone42.Case;
 import zone42.Grille;
 
@@ -11,10 +11,12 @@ public abstract class Carnivore extends Consommateur {
 	}
 	
 	@Override
-	public int manger(Aliment a) {
-		return 0;
-		// TODO Auto-generated method stub
-		
+	public boolean manger(Aliment a) {
+		if(a.getClass() == Cadavre.class) {
+			return false;
+		}
+		int n = a.getPropriete_nutritive();
+		return true;
 	}
 
 	@Override
@@ -39,7 +41,10 @@ public abstract class Carnivore extends Consommateur {
     			Consommateur ac = recherche_proie();
     			
     			if(ac !=  null) {
-    				attaquer(ac);
+    				if(attaquer(ac)) {
+    					ar = recherche_aliment();
+    					manger(ar);
+    				}
     			} else {
     				//se_deplacer(ac);
     			}

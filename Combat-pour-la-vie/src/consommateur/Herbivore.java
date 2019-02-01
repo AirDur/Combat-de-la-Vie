@@ -1,6 +1,6 @@
 package consommateur;
 
-import aliment.Aliment;
+import aliment.*;
 import zone42.Case;
 
 public abstract class Herbivore extends Consommateur {
@@ -11,13 +11,17 @@ public abstract class Herbivore extends Consommateur {
 	}
 
 	@Override
-	public int manger(Aliment a) {
-		if(a.getClass().toString() == "Vegetaux") 
+	public boolean manger(Aliment a) {
+		if(a instanceof aliment.Vegetaux) {
 			System.out.println("todo"); //TODO
-		else 
+			int n = a.getPropriete_nutritive();
+			//todo
+			return true;
+		}
+		else {
 			System.out.println("Error : can't eat");
-		return 0;
-		
+			return false;
+		}
 	}
 
 	@Override

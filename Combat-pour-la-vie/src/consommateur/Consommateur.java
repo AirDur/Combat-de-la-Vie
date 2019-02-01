@@ -187,7 +187,7 @@ public abstract class Consommateur {
     
     public abstract Consommateur se_reproduire(Consommateur c);
     
-    public abstract int manger(Aliment a);
+    public abstract boolean manger(Aliment a);
     
 	public String toString() {
 		return "Consommateur de type " + this.getClass().getName().toString() + " : \n"
