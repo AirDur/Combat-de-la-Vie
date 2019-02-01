@@ -123,7 +123,7 @@ public abstract class Consommateur {
      * Vérifie si l'animal a faim.
      * @return true s'il a faim ou famine, false sinon.
      */
-	private boolean check_faim() {
+	protected boolean check_faim() {
     	if(etat_faim != EtatFaim.satisfait)
     		return false;
     	else 

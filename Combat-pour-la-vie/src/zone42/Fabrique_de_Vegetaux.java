@@ -116,7 +116,7 @@ public class Fabrique_de_Vegetaux {
 	 * @return vegetal ou null
 	 */
 	private Vegetaux creerVegetaux() {
-				Case c = Grille.getinstance().getCaseAutour(emplacement, 3).get(0);
+		Case c = Grille.getinstance().getCaseAutour(emplacement, 3).get(0);
 		if(c != null) {
 			System.out.println("On donne la case "+c.getVal_x()+","+c.getVal_y());
 			Vegetaux vegetal = null;
