@@ -2,6 +2,8 @@ package zone42;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 class Zone42Test {
@@ -38,6 +40,15 @@ class Zone42Test {
 			System.out.print(zone2.toString());
 			Thread.sleep(1000);
 		}
+	}
+	
+	@Test
+	void testChemin() {
+		Zone42 zone = Zone42.getInstance(10);
+		Grille gr = zone.getGrille_info();
+		Astar my_a = new Astar(gr, gr.get_case(0, 0), gr.get_case(5, 5));
+		ArrayList<Case> chemin = my_a.get_chemin();
+		System.out.println(chemin);
 	}
 	
 }

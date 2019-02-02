@@ -186,6 +186,59 @@ public class Grille {
 		
 	}*/
 	
+	public boolean est_dans_grille(Case c) {
+		boolean ret=true;
+		
+		if( c.getVal_x() >= x || c.getVal_y() >= y) ret=false;
+		if( c.getVal_x()<0 || c.getVal_y()<0 ) ret =false;
+		
+		return ret;
+	}
+	
+	public Case case_sud(Case c) {
+		int c_x = c.getVal_x();
+		int c_y = c.getVal_y();
+		
+		if( c_x<x && c_x>=0 && c_y+1<y && c_y+1>=0 )
+			return tab[c_x][c_y+1];
+		else
+			return null;
+	}
+	
+	public Case case_est(Case c) {
+		int c_x = c.getVal_x();
+		int c_y = c.getVal_y();
+		
+		if( c_x+1<x && c_x+1>=0 && c_y<y && c_y>=0 )
+			return tab[c_x+1][c_y];
+		else
+			return null;
+	}
+	
+	public Case case_ouest(Case c) {
+		int c_x = c.getVal_x();
+		int c_y = c.getVal_y();
+		
+		if( c_x-1<x && c_x-1>=0 && c_y<y && c_y>=0 )
+			return tab[c_x-1][c_y];
+		else
+			return null;
+	}
+	
+	public Case case_nord(Case c) {
+		int c_x = c.getVal_x();
+		int c_y = c.getVal_y();
+		
+		if( c_x<x && c_x>=0 && c_y-1<y && c_y-1>=0 )
+			return tab[c_x][c_y-1];
+		else
+			return null;
+	}
+	
+	public Case get_case(int x, int y) {
+		return tab[x][y];
+	}
+	
 	public EtatCase getEtat(Case c) {
 		return c.getEc();
 	}

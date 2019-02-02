@@ -10,6 +10,7 @@ public class Case {
 
 	private int val_x;
 	private int val_y;
+	private int val_hrst= 0;
 	private EtatCase ec;
 
 	/**
@@ -46,6 +47,14 @@ public class Case {
 
 	public void setEc(EtatCase ec) {
 		this.ec = ec;
+	}
+	
+	public void setValH(int h) {
+		val_hrst=h;
+	}
+	
+	public int getValH() {
+		return val_hrst;
 	}
 
 	/**
