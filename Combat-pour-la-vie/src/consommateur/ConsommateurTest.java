@@ -22,7 +22,7 @@ class ConsommateurTest {
 	
 	@Test 
 	void test_deplacement_aleatoire() {
-		Grille g = Grille.getinstance(30, 30);
+		//Grille g = Grille.getinstance(30, 30);
 		Consommateur c = new Tigre(Sexe.male, 19, new Case(8, 2));
 		System.out.println("Test / before : " + c.toString());
 		c.deplacement_aleatoire(2);
