@@ -43,7 +43,7 @@ class Zone42Test {
 	}
 	
 	@Test
-	void testChemin() {
+	void testChemin( ) {
 		Zone42 zone = Zone42.getInstance(10);
 		Grille gr = zone.getGrille_info();
 		Astar my_a = new Astar(gr, gr.get_case(0, 0), gr.get_case(5, 5));
