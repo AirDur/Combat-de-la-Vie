@@ -36,7 +36,8 @@ public abstract class Carnivore extends Consommateur {
 		Iterator<Aliment> it = l.iterator();
 		while(it.hasNext()) {
 			a_test = (Aliment) it.next();
-			if(a_test.getEmplacement().distance(this.getEmplacement()) <distance) {
+			if(a_test.getType()==TypeAliment.AlimentCarnivore &&
+					a_test.getEmplacement().distance(this.getEmplacement()) <distance) {
 				a=a_test;
 			}
 		}

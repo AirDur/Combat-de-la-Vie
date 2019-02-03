@@ -236,11 +236,11 @@ public class Zone42 implements Runnable {
 		grille.setEtat(EtatCase.fabriqueVegetaux, c5);
 		
 		Case c6 = this.getGrille_info().get_case(10, 10);
-		list_aliment.add(new Aliment(5,5,c6));
+		list_aliment.add(new Aliment(5,5,TypeAliment.AlimentHerbivore,c6));
 		grille.setEtat(EtatCase.vegetal, c6);
 		
 		Case c8 = this.getGrille_info().get_case(1, 9);
-		list_aliment.add(new Aliment(5,5,c8));
+		list_aliment.add(new Aliment(5,5,TypeAliment.AlimentHerbivore ,c8));
 		grille.setEtat(EtatCase.vegetal, c8);
 		
 		

@@ -33,7 +33,8 @@ public class Main {
 		Aliment a = l.recherche_aliment();
 		zone2.getGrille_info().setEtat(EtatCase.animal, c7);
 		
-		
+		System.out.println("aaaliment");
+		if(a==null) System.out.println("pas d'aliment");
 		//zone2.faire_passer_le_temps();
 		Astar my_a = new Astar( zone2.getGrille_info(),
 				 l.getEmplacement(),a.getEmplacement());
