@@ -124,7 +124,7 @@ public class Astar {
 		Noeud n = get_noeud(c).get_pere();
 		chemin.add(c);
 		
-		while(n!=null) {
+		while(n.get_pere()!=null) {
 			chemin.add(n.get_case());
 			n=n.get_pere();
 		}
@@ -132,24 +132,27 @@ public class Astar {
 	
 	
 	public ArrayList<Case> get_chemin() {
+		
+		if(depart!=arrive) {
 			
-		Case current = depart;
-		
-		current.setValH(current.distance(arrive));
-		Noeud start = new Noeud(current, null);
-		liste_noeud.add(start);
-		
-		while(current !=null && current.getValH()!=0){
-			fait_fils(current);
-			come_from.add(current);
-			current = remove();
-		}
-		
-		if(current==null) return null;
-		else{
-			retrace_chemin(current);
-			return chemin;
-		}
+			Case current = depart;
+			
+			current.setValH(current.distance(arrive));
+			Noeud start = new Noeud(current, null);
+			liste_noeud.add(start);
+			
+			while(current !=null && current.getValH()!=0){
+				fait_fils(current);
+				come_from.add(current);
+				current = remove();
+			}
+			
+			if(current==null) return null;
+			else{
+				retrace_chemin(current);
+				return chemin;
+			}
+		}else return null;
 	}
 	
 }

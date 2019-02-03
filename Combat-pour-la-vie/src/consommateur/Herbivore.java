@@ -1,7 +1,11 @@
 package consommateur;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import aliment.*;
 import zone42.Case;
+import zone42.Zone42;
 
 public abstract class Herbivore extends Consommateur {
 	
@@ -25,8 +29,19 @@ public abstract class Herbivore extends Consommateur {
 
 	@Override
 	public Aliment recherche_aliment() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Aliment> l = Zone42.get_listeAliment();
+		int distance=999;
+		Aliment a=null, a_test;
+		
+		Iterator<Aliment> it = l.iterator();
+		while(it.hasNext()) {
+			a_test = (Aliment) it.next();
+			if(a_test.getEmplacement().distance(this.getEmplacement()) <distance) {
+				a=a_test;
+			}
+		}
+		
+		return a;//
 	}
 
 	@Override

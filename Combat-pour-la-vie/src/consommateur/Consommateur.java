@@ -221,4 +221,7 @@ public abstract class Consommateur {
 			this.compteur_faim = compteur_faim;
 	}
 
+	public Case getEmplacement() {
+		return emplacement;
+	}
 }

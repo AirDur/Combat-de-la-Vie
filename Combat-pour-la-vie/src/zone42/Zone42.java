@@ -24,12 +24,12 @@ public class Zone42 implements Runnable {
 	 * Liste d'aliment de la Zone42
 	 */
 	
-	private ArrayList<Aliment> list_aliment;
+	private static ArrayList<Aliment> list_aliment;
 	
 	/**
 	 * Liste des consommateurs de la Zone42
 	 */
-	private ArrayList<Herbivore> list_herbivore;
+	private static ArrayList<Herbivore> list_herbivore;
 	private ArrayList<Carnivore> list_carnivore;
 	/**
 	 * taille de la grille de jeu
@@ -196,6 +196,14 @@ public class Zone42 implements Runnable {
 		return grille;
 	}
 	
+	public static ArrayList<Aliment> get_listeAliment(){
+		return list_aliment;
+	}
+	
+	public static ArrayList<Herbivore> get_listeHerbivore(){
+		return list_herbivore;
+	}
+	
 	/**
 	 * Initilialise la zone selon les paramètres passés par l'utilisateur
 	 * @return 1 si ok, 0 si erreur
@@ -226,6 +234,14 @@ public class Zone42 implements Runnable {
 		Case c5 = this.getGrille_info().get_case(3, 2);
 		list_fabrique_vegetaux.add(new Fabrique_de_Vegetaux(100,1, 1, TypeVegetaux.plante, c5));
 		grille.setEtat(EtatCase.fabriqueVegetaux, c5);
+		
+		Case c6 = this.getGrille_info().get_case(10, 10);
+		list_aliment.add(new Aliment(5,5,TypeAliment.AlimentHerbivore,c6));
+		grille.setEtat(EtatCase.vegetal, c6);
+		
+		Case c8 = this.getGrille_info().get_case(1, 9);
+		list_aliment.add(new Aliment(5,5,TypeAliment.AlimentHerbivore ,c8));
+		grille.setEtat(EtatCase.vegetal, c8);
 		
 		
 		return 1;
