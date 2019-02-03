@@ -7,7 +7,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="/home/airdur/git/Combat-de-la-Vie/Combat-pour-la-vie/lib/ini4j-0.5.4.jar"/>
-	<classpathentry kind="lib" path="/home/airdur/git/Combat-de-la-Vie/Combat-pour-la-vie/lib/ini4j-0.5.4-jdk14.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/airdur/git/Combat-de-la-Vie/Combat-pour-la-vie/lib/ini4j-0.5.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/airdur/git/Combat-de-la-Vie/Combat-pour-la-vie/lib/ini4j-0.5.4-jdk14.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

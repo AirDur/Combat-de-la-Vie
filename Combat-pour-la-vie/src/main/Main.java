@@ -22,7 +22,8 @@ public class Main {
 	
 	public static void main(String [] args) throws InterruptedException {
 	
-		Zone42 zone2 = Zone42.getInstance(dimension_grille);
+		
+		/*Zone42 zone2 = Zone42.getInstance(dimension_grille);
 		Fenetre fen_jeu = Fenetre.CreerFenetre(zone2.getTaille(), zone2);
 		boolean flag =false;
 		zone2.initialisation();
@@ -55,7 +56,7 @@ public class Main {
 			fen_jeu.repaint();
 		
 			Thread.sleep(500);
-		}
+		}*/
 	}
 	
 }
