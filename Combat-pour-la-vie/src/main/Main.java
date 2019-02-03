@@ -43,7 +43,6 @@ public class Main {
 			}
 			fen_jeu.repaint();
 		
-			
 			Thread.sleep(500);
 		}
 	}
