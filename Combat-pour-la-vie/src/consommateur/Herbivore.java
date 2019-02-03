@@ -41,7 +41,7 @@ public abstract class Herbivore extends Consommateur {
 			}
 		}
 		
-		return a;
+		return a;//
 	}
 
 	@Override
