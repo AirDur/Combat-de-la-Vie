@@ -191,13 +191,25 @@ public class Zone42 implements Runnable {
 		list_herbivore = new ArrayList<Herbivore>();
 		list_carnivore = new ArrayList<Carnivore>();
 		
-		Case c = new Case(0, 0);
+		Case c = this.getGrille_info().get_case(0, 0);
 		list_fabrique_vegetaux.add(new Fabrique_de_Vegetaux(100,1, 1, TypeVegetaux.plante, c));
 		grille.setEtat(EtatCase.fabriqueVegetaux, c);
 		
-		Case c2 = new Case(1, 8);
+		Case c2 = this.getGrille_info().get_case(1, 8);
 		list_fabrique_vegetaux.add(new Fabrique_de_Vegetaux(100,1, 1, TypeVegetaux.plante, c2));
 		grille.setEtat(EtatCase.fabriqueVegetaux, c2);
+		
+		Case c3 = this.getGrille_info().get_case(3, 0);
+		list_fabrique_vegetaux.add(new Fabrique_de_Vegetaux(100,1, 1, TypeVegetaux.plante, c3));
+		grille.setEtat(EtatCase.fabriqueVegetaux, c3);
+		
+		Case c4 = this.getGrille_info().get_case(3, 1);
+		list_fabrique_vegetaux.add(new Fabrique_de_Vegetaux(100,1, 1, TypeVegetaux.plante, c4));
+		grille.setEtat(EtatCase.fabriqueVegetaux, c4);
+		
+		Case c5 = this.getGrille_info().get_case(3, 2);
+		list_fabrique_vegetaux.add(new Fabrique_de_Vegetaux(100,1, 1, TypeVegetaux.plante, c5));
+		grille.setEtat(EtatCase.fabriqueVegetaux, c5);
 		
 		
 		return 1;

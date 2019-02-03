@@ -18,7 +18,7 @@ public class Astar {
 	ArrayList<Case> chemin = new ArrayList<Case>();
 	
 	
-	public Astar(Grille g, Case dep, Case arr) {
+	public Astar(Grille g, Case arr, Case dep) {
 		depart=dep;
 		arrive=arr;
 		grille=g;
@@ -145,9 +145,11 @@ public class Astar {
 			current = remove();
 		}
 		
-		retrace_chemin(current);
-		
-		return chemin;
+		if(current==null) return null;
+		else{
+			retrace_chemin(current);
+			return chemin;
+		}
 	}
 	
 }
