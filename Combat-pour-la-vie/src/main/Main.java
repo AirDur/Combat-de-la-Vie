@@ -7,6 +7,9 @@ import java.util.Iterator;
 
 import javax.swing.JFrame;
 
+import aliment.Aliment;
+import consommateur.Loup;
+import consommateur.Sexe;
 import graphisme.*;
 import zone42.Astar;
 import zone42.Case;
@@ -24,13 +27,20 @@ public class Main {
 		boolean flag =false;
 		zone2.initialisation();
 
+		
+		Case c7 = zone2.getGrille_info().get_case(2, 2);
+		Loup l = new Loup(Sexe.male,100,c7);
+		Aliment a = l.recherche_aliment();
+		zone2.getGrille_info().setEtat(EtatCase.animal, c7);
+		
+		
 		//zone2.faire_passer_le_temps();
 		Astar my_a = new Astar( zone2.getGrille_info(),
-				zone2.getGrille_info().get_case(1, 0), zone2.getGrille_info().get_case(19, 0));
+				 l.getEmplacement(),a.getEmplacement());
 		ArrayList<Case> chemin = new ArrayList<Case>();
 		chemin=my_a.get_chemin();
 	
-		System.out.println(chemin);
+		//System.out.println(chemin);
 		Iterator<Case> it = chemin.iterator();
 		Case old_cc=null;
 		while(true) {
