@@ -74,10 +74,10 @@ public class Grille_graphisme extends JPanel{
 	 */
 	private void addButtons() {
 		Insets insets = getInsets();
-		b_upload = createButton("Select", "Select a new initialisation file", new ActionSelect());
+		b_upload = createButton("Select", "Select a new initialisation file", new ActionSelect(this));
 		b_launch = createButton("Launch", "Launch the animation", new ActionLaunch());
 		b_stop = createButton("Stop", "Stop the animation", new ActionPause());
-		b_pause = createButton("Pause", "Pause the animation", new ActionSelect());
+		b_pause = createButton("Pause", "Pause the animation", new ActionPause());
 		b_help = createButton("Help", "Open an Help window", new ActionStop());
 	    add(b_upload); add(b_launch); add(b_pause); add(b_stop); add(b_help);
 	    
