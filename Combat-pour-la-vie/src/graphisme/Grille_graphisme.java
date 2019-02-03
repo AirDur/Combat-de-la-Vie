@@ -69,6 +69,9 @@ public class Grille_graphisme extends JPanel{
         }
     }
 	
+	/**
+	 * ajoute les boutons au JPanel
+	 */
 	private void addButtons() {
 		Insets insets = getInsets();
 		b_upload = createButton("Select", "Select a new initialisation file", new ActionSelect());
@@ -86,7 +89,14 @@ public class Grille_graphisme extends JPanel{
 	    b_help.setBounds(start, 210 + insets.top, 100, b_upload.getPreferredSize().height);
 	}
 	
-	protected static JButton createButton(String name, String tooltip, ActionListener al) {
+	/**
+	 * Méthode simple qui créer un boutons avec tous les paramètres
+	 * @param name nom du boutons
+	 * @param tooltip bulle d'information au survol de la souris
+	 * @param al
+	 * @return le boutton
+	 */
+	private static JButton createButton(String name, String tooltip, ActionListener al) {
 		JButton jb = new JButton(name);
 		jb.addActionListener((ActionListener) al);
 		jb.setBackground(Color.white);

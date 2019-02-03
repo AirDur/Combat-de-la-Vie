@@ -36,5 +36,4 @@ public class Fenetre extends JFrame{
 		fen.setLayout(null);
 		return fen;
 	}
-
 }
