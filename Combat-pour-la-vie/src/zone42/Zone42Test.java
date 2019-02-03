@@ -25,7 +25,7 @@ class Zone42Test {
 		System.out.print(zone.toString());
 	}
 	
-	@Test
+	/*@Test
 	void testGrille() throws InterruptedException {
 		Zone42 zone2 = Zone42.getInstance(10);
 		zone2.initialisation();
@@ -35,12 +35,12 @@ class Zone42Test {
 		//le_thread.join(20000);
 		
 		int i=0;
-		while(i < 1000) {
+		while(i < 10) {
 			zone2.faire_passer_le_temps();
 			System.out.print(zone2.toString());
 			Thread.sleep(1000);
 		}
-	}
+	}*/
 	
 	@Test
 	void testChemin( ) {

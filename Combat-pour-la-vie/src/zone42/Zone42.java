@@ -1,7 +1,8 @@
 package zone42;
 
 import java.util.*;
-
+import org.ini4j.*;
+import java.io.*;
 import aliment.*;
 import consommateur.*;
 
@@ -65,6 +66,21 @@ public class Zone42 implements Runnable {
 	public static Zone42 getInstance(int a) {
 		if (instance == null) instance = new Zone42(a);
 		return instance;
+	}
+	
+	public static boolean initialisation(File fichier) {
+		//http://ini4j.sourceforge.net/tutorial/OneMinuteTutorial.java.html
+        Wini ini;
+		try {
+			ini = new Wini(fichier);
+			int age = ini.get("happy", "age", int.class);
+	        double height = ini.get("happy", "height", double.class);
+	        String dir = ini.get("happy", "homeDir");
+	        System.out.println("homme " + age + "ans, de taille " + height + " et il est " + dir);
+	        return true;
+		} catch (IOException e) {
+			return false;
+		}        
 	}
 	
 	/**
