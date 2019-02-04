@@ -65,6 +65,9 @@ public class Zone42 implements Runnable {
 		operationnel = false;
 		tailleGrille = 30;
 		grille = Grille.getinstance();
+		list_aliment = new ArrayList<Aliment>(1000);
+		list_herbivore = new ArrayList<Herbivore>(1000);
+		list_carnivore = new ArrayList<Carnivore>(1000);
 	}
 	
 	/**
@@ -77,8 +80,12 @@ public class Zone42 implements Runnable {
 		return instance;
 	}
 	
+	/**
+	 * Lit le fichier et rempli Zone42 selon les parametres
+	 * @param fichier
+	 * @return 0 si aucune erreur, -1 si erreur de fichier. un nombre pour débugger sinon.
+	 */
 	public static int initialisation(File fichier) {
-		//http://ini4j.sourceforge.net/tutorial/OneMinuteTutorial.java.html
         Wini ini;
         int no_problem = 0;
 		try {
@@ -123,26 +130,29 @@ public class Zone42 implements Runnable {
 					quantite = 2;
 					no_problem = 6;
 				}
+				
 				int cycle = ini.get("Fabrique_Vegetaux_"+i, "cycle_production", int.class);
 				if(cycle < 1 || cycle > 100000000) {
 					cycle = 10;
 					no_problem = 7;
 				}
+				
 				int x = ini.get("Fabrique_Vegetaux_"+i, "x", int.class);
 				if(x < 0 || x >= tailleGrille) {
 					x = Math_methods.randomWithRange(0, tailleGrille-1);
 					no_problem = 8;
 				}
+				
 				int y = ini.get("Fabrique_Vegetaux_"+i, "y", int.class);
 				if(y < 0 || y >= tailleGrille) {
 					y = Math_methods.randomWithRange(0, tailleGrille-1);
 					no_problem = 9;
 				}
-				String type_production = ini.get("Fabrique_Vegetaux_"+i, "type_production");
+				String type_production = ini.get("Fabrique_Vegetaux_"+i, "type_production").toLowerCase();
 				
-				Case c = new Case(x, y);
+				Case c = Grille.getinstance().get_case(x, y);
 				if(Grille.getinstance().getEtat(c) != EtatCase.libre) {
-					c = new Case(Math_methods.randomWithRange(0, tailleGrille-1), Math_methods.randomWithRange(0, tailleGrille-1));
+					c = Grille.getinstance().get_case(Math_methods.randomWithRange(0, tailleGrille-1), Math_methods.randomWithRange(0, tailleGrille-1));
 				}
 				
 				try {
@@ -155,48 +165,45 @@ public class Zone42 implements Runnable {
 			}
 			
 			int valeur_ener_Foin = ini.get("Foin", "valeur_energetique", int.class);
-			if(valeur_ener_Foin < 1 || valeur_ener_Foin > 1000) {
+			if(valeur_ener_Foin < 1 || valeur_ener_Foin > 1000)
 				valeur_ener_Foin = 10;
 				no_problem = 10;
-			}
+
 			int valeur_decompo_Foin = ini.get("Foin", "temps_decomposition", int.class);
-			if(valeur_decompo_Foin < 1 || valeur_decompo_Foin > 1000) {
+			if(valeur_decompo_Foin < 1 || valeur_decompo_Foin > 1000)
 				valeur_decompo_Foin = 10;
 				no_problem = 11;
-			}
 			
 			int valeur_ener_Herbe = ini.get("Herbe", "valeur_energetique", int.class);
-			if(valeur_ener_Herbe < 1 || valeur_ener_Herbe > 1000) {
+			if(valeur_ener_Herbe < 1 || valeur_ener_Herbe > 1000)
 				valeur_ener_Herbe = 10;
 				no_problem = 12;
-			}
+				
 			int valeur_decompo_Herbe = ini.get("Herbe", "temps_decomposition", int.class);
-			if(valeur_decompo_Herbe < 1 || valeur_decompo_Herbe > 1000) {
+			if(valeur_decompo_Herbe < 1 || valeur_decompo_Herbe > 1000)
 				valeur_decompo_Herbe = 10;
 				no_problem = 13;
-			}
 			
 			int valeur_ener_Plante = ini.get("Plante", "valeur_energetique", int.class);
-			if(valeur_ener_Plante < 1 || valeur_ener_Plante > 1000) {
+			if(valeur_ener_Plante < 1 || valeur_ener_Plante > 1000)
 				valeur_ener_Plante = 10;
 				no_problem = 14;
-			}
+
 			int valeur_decompo_Plante = ini.get("Plante", "temps_decomposition", int.class);
-			if(valeur_decompo_Plante < 1 || valeur_decompo_Plante > 1000) {
+			if(valeur_decompo_Plante < 1 || valeur_decompo_Plante > 1000)
 				valeur_decompo_Plante = 10;
 				no_problem = 15;
-			}
 			
 			int valeur_ener_Pomme = ini.get("Pomme", "valeur_energetique", int.class);
-			if(valeur_ener_Pomme < 1 || valeur_ener_Pomme > 1000) {
+			if(valeur_ener_Pomme < 1 || valeur_ener_Pomme > 1000)
 				valeur_ener_Pomme = 10;
 				no_problem = 16;
-			}
+				
 			int valeur_decompo_Pomme = ini.get("Pomme", "temps_decomposition", int.class);
-			if(valeur_decompo_Pomme < 1 || valeur_decompo_Pomme > 1000) {
+			if(valeur_decompo_Pomme < 1 || valeur_decompo_Pomme > 1000)
 				valeur_decompo_Pomme = 10;
 				no_problem = 17;
-			}
+				
 			Foin.setProprieteNutritive(valeur_ener_Foin);
 			Herbe.setProprieteNutritive(valeur_ener_Herbe);
 			Plante.setProprieteNutritive(valeur_ener_Plante);
@@ -207,6 +214,475 @@ public class Zone42 implements Runnable {
 			Plante.setTempsDecomposition(valeur_decompo_Plante);
 			Pomme.setTempsDecomposition(valeur_decompo_Pomme);
 	        
+			int nb_bos_taurus = ini.get("Animal", "bos_taurus", int.class);
+			int nb_caribou = ini.get("Animal", "caribou", int.class);
+			int nb_chevreuil = ini.get("Animal", "chevreuil", int.class);
+			int nb_lion = ini.get("Animal", "lion", int.class);
+			int nb_loup = ini.get("Animal", "loup", int.class);
+			int nb_mouton = ini.get("Animal", "mouton", int.class);
+			int nb_tigre = ini.get("Animal", "tigre", int.class);
+			
+			for(int i  = 1; i < nb_bos_taurus; i++) {
+				int age = 1;
+				int x = Math_methods.randomWithRange(0, tailleGrille-1);
+				int y = Math_methods.randomWithRange(0, tailleGrille-1);
+				Sexe sexe;
+				if(Math_methods.randomWithRange(1,2) == 1) sexe = Sexe.femelle;
+				else sexe = Sexe.male;
+				int pv = 30;
+				int capacite_maximale_de_deplacement = 3;
+				int duree_de_vie = 100;
+				int force_de_combat = 5;
+				Case c;
+				
+				
+				if(ini.get("Bos_taurus_"+i, "present", int.class)==1) {
+					
+					int new_pv = ini.get("Bos_taurus_"+i, "pv", int.class);
+					if(new_pv > 1 || new_pv < 99)
+						pv = new_pv;
+					
+					String new_sexe = ini.get("Bos_taurus_"+i, "sexe");
+					if(new_sexe.toLowerCase() == "male")
+						sexe = Sexe.male;
+					else if(new_sexe.toLowerCase() == "femelle")
+						sexe = Sexe.femelle;
+					
+					int new_x = ini.get("Bos_taurus_"+i, "x", int.class);
+					if(new_x >= 0 || new_x < tailleGrille)
+						x = new_x;
+					
+					int new_y = ini.get("Bos_taurus_"+i, "y", int.class);
+					if(new_y >= 0 || new_y < tailleGrille)
+						y = new_y;
+					
+					int new_capacite_maximale_de_deplacement = ini.get("Bos_taurus_"+i, "capacite_maximale_de_deplacement", int.class);
+					if(new_capacite_maximale_de_deplacement > 0 || new_capacite_maximale_de_deplacement < Math.min(tailleGrille/2, 5))
+						capacite_maximale_de_deplacement = new_capacite_maximale_de_deplacement;
+					
+					int new_duree_de_vie = ini.get("Bos_taurus_"+i, "duree_de_vie", int.class);
+					if(new_duree_de_vie > 10 || new_duree_de_vie < 1000)
+						duree_de_vie = new_duree_de_vie;
+					
+					int new_age = ini.get("Bos_taurus_"+i, "age", int.class);
+					if(new_age > 0 || new_age < duree_de_vie)
+						age = new_age;
+					
+					int new_force_de_combat = ini.get("Bos_taurus_"+i, "force_combat", int.class);
+					if(new_force_de_combat > 0 || new_force_de_combat < pv)
+						force_de_combat = new_force_de_combat;	
+				}
+				
+				do {
+					c = Grille.getinstance().get_case(x, y);
+					x = Math_methods.randomWithRange(0, tailleGrille-1);
+					y = Math_methods.randomWithRange(0, tailleGrille-1);
+				} while(c.getEc() != EtatCase.libre);
+				
+				try {
+					Bos_taurus bt = new Bos_taurus(sexe, pv, c, capacite_maximale_de_deplacement, age, duree_de_vie, force_de_combat);
+					list_herbivore.add(bt);
+					Grille.getinstance().setEtat(EtatCase.consommateur, c);
+				} catch(Exception e){
+					System.out.println(e);
+				}
+			}
+			
+			for(int i  = 1; i < nb_caribou; i++) {
+				int age = 1;
+				int x = Math_methods.randomWithRange(0, tailleGrille-1);
+				int y = Math_methods.randomWithRange(0, tailleGrille-1);
+				Sexe sexe;
+				if(Math_methods.randomWithRange(1,2) == 1) sexe = Sexe.femelle;
+				else sexe = Sexe.male;
+				int pv = 25;
+				int capacite_maximale_de_deplacement = 3;
+				int duree_de_vie = 100;
+				int force_de_combat = 5;
+				Case c;
+				
+				
+				if(ini.get("Carbibou_"+i, "present", int.class)==1) {
+					
+					int new_pv = ini.get("Carbibou_"+i, "pv", int.class);
+					if(new_pv > 1 || new_pv < 99)
+						pv = new_pv;
+					
+					String new_sexe = ini.get("Carbibou_"+i, "sexe");
+					if(new_sexe.toLowerCase() == "male")
+						sexe = Sexe.male;
+					else if(new_sexe.toLowerCase() == "femelle")
+						sexe = Sexe.femelle;
+					
+					int new_x = ini.get("Carbibou_"+i, "x", int.class);
+					if(new_x >= 0 || new_x < tailleGrille)
+						x = new_x;
+					
+					int new_y = ini.get("Carbibou_"+i, "y", int.class);
+					if(new_y >= 0 || new_y < tailleGrille)
+						y = new_y;
+					
+					int new_capacite_maximale_de_deplacement = ini.get("Carbibou_"+i, "capacite_maximale_de_deplacement", int.class);
+					if(new_capacite_maximale_de_deplacement > 0 || new_capacite_maximale_de_deplacement < Math.min(tailleGrille/2, 5))
+						capacite_maximale_de_deplacement = new_capacite_maximale_de_deplacement;
+					
+					int new_duree_de_vie = ini.get("Carbibou_"+i, "duree_de_vie", int.class);
+					if(new_duree_de_vie > 10 || new_duree_de_vie < 1000)
+						duree_de_vie = new_duree_de_vie;
+					
+					int new_age = ini.get("Carbibou_"+i, "age", int.class);
+					if(new_age > 0 || new_age < duree_de_vie)
+						age = new_age;
+					
+					int new_force_de_combat = ini.get("Carbibou_"+i, "force_combat", int.class);
+					if(new_force_de_combat > 0 || new_force_de_combat < pv)
+						force_de_combat = new_force_de_combat;	
+				}
+				
+				do {
+					c = Grille.getinstance().get_case(x, y);
+					x = Math_methods.randomWithRange(0, tailleGrille-1);
+					y = Math_methods.randomWithRange(0, tailleGrille-1);
+				} while(c.getEc() != EtatCase.libre);
+				
+				try {
+					Caribou bt = new Caribou(sexe, pv, c, capacite_maximale_de_deplacement, age, duree_de_vie, force_de_combat);
+					list_herbivore.add(bt);
+					Grille.getinstance().setEtat(EtatCase.consommateur, c);
+				} catch(Exception e){
+					System.out.println(e);
+				}
+			}
+			
+			for(int i  = 1; i < nb_chevreuil; i++) {
+				int age = 1;
+				int x = Math_methods.randomWithRange(0, tailleGrille-1);
+				int y = Math_methods.randomWithRange(0, tailleGrille-1);
+				Sexe sexe;
+				if(Math_methods.randomWithRange(1,2) == 1) sexe = Sexe.femelle;
+				else sexe = Sexe.male;
+				int pv = 30;
+				int capacite_maximale_de_deplacement = 3;
+				int duree_de_vie = 100;
+				int force_de_combat = 5;
+				Case c;
+				
+				
+				if(ini.get("Chevreuil_"+i, "present", int.class)==1) {
+					
+					int new_pv = ini.get("Chevreuil_"+i, "pv", int.class);
+					if(new_pv > 1 || new_pv < 99)
+						pv = new_pv;
+					
+					String new_sexe = ini.get("Chevreuil_"+i, "sexe");
+					if(new_sexe.toLowerCase() == "male")
+						sexe = Sexe.male;
+					else if(new_sexe.toLowerCase() == "femelle")
+						sexe = Sexe.femelle;
+					
+					int new_x = ini.get("Chevreuil_"+i, "x", int.class);
+					if(new_x >= 0 || new_x < tailleGrille)
+						x = new_x;
+					
+					int new_y = ini.get("Chevreuil_"+i, "y", int.class);
+					if(new_y >= 0 || new_y < tailleGrille)
+						y = new_y;
+					
+					int new_capacite_maximale_de_deplacement = ini.get("Chevreuil_"+i, "capacite_maximale_de_deplacement", int.class);
+					if(new_capacite_maximale_de_deplacement > 0 || new_capacite_maximale_de_deplacement < Math.min(tailleGrille/2, 5))
+						capacite_maximale_de_deplacement = new_capacite_maximale_de_deplacement;
+					
+					int new_duree_de_vie = ini.get("Chevreuil_"+i, "duree_de_vie", int.class);
+					if(new_duree_de_vie > 10 || new_duree_de_vie < 1000)
+						duree_de_vie = new_duree_de_vie;
+					
+					int new_age = ini.get("Chevreuil_"+i, "age", int.class);
+					if(new_age > 0 || new_age < duree_de_vie)
+						age = new_age;
+					
+					int new_force_de_combat = ini.get("Chevreuil_"+i, "force_combat", int.class);
+					if(new_force_de_combat > 0 || new_force_de_combat < pv)
+						force_de_combat = new_force_de_combat;	
+				}
+				
+				do {
+					c = Grille.getinstance().get_case(x, y);
+					x = Math_methods.randomWithRange(0, tailleGrille-1);
+					y = Math_methods.randomWithRange(0, tailleGrille-1);
+				} while(c.getEc() != EtatCase.libre);
+				
+				try {
+					Chevreuil bt = new Chevreuil(sexe, pv, c, capacite_maximale_de_deplacement, age, duree_de_vie, force_de_combat);
+					list_herbivore.add(bt);
+					Grille.getinstance().setEtat(EtatCase.consommateur, c);
+				} catch(Exception e){
+					System.out.println(e);
+				}
+			}
+			
+			for(int i  = 1; i < nb_lion; i++) {
+				int age = 1;
+				int x = Math_methods.randomWithRange(0, tailleGrille-1);
+				int y = Math_methods.randomWithRange(0, tailleGrille-1);
+				Sexe sexe;
+				if(Math_methods.randomWithRange(1,2) == 1) sexe = Sexe.femelle;
+				else sexe = Sexe.male;
+				int pv = 30;
+				int capacite_maximale_de_deplacement = 3;
+				int duree_de_vie = 100;
+				int force_de_combat = 5;
+				Case c;
+				
+				
+				if(ini.get("Lion_"+i, "present", int.class)==1) {
+					
+					int new_pv = ini.get("Lion_"+i, "pv", int.class);
+					if(new_pv > 1 || new_pv < 99)
+						pv = new_pv;
+					
+					String new_sexe = ini.get("Lion_"+i, "sexe");
+					if(new_sexe.toLowerCase() == "male")
+						sexe = Sexe.male;
+					else if(new_sexe.toLowerCase() == "femelle")
+						sexe = Sexe.femelle;
+					
+					int new_x = ini.get("Lion_"+i, "x", int.class);
+					if(new_x >= 0 || new_x < tailleGrille)
+						x = new_x;
+					
+					int new_y = ini.get("Lion_"+i, "y", int.class);
+					if(new_y >= 0 || new_y < tailleGrille)
+						y = new_y;
+					
+					int new_capacite_maximale_de_deplacement = ini.get("Lion_"+i, "capacite_maximale_de_deplacement", int.class);
+					if(new_capacite_maximale_de_deplacement > 0 || new_capacite_maximale_de_deplacement < Math.min(tailleGrille/2, 5))
+						capacite_maximale_de_deplacement = new_capacite_maximale_de_deplacement;
+					
+					int new_duree_de_vie = ini.get("Lion_"+i, "duree_de_vie", int.class);
+					if(new_duree_de_vie > 10 || new_duree_de_vie < 1000)
+						duree_de_vie = new_duree_de_vie;
+					
+					int new_age = ini.get("Lion_"+i, "age", int.class);
+					if(new_age > 0 || new_age < duree_de_vie)
+						age = new_age;
+					
+					int new_force_de_combat = ini.get("Lion_"+i, "force_combat", int.class);
+					if(new_force_de_combat > 0 || new_force_de_combat < pv)
+						force_de_combat = new_force_de_combat;	
+				}
+				
+				do {
+					c = Grille.getinstance().get_case(x, y);
+					x = Math_methods.randomWithRange(0, tailleGrille-1);
+					y = Math_methods.randomWithRange(0, tailleGrille-1);
+				} while(c.getEc() != EtatCase.libre);
+				
+				try {
+					Lion bt = new Lion(sexe, pv, c, capacite_maximale_de_deplacement, age, duree_de_vie, force_de_combat);
+					list_carnivore.add(bt);
+					Grille.getinstance().setEtat(EtatCase.consommateur, c);
+				} catch(Exception e){
+					System.out.println(e);
+				}
+			}
+			
+			for(int i  = 1; i < nb_loup; i++) {
+				int age = 1;
+				int x = Math_methods.randomWithRange(0, tailleGrille-1);
+				int y = Math_methods.randomWithRange(0, tailleGrille-1);
+				Sexe sexe;
+				if(Math_methods.randomWithRange(1,2) == 1) sexe = Sexe.femelle;
+				else sexe = Sexe.male;
+				int pv = 30;
+				int capacite_maximale_de_deplacement = 3;
+				int duree_de_vie = 100;
+				int force_de_combat = 5;
+				Case c;
+				
+				
+				if(ini.get("Loup_"+i, "present", int.class)==1) {
+					
+					int new_pv = ini.get("Loup_"+i, "pv", int.class);
+					if(new_pv > 1 || new_pv < 99)
+						pv = new_pv;
+					
+					String new_sexe = ini.get("Loup_"+i, "sexe");
+					if(new_sexe.toLowerCase() == "male")
+						sexe = Sexe.male;
+					else if(new_sexe.toLowerCase() == "femelle")
+						sexe = Sexe.femelle;
+					
+					int new_x = ini.get("Loup_"+i, "x", int.class);
+					if(new_x >= 0 || new_x < tailleGrille)
+						x = new_x;
+					
+					int new_y = ini.get("Loup_"+i, "y", int.class);
+					if(new_y >= 0 || new_y < tailleGrille)
+						y = new_y;
+					
+					int new_capacite_maximale_de_deplacement = ini.get("Loup_"+i, "capacite_maximale_de_deplacement", int.class);
+					if(new_capacite_maximale_de_deplacement > 0 || new_capacite_maximale_de_deplacement < Math.min(tailleGrille/2, 5))
+						capacite_maximale_de_deplacement = new_capacite_maximale_de_deplacement;
+					
+					int new_duree_de_vie = ini.get("Loup_"+i, "duree_de_vie", int.class);
+					if(new_duree_de_vie > 10 || new_duree_de_vie < 1000)
+						duree_de_vie = new_duree_de_vie;
+					
+					int new_age = ini.get("Loup_"+i, "age", int.class);
+					if(new_age > 0 || new_age < duree_de_vie)
+						age = new_age;
+					
+					int new_force_de_combat = ini.get("Loup_"+i, "force_combat", int.class);
+					if(new_force_de_combat > 0 || new_force_de_combat < pv)
+						force_de_combat = new_force_de_combat;	
+				}
+				
+				do {
+					c = Grille.getinstance().get_case(x, y);
+					x = Math_methods.randomWithRange(0, tailleGrille-1);
+					y = Math_methods.randomWithRange(0, tailleGrille-1);
+				} while(c.getEc() != EtatCase.libre);
+				
+				try {
+					Loup bt = new Loup(sexe, pv, c, capacite_maximale_de_deplacement, age, duree_de_vie, force_de_combat);
+					list_carnivore.add(bt);
+					Grille.getinstance().setEtat(EtatCase.consommateur, c);
+				} catch(Exception e){
+					System.out.println(e);
+				}
+			}
+			
+			for(int i  = 1; i < nb_mouton; i++) {
+				int age = 1;
+				int x = Math_methods.randomWithRange(0, tailleGrille-1);
+				int y = Math_methods.randomWithRange(0, tailleGrille-1);
+				Sexe sexe;
+				if(Math_methods.randomWithRange(1,2) == 1) sexe = Sexe.femelle;
+				else sexe = Sexe.male;
+				int pv = 30;
+				int capacite_maximale_de_deplacement = 3;
+				int duree_de_vie = 100;
+				int force_de_combat = 5;
+				Case c;
+				
+				
+				if(ini.get("Mouton_"+i, "present", int.class)==1) {
+					
+					int new_pv = ini.get("Mouton_"+i, "pv", int.class);
+					if(new_pv > 1 || new_pv < 99)
+						pv = new_pv;
+					
+					String new_sexe = ini.get("Mouton_"+i, "sexe");
+					if(new_sexe.toLowerCase() == "male")
+						sexe = Sexe.male;
+					else if(new_sexe.toLowerCase() == "femelle")
+						sexe = Sexe.femelle;
+					
+					int new_x = ini.get("Mouton_"+i, "x", int.class);
+					if(new_x >= 0 || new_x < tailleGrille)
+						x = new_x;
+					
+					int new_y = ini.get("Mouton_"+i, "y", int.class);
+					if(new_y >= 0 || new_y < tailleGrille)
+						y = new_y;
+					
+					int new_capacite_maximale_de_deplacement = ini.get("Mouton_"+i, "capacite_maximale_de_deplacement", int.class);
+					if(new_capacite_maximale_de_deplacement > 0 || new_capacite_maximale_de_deplacement < Math.min(tailleGrille/2, 5))
+						capacite_maximale_de_deplacement = new_capacite_maximale_de_deplacement;
+					
+					int new_duree_de_vie = ini.get("Mouton_"+i, "duree_de_vie", int.class);
+					if(new_duree_de_vie > 10 || new_duree_de_vie < 1000)
+						duree_de_vie = new_duree_de_vie;
+					
+					int new_age = ini.get("Mouton_"+i, "age", int.class);
+					if(new_age > 0 || new_age < duree_de_vie)
+						age = new_age;
+					
+					int new_force_de_combat = ini.get("Mouton_"+i, "force_combat", int.class);
+					if(new_force_de_combat > 0 || new_force_de_combat < pv)
+						force_de_combat = new_force_de_combat;	
+				}
+				
+				do {
+					c = Grille.getinstance().get_case(x, y);
+					x = Math_methods.randomWithRange(0, tailleGrille-1);
+					y = Math_methods.randomWithRange(0, tailleGrille-1);
+				} while(c.getEc() != EtatCase.libre);
+				
+				try {
+					Mouton bt = new Mouton(sexe, pv, c, capacite_maximale_de_deplacement, age, duree_de_vie, force_de_combat);
+					list_herbivore.add(bt);
+					Grille.getinstance().setEtat(EtatCase.consommateur, c);
+				} catch(Exception e){
+					System.out.println(e);
+				}
+			}
+			
+			for(int i  = 1; i < nb_tigre; i++) {
+				int age = 1;
+				int x = Math_methods.randomWithRange(0, tailleGrille-1);
+				int y = Math_methods.randomWithRange(0, tailleGrille-1);
+				Sexe sexe;
+				if(Math_methods.randomWithRange(1,2) == 1) sexe = Sexe.femelle;
+				else sexe = Sexe.male;
+				int pv = 30;
+				int capacite_maximale_de_deplacement = 3;
+				int duree_de_vie = 100;
+				int force_de_combat = 5;
+				Case c;
+				
+				
+				if(ini.get("Tigre_"+i, "present", int.class)==1) {
+					
+					int new_pv = ini.get("Tigre_"+i, "pv", int.class);
+					if(new_pv > 1 || new_pv < 99)
+						pv = new_pv;
+					
+					String new_sexe = ini.get("Tigre_"+i, "sexe");
+					if(new_sexe.toLowerCase() == "male")
+						sexe = Sexe.male;
+					else if(new_sexe.toLowerCase() == "femelle")
+						sexe = Sexe.femelle;
+					
+					int new_x = ini.get("Tigre_"+i, "x", int.class);
+					if(new_x >= 0 || new_x < tailleGrille)
+						x = new_x;
+					
+					int new_y = ini.get("Tigre_"+i, "y", int.class);
+					if(new_y >= 0 || new_y < tailleGrille)
+						y = new_y;
+					
+					int new_capacite_maximale_de_deplacement = ini.get("Bos_taurus_"+i, "capacite_maximale_de_deplacement", int.class);
+					if(new_capacite_maximale_de_deplacement > 0 || new_capacite_maximale_de_deplacement < Math.min(tailleGrille/2, 5))
+						capacite_maximale_de_deplacement = new_capacite_maximale_de_deplacement;
+					
+					int new_duree_de_vie = ini.get("Bos_taurus_"+i, "duree_de_vie", int.class);
+					if(new_duree_de_vie > 10 || new_duree_de_vie < 1000)
+						duree_de_vie = new_duree_de_vie;
+					
+					int new_age = ini.get("Bos_taurus_"+i, "age", int.class);
+					if(new_age > 0 || new_age < duree_de_vie)
+						age = new_age;
+					
+					int new_force_de_combat = ini.get("Bos_taurus_"+i, "force_combat", int.class);
+					if(new_force_de_combat > 0 || new_force_de_combat < pv)
+						force_de_combat = new_force_de_combat;	
+				}
+				
+				do {
+					c = Grille.getinstance().get_case(x, y);
+					x = Math_methods.randomWithRange(0, tailleGrille-1);
+					y = Math_methods.randomWithRange(0, tailleGrille-1);
+				} while(c.getEc() != EtatCase.libre);
+				
+				try {
+					Tigre bt = new Tigre(sexe, pv, c, capacite_maximale_de_deplacement, age, duree_de_vie, force_de_combat);
+					list_carnivore.add(bt);
+					Grille.getinstance().setEtat(EtatCase.consommateur, c);
+				} catch(Exception e){
+					System.out.println(e);
+				}
+			}
 	        operationnel = true;
 	        return no_problem;
 		} catch (IOException e) {
@@ -275,7 +751,7 @@ public class Zone42 implements Runnable {
 	 * @return 1 si ok, 0 si erreur
 	 */
 	public int ajout_carnivore( Carnivore c) {
-		c.getEmplacement().setEc(EtatCase.animal);
+		c.getEmplacement().setEc(EtatCase.consommateur);
 		list_carnivore.add(c);
 		return 1;
 	}

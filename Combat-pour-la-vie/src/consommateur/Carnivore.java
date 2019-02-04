@@ -10,8 +10,8 @@ import zone42.Zone42;
 
 public abstract class Carnivore extends Consommateur {
 	
-	public Carnivore(Sexe s, int v, Case c) {
-		super(s, v, c);
+	public Carnivore(Sexe s, int v, Case c, int cmc, int a, int ddv, int fc) {
+		super(s, v, c, cmc, a, ddv, fc);
 	}
 	
 	@Override

@@ -11,9 +11,8 @@ import zone42.Zone42;
 
 public class Loup extends Carnivore{
 
-	public Loup(Sexe s, int v, Case c) {
-		super(s, v, c);
-		// TODO Auto-generated constructor stub
+	public Loup(Sexe s, int v, Case c, int cmc, int a, int ddv, int fc) {
+		super(s, v, c, cmc, a, ddv, fc);
 	}
 	
 	public Consommateur recherche_reproducteur() {

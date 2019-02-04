@@ -56,7 +56,7 @@ public class Grille_graphisme extends JPanel{
             		case vegetal: g2.setColor(Color.GREEN);
             						break;
             						
-            		case animal: g2.setColor(Color.red);
+            		case consommateur: g2.setColor(Color.red);
             						break;
             		default:
             						break;

@@ -41,7 +41,7 @@ public abstract class Consommateur {
 	private Integer age;
 	
 	/**
-	 * Durée de vie du consommateur (+/- 20%)
+	 * Durée de vie du consommateur
 	 */
 	private Integer duree_de_vie;
 	/**
@@ -60,8 +60,13 @@ public abstract class Consommateur {
 	 * 
 	 * @param s sexe du consommateur, pour gérer la reproduction
 	 * @param v vie du consommateur
+	 * @param c emplacement du consommateur
+	 * @param cmc capacité maxiaml de déplacement
+	 * @param a age
+	 * @param ddv duree de vie (age maximale)
+	 * @param fc force combat
 	 */
-	public Consommateur(Sexe s, int v, Case c) {
+	public Consommateur(Sexe s, int v, Case c, int cmc, int a, int ddv, int fc) {
 		vivant = true;
 		sexe = s;
 		vie = v;
@@ -70,7 +75,10 @@ public abstract class Consommateur {
 		etat_faim = EtatFaim.satisfait;
 		Grille g = Grille.getinstance();
 		g.setEtat(EtatCase.consommateur, emplacement);
-		capacite_maximale_de_deplacement = new Integer(4);
+		capacite_maximale_de_deplacement = cmc;
+		age = a;
+		duree_de_vie = ddv;
+		force_combat = fc;
 	}
 
     /**
@@ -84,7 +92,7 @@ public abstract class Consommateur {
 	    	Grille g = Grille.getinstance(0, 0);
 	    	if(vivant && (c.getEc() == EtatCase.libre) && capacite_maximale_de_deplacement > (c.distance(emplacement)) ) {
 	    		g.setEtat(EtatCase.libre, emplacement);
-	    		g.setEtat(EtatCase.animal, c);
+	    		g.setEtat(EtatCase.consommateur, c);
 	    		emplacement = c;
 	    		return 1;
 	    	} else
