@@ -23,7 +23,7 @@ public class Main {
 	public static void main(String [] args) throws InterruptedException {
 	
 		
-		/*Zone42 zone2 = Zone42.getInstance(dimension_grille);
+		Zone42 zone2 = Zone42.getInstance(dimension_grille);
 		Fenetre fen_jeu = Fenetre.CreerFenetre(zone2.getTaille(), zone2);
 		boolean flag =false;
 		zone2.initialisation();
@@ -34,7 +34,7 @@ public class Main {
 		Aliment a = l.recherche_aliment();
 		zone2.getGrille_info().setEtat(EtatCase.animal, c7);
 		
-		System.out.println("aaaliment");
+		
 		if(a==null) System.out.println("pas d'aliment");
 		//zone2.faire_passer_le_temps();
 		Astar my_a = new Astar( zone2.getGrille_info(),
@@ -56,7 +56,7 @@ public class Main {
 			fen_jeu.repaint();
 		
 			Thread.sleep(500);
-		}*/
+		}
 	}
 	
 }

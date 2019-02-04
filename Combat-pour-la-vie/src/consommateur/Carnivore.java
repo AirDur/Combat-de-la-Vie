@@ -33,12 +33,15 @@ public abstract class Carnivore extends Consommateur {
 		int distance=999;
 		Aliment a=null, a_test;
 		
-		Iterator<Aliment> it = l.iterator();
-		while(it.hasNext()) {
-			a_test = (Aliment) it.next();
-			if(a_test.getType()==TypeAliment.AlimentCarnivore &&
-					a_test.getEmplacement().distance(this.getEmplacement()) <distance) {
-				a=a_test;
+		if(l!=null) {
+			Iterator<Aliment> it = l.iterator();
+			while(it.hasNext()) {
+				a_test = (Aliment) it.next();
+				if(a_test instanceof aliment.Cadavre && 
+						a_test.getEmplacement().distance(this.getEmplacement()) <distance) {
+					a=a_test;
+					distance = a_test.getEmplacement().distance(this.getEmplacement()) ;
+				}
 			}
 		}
 		

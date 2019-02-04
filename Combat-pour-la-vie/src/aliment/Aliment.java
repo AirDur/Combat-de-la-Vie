@@ -24,7 +24,6 @@ public class Aliment {
 	 */
 	private Case emplacement;
 	
-	private TypeAliment type;
 	
 	/**
 	 * constructeur vide
@@ -41,9 +40,9 @@ public class Aliment {
 	 * @param valeur_conservation temps en cycle avant disparition
 	 * @param c emplacement de l'aliment
 	 */
-	public Aliment(int valeur_nutritive, int valeur_conservation,TypeAliment t, Case c) 
+	public Aliment(int valeur_nutritive, int valeur_conservation, Case c) 
 	{
-		type=t;
+		
 		setPropriete_nutritive(valeur_nutritive);
 		setTemps_avant_decomposition(valeur_conservation);
 		setEmplacement(c);
@@ -71,10 +70,6 @@ public class Aliment {
 
 	public void setEmplacement(Case emplacement) {
 		this.emplacement = emplacement;
-	}
-	
-	public TypeAliment getType() {
-		return type;
 	}
 
 }

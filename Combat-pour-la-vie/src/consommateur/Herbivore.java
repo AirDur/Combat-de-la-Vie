@@ -33,17 +33,26 @@ public abstract class Herbivore extends Consommateur {
 		int distance=999;
 		Aliment a=null, a_test;
 		
-		Iterator<Aliment> it = l.iterator();
-		while(it.hasNext()) {
-			a_test = (Aliment) it.next();
-			if(a_test.getEmplacement().distance(this.getEmplacement()) <distance) {
-				a=a_test;
+		if(l!=null) {
+			Iterator<Aliment> it = l.iterator();
+			while(it.hasNext()) {
+				a_test = (Aliment) it.next();
+				if( nourriture_vegan(a_test) &&  
+						a_test.getEmplacement().distance(this.getEmplacement()) <distance) {
+					a=a_test;
+					distance = a_test.getEmplacement().distance(this.getEmplacement()) ;
+				}
 			}
 		}
 		
-		return a;//
+		return a;
 	}
 
+	private boolean nourriture_vegan(Aliment a_test) {
+		return ((a_test instanceof aliment.Vegetaux || a_test instanceof aliment.Plante || a_test instanceof aliment.Pomme 
+				|| a_test instanceof aliment.Foin || a_test instanceof aliment.Herbe ));
+	}
+	
 	@Override
 	public Consommateur recherche_reproducteur() {
 		// TODO Auto-generated method stub
