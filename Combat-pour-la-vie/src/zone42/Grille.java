@@ -62,6 +62,12 @@ public class Grille {
 		return instance;
 	}
 	
+	public static Grille changeInstance(Integer tailleGrille, Integer tailleGrille2) {
+		if(instance != null) instance = new Grille(tailleGrille, tailleGrille2);
+		else return getinstance(tailleGrille, tailleGrille2);
+		return instance;
+	}
+	
 	/**
 	 * Affichage de la grille 
 	 * @return un string

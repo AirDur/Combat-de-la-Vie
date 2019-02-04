@@ -53,11 +53,19 @@ public class Fabrique_de_Vegetaux {
 	 */
 	private Integer cycle_courant;
 	
-	public Fabrique_de_Vegetaux(int vie, int quantite, int cycle, TypeVegetaux tv, Case c) {
+	public Fabrique_de_Vegetaux(int vie, int quantite, int cycle, String type_production, Case c) {
 		duree_de_vie = vie;
 		age_fabrique = 0;
 		
-		type = tv;
+		if(type_production == "Herbe" || type_production == "herbe") {
+			type = TypeVegetaux.herbe;
+		} else if(type_production == "Pomme" || type_production == "pomme") {
+			type = TypeVegetaux.pomme;
+		} else if(type_production == "Plante" || type_production == "plante") {
+			type = TypeVegetaux.plante;
+		} else {
+			type = TypeVegetaux.foin;
+		}
 		
 		cycle_de_production = cycle;
 		cycle_courant = 0;

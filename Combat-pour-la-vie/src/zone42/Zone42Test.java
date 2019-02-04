@@ -10,7 +10,7 @@ class Zone42Test {
 
 	@Test
 	void test() throws InterruptedException {
-		Zone42 zone = Zone42.getInstance(10);
+		Zone42 zone = Zone42.getInstance();
 		//Thread le_thread = new Thread(zone,"Cycle");
 		
 		//le_thread.start();
@@ -44,7 +44,7 @@ class Zone42Test {
 	
 	@Test
 	void testChemin( ) {
-		Zone42 zone = Zone42.getInstance(10);
+		Zone42 zone = Zone42.getInstance();
 		Grille gr = zone.getGrille_info();
 		Astar my_a = new Astar(gr, gr.get_case(0, 0), gr.get_case(5, 5));
 		ArrayList<Case> chemin = my_a.get_chemin();

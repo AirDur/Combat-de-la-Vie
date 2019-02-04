@@ -40,7 +40,7 @@ public class Grille_graphisme extends JPanel{
         
         g2.setColor(Color.DARK_GRAY);
         g2.fillRect(10, 10, (taille*squareSize)+1, (taille*squareSize)+1);
-
+        grille_info = Grille.getinstance();
         
         for (int r = 0; r < taille; r++) {
             for (int c = 0; c < taille; c++) {

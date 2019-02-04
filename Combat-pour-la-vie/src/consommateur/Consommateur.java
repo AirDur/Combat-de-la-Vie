@@ -93,7 +93,7 @@ public abstract class Consommateur {
      * @return 1 s'il meurt, 0 s'il reste vivant
      */
     public boolean meurt() {
-    	if(vie <= 0 && vivant) {
+    	if(vie <= 0 && vivant || age > duree_de_vie) {
     		vivant = false;
     		return true;
     	}
@@ -158,11 +158,11 @@ public abstract class Consommateur {
 	 * Change l'état de faim de l'animal en fonction de son compteur_faim.
 	 */
 	protected void change_etat_faim() {
-		if(compteur_faim >= 70) {
+		if(compteur_faim >= Zone42.getSeuil_faim()) {
 			etat_faim = EtatFaim.satisfait;
-		} else if(compteur_faim < 70 && compteur_faim >= 25 ) {
+		} else if(compteur_faim < Zone42.getSeuil_faim() && compteur_faim >= Zone42.getSeuil_famine() ) {
 			etat_faim = EtatFaim.faim;
-		} else if(compteur_faim < 25) {
+		} else if(compteur_faim < Zone42.getSeuil_famine()) {
 			etat_faim = EtatFaim.famine;
 		}
 	}

@@ -25,8 +25,9 @@ public class ActionSelect implements ActionListener {
         File fichier;
         if (dialogue.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
         	fichier = dialogue.getSelectedFile();
-        	if(!Zone42.initialisation(fichier)) {
-        		JOptionPane.showMessageDialog(null, "Erreur lors du chargement du fichier", "Erreur", JOptionPane.ERROR_MESSAGE);
+        	int error = Zone42.initialisation(fichier);
+        	if(error != 0) {
+        		JOptionPane.showMessageDialog(null, "Erreur lors du chargement du fichier (erreur = " + error +")", "Erreur", JOptionPane.ERROR_MESSAGE);
         	} else {
         		JOptionPane.showMessageDialog(null, "Fichier d'initialisation chargé", "Chargement complet", JOptionPane.INFORMATION_MESSAGE);
         	}

@@ -47,6 +47,15 @@ public class Aliment {
 		setTemps_avant_decomposition(valeur_conservation);
 		setEmplacement(c);
 	}
+	
+	public void decremente() {
+		temps_avant_decomposition--;
+	}
+	
+	public boolean estPerime() {
+		if(temps_avant_decomposition < 1) return true;
+		else return false;
+	}
 
 	public Integer getPropriete_nutritive() {
 		return propriete_nutritive;

@@ -11,9 +11,9 @@ public class Fenetre extends JFrame{
 	private static final long serialVersionUID = 1L;
 
 	private Grille_graphisme grille;
-	private Cellule liste_cellule;
+	/*private Cellule liste_cellule;
 	private Zone42 espace_jeu;
-	private Integer temps;
+	private Integer temps;*/
 
 	private static Integer taille_max = 500;
 	

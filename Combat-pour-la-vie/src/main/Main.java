@@ -17,17 +17,12 @@ import zone42.EtatCase;
 import zone42.Zone42;
 
 public class Main {
-
-	private final static int dimension_grille = 20;
-	
 	public static void main(String [] args) throws InterruptedException {
 	
 		
-		Zone42 zone2 = Zone42.getInstance(dimension_grille);
+		Zone42 zone2 = Zone42.getInstance();
 		Fenetre fen_jeu = Fenetre.CreerFenetre(zone2.getTaille(), zone2);
 		boolean flag =false;
-		zone2.initialisation();
-
 		
 		Case c7 = zone2.getGrille_info().get_case(2, 2);
 		Loup l = new Loup(Sexe.male,100,c7);
@@ -55,7 +50,7 @@ public class Main {
 			}
 			fen_jeu.repaint();
 		
-			Thread.sleep(500);
+			Thread.sleep(zone2.getTempsCycle());
 		}
 	}
 	
