@@ -45,13 +45,20 @@ public class Loup extends Carnivore{
 		String nom_classe_this = this.getClass().getName().toString();
     	String nom_classe_c = c.getClass().getName().toString();
     	if(nom_classe_this.equals(nom_classe_c) && this.getSexe() != c.getSexe()) {
-    		Case new_emplacement = Grille.getinstance().getCaseProche(this.emplacement, c.emplacement);
-    		Sexe es = Sexe.femelle;
-    		if(Math_methods.randomWithRange(0,1) == 1) 
-    			es = Sexe.male;
-    		Loup l = new Loup(es, 7, new_emplacement);
-    		Zone42.getInstance().ajout_carnivore(l);
-    		return l;
+    		Case new_emplacement = Grille.getinstance().getCaseProche(this.emplacement);
+    		if(new_emplacement!=null) {
+	    		Sexe es = Sexe.femelle;
+	    		if(Math_methods.randomWithRange(0,1) == 1) 
+	    			es = Sexe.male;
+	    		Loup l = new Loup(es, 7, new_emplacement,10,10,10,10);
+	    		//Sexe s, int v, Case c, int cmc, int a, int ddv, int fc
+	    		Zone42.getInstance().ajout_carnivore(l);
+	    		return l;
+    		}
+    		else {
+    			System.out.println("Pas de case dispo => Avortement");
+    			return null;
+    		}
     	} else {
     		return null;
     	}

@@ -136,8 +136,27 @@ public class Grille {
 		return al;
 	}
 
-	public Case getCaseProche(Case emplacement, Case emplacement2) {
-		return tab[1][1];
+	public Case getCaseProche(Case emplacement) {
+		int emp_x, emp_y;
+		
+		Case c_ret=null;
+		emp_x=emplacement.getVal_x();
+		emp_y=emplacement.getVal_y();
+		
+		int i = emp_x-1; 
+		while(i<=emp_x+1 && c_ret==null){
+			int j = emp_y-1; 
+			while(j<=emp_y+1 && c_ret==null){
+				if( this.est_dans_grille(i, j)) {
+					if(this.getEtat(this.get_case(i, j))==EtatCase.libre) {
+						c_ret= this.get_case(i, j);
+					}
+				}
+				j++;
+			}
+			i++;
+		}
+		return c_ret;
 	}
 	
 	/*
@@ -192,11 +211,11 @@ public class Grille {
 		
 	}*/
 	
-	public boolean est_dans_grille(Case c) {
+	public boolean est_dans_grille(int v_x, int v_y) {
 		boolean ret=true;
 		
-		if( c.getVal_x() >= x || c.getVal_y() >= y) ret=false;
-		if( c.getVal_x()<0 || c.getVal_y()<0 ) ret =false;
+		if( v_x >= x || v_y>= y) ret=false;
+		if( v_x<0 || v_y<0 ) ret =false;
 		
 		return ret;
 	}
