@@ -6,9 +6,8 @@ import zone42.Case;
 
 public class Bos_taurus extends Herbivore {
 
-	public Bos_taurus(Sexe s, int v, Case c) {
-		super(s, v, c);
-		// TODO Auto-generated constructor stub
+	public Bos_taurus(Sexe s, int v, Case c, int cmc, int a, int ddv, int fc) {
+		super(s, v, c, cmc, a, ddv, fc);
 	}
 
 	@Override
