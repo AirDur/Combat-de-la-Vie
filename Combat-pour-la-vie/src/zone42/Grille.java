@@ -131,7 +131,7 @@ public class Grille {
 	}
 
 	public Case getCaseProche(Case emplacement, Case emplacement2) {
-		return new Case(1,1);
+		return tab[1][1];
 	}
 	
 	/*

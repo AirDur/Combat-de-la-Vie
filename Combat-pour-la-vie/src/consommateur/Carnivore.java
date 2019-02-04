@@ -49,10 +49,7 @@ public abstract class Carnivore extends Consommateur {
 	}
 
 	@Override
-	public Consommateur recherche_reproducteur() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract Consommateur recherche_reproducteur();
 	
 	@Override
 	public Consommateur faire_passer_le_temps() {
@@ -90,10 +87,22 @@ public abstract class Carnivore extends Consommateur {
 	}
 
 	private Consommateur recherche_proie() {
-		Grille g = Grille.getinstance();
-		//???
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Herbivore> l = Zone42.get_listeHerbivore();
+		int distance=999;
+		Herbivore h=null, h_test;
+		
+		if(l!=null) {
+			Iterator<Herbivore> it = l.iterator();
+			while(it.hasNext()) {
+				h_test = (Herbivore) it.next();
+				if( h_test.getEmplacement().distance(this.getEmplacement()) <distance) {
+					h=h_test;
+					distance = h_test.getEmplacement().distance(this.getEmplacement()) ;
+				}
+			}
+		}
+		
+		return h;
 	}
 
 	@Override

@@ -25,33 +25,32 @@ public class Main {
 		
 		Zone42 zone2 = Zone42.getInstance(dimension_grille);
 		Fenetre fen_jeu = Fenetre.CreerFenetre(zone2.getTaille(), zone2);
-		boolean flag =false;
 		zone2.initialisation();
 
 		
 		Case c7 = zone2.getGrille_info().get_case(2, 2);
-		Loup l = new Loup(Sexe.male,100,c7);
-		Aliment a = l.recherche_aliment();
-		zone2.getGrille_info().setEtat(EtatCase.animal, c7);
+		Loup l = new Loup(Sexe.femelle,100,c7);
+		zone2.ajout_carnivore(l);
+		
+		Case c10 = zone2.getGrille_info().get_case(11,11);
+		Loup l2 = new Loup(Sexe.male,100,c10);
+		zone2.ajout_carnivore(l2);
+		Loup go_cheufre = (Loup) l2.recherche_reproducteur();
 		
 		
-		if(a==null) System.out.println("pas d'aliment");
-		//zone2.faire_passer_le_temps();
-		Astar my_a = new Astar( zone2.getGrille_info(),
-				 l.getEmplacement(),a.getEmplacement());
-		ArrayList<Case> chemin = new ArrayList<Case>();
-		chemin=my_a.get_chemin();
 	
-		//System.out.println(chemin);
-		Iterator<Case> it = chemin.iterator();
-		Case old_cc=null;
 		while(true) {
-			if(it.hasNext()) {
-				if(flag) zone2.getGrille_info().setEtat(EtatCase.libre, old_cc);
-				Case cc= (Case)it.next();
-				zone2.getGrille_info().setEtat(EtatCase.animal, cc);
-				old_cc=cc;
-				flag=true;
+			
+			Astar my_a = new Astar( zone2.getGrille_info(),
+					 l2.getEmplacement(),go_cheufre.getEmplacement());
+			
+			
+			ArrayList<Case> chemin = new ArrayList<Case>();
+			chemin=my_a.get_chemin();
+			
+			l2.deplacement(chemin, 2);
+			if(l.getEmplacement().distance(l2.getEmplacement() )==1){
+				l.se_reproduire(l2);
 			}
 			fen_jeu.repaint();
 		
