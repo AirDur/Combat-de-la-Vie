@@ -1,6 +1,7 @@
 package consommateur;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import aliment.*;
 import zone42.*;
@@ -69,6 +70,7 @@ public abstract class Consommateur {
 		etat_faim = EtatFaim.satisfait;
 		Grille g = Grille.getinstance();
 		g.setEtat(EtatCase.consommateur, emplacement);
+		capacite_maximale_de_deplacement = new Integer(4);
 	}
 
     /**
@@ -78,14 +80,29 @@ public abstract class Consommateur {
      * @return 1 si ça marche, 0 si la case est occupée, trop loin ou le Consommateur mort.
      */
     public int se_deplacer(Case c) {
-    	Grille g = Grille.getinstance(0, 0);
-    	if(vivant && c.getEc() == EtatCase.libre && capacite_maximale_de_deplacement < c.distance(emplacement)) {
-    		g.setEtat(EtatCase.libre, emplacement);
-    		g.setEtat(EtatCase.animal, c);
-    		emplacement = c;
-    		return 1;
-    	} else
-    		return 0;
+    	if(c!=null) {
+	    	Grille g = Grille.getinstance(0, 0);
+	    	if(vivant && (c.getEc() == EtatCase.libre) && capacite_maximale_de_deplacement > (c.distance(emplacement)) ) {
+	    		g.setEtat(EtatCase.libre, emplacement);
+	    		g.setEtat(EtatCase.animal, c);
+	    		emplacement = c;
+	    		return 1;
+	    	} else
+	    		return 0;
+    	}else return 0;
+    }
+    
+    public int deplacement(ArrayList<Case> l, int nb_case) {
+    	
+    	Iterator<Case> it = l.iterator();
+    	int i=0;
+    	Case c=null;
+    	
+    	while(it.hasNext() && i<=nb_case) {
+    		c = (Case) it.next();
+    		i++;
+    	}
+    	return se_deplacer(c);
     }
     
     /**
@@ -153,6 +170,7 @@ public abstract class Consommateur {
 			return emplacement;
 		
 	}
+	
 	
 	/**
 	 * Change l'état de faim de l'animal en fonction de son compteur_faim.

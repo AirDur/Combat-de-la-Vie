@@ -18,9 +18,9 @@ public class Astar {
 	ArrayList<Case> chemin = new ArrayList<Case>();
 	
 	
-	public Astar(Grille g, Case arr, Case dep) {
-		depart=dep;
-		arrive=arr;
+	public Astar(Grille g, Case dep, Case arr) {
+		depart=arr;
+		arrive=dep;
 		grille=g;
 		for(int i=0 ; i<nb_case ; i++) {
 			Case lacase = new Case(0,0);

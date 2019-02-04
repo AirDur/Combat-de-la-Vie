@@ -30,7 +30,7 @@ public class Zone42 implements Runnable {
 	 * Liste des consommateurs de la Zone42
 	 */
 	private static ArrayList<Herbivore> list_herbivore;
-	private ArrayList<Carnivore> list_carnivore;
+	private static ArrayList<Carnivore> list_carnivore;
 	/**
 	 * taille de la grille de jeu
 	 */
@@ -275,6 +275,7 @@ public class Zone42 implements Runnable {
 	 * @return 1 si ok, 0 si erreur
 	 */
 	public int ajout_carnivore( Carnivore c) {
+		c.getEmplacement().setEc(EtatCase.animal);
 		list_carnivore.add(c);
 		return 1;
 	}
@@ -332,6 +333,10 @@ public class Zone42 implements Runnable {
 	
 	public static ArrayList<Herbivore> get_listeHerbivore(){
 		return list_herbivore;
+	}
+	
+	public static ArrayList<Carnivore> get_listeCarnivore(){
+		return list_carnivore;
 	}
 	
 	public String toString() {
