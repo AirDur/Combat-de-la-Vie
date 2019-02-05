@@ -13,17 +13,14 @@ class ConsommateurTest {
 	
 	@Test
 	void test_reproduction() {
-		Consommateur c = new Loup(Sexe.femelle, 20, new Case(9, 11));
 		
-		Consommateur e = new Loup(Sexe.male, 20, new Case(9, 10));
-		
-		Consommateur f = c.se_reproduire(e);
 	}
 	
 	@Test 
 	void test_deplacement_aleatoire() {
 		//Grille g = Grille.getinstance(30, 30);
-		Consommateur c = new Tigre(Sexe.male, 19, new Case(8, 2));
+		//(Sexe s, int v, Case c, int cmc, int a, int ddv, int fc) 
+		Consommateur c = new Tigre(Sexe.male, 19, Grille.getinstance().get_case(8, 2),10,10,10,10);
 		System.out.println("Test / before : " + c.toString());
 		c.deplacement_aleatoire(2);
 		System.out.println("Test / after : " +c.toString());
@@ -35,14 +32,14 @@ class ConsommateurTest {
 	
 	@Test
 	void testManger_Herbivore() {
-		Herbivore h = new Chevreuil(Sexe.femelle, 9, new Case(9,0));
+		Herbivore h = new Chevreuil(Sexe.femelle, 9, Grille.getinstance().get_case(9, 0),10,10,10,10);
 		assertEquals(true, h.manger(new Foin(new Case(8,0))));
 		assertEquals(false, h.manger(new Cadavre(new Case(8,0))));
 	}
 	
 	@Test
 	void testManger_Carnivore() {
-		Carnivore h = new Loup(Sexe.femelle, 9, new Case(9,0));
+		Carnivore h = new Loup(Sexe.femelle, 9, Grille.getinstance().get_case(9, 0),10,10,10,10);
 		assertEquals(false, h.manger(new Foin(new Case(8,0))));
 		assertEquals(true, h.manger(new Cadavre(new Case(8,0))));
 	}

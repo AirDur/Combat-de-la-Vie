@@ -66,6 +66,13 @@ public class Case {
 		return Math.abs(this.val_x - emplacement.val_x) + Math.abs(this.val_y - emplacement.val_y);
 	}
 	
+	public boolean proximite(Case c) {
+		boolean ret=false;
+		
+		if(this.distance(c)<=2) ret = true;
+		
+		return ret;
+	}
 	public String toString() {
 		return "Case [" + val_x + ", " + val_y + "] - état : "+ ec;
 	}

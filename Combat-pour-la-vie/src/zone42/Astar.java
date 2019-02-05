@@ -8,7 +8,7 @@ public class Astar {
 	
 	public Case depart; 
 	private Case arrive;
-	private int nb_case = 50;
+	private int nb_case = 500;
 	private int nb_elts = 0;
 	private Grille grille;
 	private Case [] tab= new Case[nb_case];

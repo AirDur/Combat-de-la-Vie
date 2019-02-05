@@ -8,6 +8,8 @@ import java.util.Iterator;
 import javax.swing.JFrame;
 
 import aliment.Aliment;
+import consommateur.Carnivore;
+import consommateur.Consommateur;
 import consommateur.Loup;
 import consommateur.Sexe;
 import graphisme.*;
@@ -25,11 +27,11 @@ public class Main {
 		
 		Zone42 zone2 = Zone42.getInstance();
 		Fenetre fen_jeu = Fenetre.CreerFenetre(zone2.getTaille(), zone2);
-		//zone2.initialisation();
+		
 
 		
 		Case c7 = zone2.getGrille_info().get_case(2, 2);
-		Loup l = new Loup(Sexe.femelle,100,c7,10,10,10,10);
+		Loup l = new Loup(Sexe.femelle,100,c7,3,10,10,10);
 		zone2.ajout_carnivore(l);
 		
 		Case c10 = zone2.getGrille_info().get_case(11,11);
@@ -41,17 +43,18 @@ public class Main {
 	
 		while(true) {
 			
-			Astar my_a = new Astar( zone2.getGrille_info(),
-					 l2.getEmplacement(),go_cheufre.getEmplacement());
+			ArrayList<Carnivore> nouveaux_nees = new ArrayList<Carnivore>();
+			ArrayList<Carnivore> ll = zone2.get_listeCarnivore();
+			Iterator<Carnivore> it = ll.iterator();
+			Carnivore c=null,c_nee;
 			
-			
-			ArrayList<Case> chemin = new ArrayList<Case>();
-			chemin=my_a.get_chemin();
-			
-			l2.deplacement(chemin, 2);
-			if(l.getEmplacement().distance(l2.getEmplacement() )==1){
-				l.se_reproduire(l2);
+			while(it.hasNext()) {
+				c= it.next();
+				c_nee=(Carnivore) c.faire_passer_le_temps();
+				if(c_nee!=null) nouveaux_nees.add(c_nee);
 			}
+			
+			ll.addAll(nouveaux_nees);
 			fen_jeu.repaint();
 		
 			Thread.sleep(500);

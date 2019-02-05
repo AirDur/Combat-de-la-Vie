@@ -16,6 +16,9 @@ public abstract class Consommateur {
 	 * Déclare l'état de la faim de l'individu (dépend du compteur_faim)
 	 */
 	private EtatFaim etat_faim;
+	
+	private int compteur_reproduction=15;
+	
 	/**
 	 * Vie de l'animal.
 	 */
@@ -74,7 +77,7 @@ public abstract class Consommateur {
 		compteur_faim = 100;
 		etat_faim = EtatFaim.satisfait;
 		Grille g = Grille.getinstance();
-		g.setEtat(EtatCase.consommateur, emplacement);
+		//g.setEtat(EtatCase.consommateur, emplacement);
 		capacite_maximale_de_deplacement = cmc;
 		age = a;
 		duree_de_vie = ddv;
@@ -90,7 +93,7 @@ public abstract class Consommateur {
     public int se_deplacer(Case c) {
     	if(c!=null) {
 	    	Grille g = Grille.getinstance(0, 0);
-	    	if(vivant && (c.getEc() == EtatCase.libre) && capacite_maximale_de_deplacement > (c.distance(emplacement)) ) {
+	    	if(vivant && (c.getEc() == EtatCase.libre) ) {
 	    		g.setEtat(EtatCase.libre, emplacement);
 	    		g.setEtat(EtatCase.consommateur, c);
 	    		emplacement = c;
@@ -151,7 +154,7 @@ public abstract class Consommateur {
      * @return true s'il a faim ou famine, false sinon.
      */
 	protected boolean check_faim() {
-    	if(etat_faim != EtatFaim.satisfait)
+    	if(etat_faim == EtatFaim.satisfait)
     		return false;
     	else 
     		return true;
@@ -163,6 +166,7 @@ public abstract class Consommateur {
 	 * @return Case de déplacement
 	 */
 	protected Case deplacement_aleatoire(int r) {
+		System.out.println("C'est de déplacement aleatoire");
     	Grille g = Grille.getinstance();
 		ArrayList<Case> al = g.getCaseAutour(emplacement, r);
 		System.out.println("deplacemnt : taille de getcaseautour : " + al.size());
@@ -265,5 +269,13 @@ public abstract class Consommateur {
 	
 	protected Integer getVie() {
 		return vie;
+	}
+	
+	protected int get_comprep() {
+		return compteur_reproduction;
+	}
+	
+	protected void set_comprep(int val) {
+		compteur_reproduction=val;
 	}
 }

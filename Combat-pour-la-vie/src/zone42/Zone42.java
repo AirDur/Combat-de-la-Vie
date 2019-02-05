@@ -780,6 +780,7 @@ public class Zone42 implements Runnable {
 		return 1;
 	}
 	
+	
 	/**
 	 * Supprime un Carnivore à la liste
 	 * @param c Carnivore à rajouter

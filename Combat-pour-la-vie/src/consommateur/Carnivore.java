@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import aliment.*;
+import zone42.Astar;
 import zone42.Case;
 import zone42.Grille;
 import zone42.Zone42;
@@ -56,7 +57,10 @@ public abstract class Carnivore extends Consommateur {
     	if(check_faim()) {
     		Aliment ar = recherche_aliment();
     		if(ar != null) {
-    			manger(ar);
+    			if( this.getEmplacement().proximite(ar.getEmplacement()) ) {
+    				manger(ar);
+    			}
+    			
     		} else {
     			Consommateur ac = recherche_proie();
     			
@@ -71,15 +75,24 @@ public abstract class Carnivore extends Consommateur {
     		}
     		//se déplace
     		return null;
-    	} else {
+    	} else if(this.get_comprep()==0){
     		Consommateur r = recherche_reproducteur();
     		if(r != null) {
-    			return se_reproduire(r);
-    		} else {
-    			deplacement_aleatoire(1);
-    			return null;
+    			if(this.getEmplacement().proximite(r.getEmplacement())) {
+    				return se_reproduire(r);
+    			}
+    			else {
+    				Astar as = new Astar(Grille.getinstance(),this.getEmplacement(),r.getEmplacement());
+    				this.deplacement(as.get_chemin(), this.getCapacite_maximale_de_deplacement());
+    				return null;
+    			}
     		}
+    	} else {
+    		this.set_comprep(get_comprep()-1);
+			deplacement_aleatoire(1);
+			return null;
     	}
+    	return null;
     }
 	
 	private boolean attaquer(Consommateur c) {

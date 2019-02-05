@@ -41,7 +41,6 @@ public class Loup extends Carnivore{
 
 	@Override
 	public Loup se_reproduire(Consommateur c) {
-		System.out.println("le sex");
 		String nom_classe_this = this.getClass().getName().toString();
     	String nom_classe_c = c.getClass().getName().toString();
     	if(nom_classe_this.equals(nom_classe_c) && this.getSexe() != c.getSexe()) {
@@ -55,11 +54,12 @@ public class Loup extends Carnivore{
     				Math.max(this.getCapacite_maximale_de_deplacement(), c.getCapacite_maximale_de_deplacement()), 0, 
     				Math_methods.randomWithRange(this.getDuree_De_Vie()-1, c.getDuree_De_Vie()+1), 
     				Math_methods.randomWithRange(this.getForce_combat()-1, c.getDuree_De_Vie()+1));
-	    		Zone42.getInstance().ajout_carnivore(l);
+	    		//Zone42.getInstance().ajout_carnivore(l);
+	    		this.set_comprep(60);
+	    		c.set_comprep(60);
 	    		return l;
     		}
     		else {
-    			System.out.println("Pas de case dispo => Avortement");
     			return null;
     		}
     	} else {
