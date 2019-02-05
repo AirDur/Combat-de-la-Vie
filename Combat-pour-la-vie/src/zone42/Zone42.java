@@ -42,7 +42,7 @@ public class Zone42 implements Runnable {
 	/**
 	 * L'unité du temps du jeu le cycle
 	 */
-	private int cycle=0;
+	private static int cycle=0;
 
 	private static Integer seuil_faim;
 
@@ -86,6 +86,7 @@ public class Zone42 implements Runnable {
 	 * @return 0 si aucune erreur, -1 si erreur de fichier. un nombre pour débugger sinon.
 	 */
 	public static int initialisation(File fichier) {
+		raz();
         Wini ini;
         int no_problem = 0;
 		try {
@@ -123,30 +124,25 @@ public class Zone42 implements Runnable {
 				int vie = ini.get("Fabrique_Vegetaux_"+i, "duree_de_vie", int.class);
 				if(vie < 10 || vie > 100000000) {
 					vie = 100;
-					no_problem = 5;
 				}
 				int quantite = ini.get("Fabrique_Vegetaux_"+i, "capacite_production", int.class);
 				if(quantite < 1 || quantite > 5) {
 					quantite = 2;
-					no_problem = 6;
 				}
 				
 				int cycle = ini.get("Fabrique_Vegetaux_"+i, "cycle_production", int.class);
 				if(cycle < 1 || cycle > 100000000) {
 					cycle = 10;
-					no_problem = 7;
 				}
 				
 				int x = ini.get("Fabrique_Vegetaux_"+i, "x", int.class);
 				if(x < 0 || x >= tailleGrille) {
 					x = Math_methods.randomWithRange(0, tailleGrille-1);
-					no_problem = 8;
 				}
 				
 				int y = ini.get("Fabrique_Vegetaux_"+i, "y", int.class);
 				if(y < 0 || y >= tailleGrille) {
 					y = Math_methods.randomWithRange(0, tailleGrille-1);
-					no_problem = 9;
 				}
 				String type_production = ini.get("Fabrique_Vegetaux_"+i, "type_production").toLowerCase();
 				
@@ -222,15 +218,17 @@ public class Zone42 implements Runnable {
 			Plante.setTempsDecomposition(valeur_decompo_Plante);
 			Pomme.setTempsDecomposition(valeur_decompo_Pomme);
 	        
-			int nb_bos_taurus = ini.get("Animal", "bos_taurus", int.class);
-			int nb_caribou = ini.get("Animal", "caribou", int.class);
-			int nb_chevreuil = ini.get("Animal", "chevreuil", int.class);
-			int nb_lion = ini.get("Animal", "lion", int.class);
-			int nb_loup = ini.get("Animal", "loup", int.class);
-			int nb_mouton = ini.get("Animal", "mouton", int.class);
-			int nb_tigre = ini.get("Animal", "tigre", int.class);
+			int nb_bos_taurus = ini.get("Animal", "Bos_taurus", int.class);
+			int nb_caribou = ini.get("Animal", "Caribou", int.class);
+			int nb_chevreuil = ini.get("Animal", "Chevreuil", int.class);
+			int nb_lion = ini.get("Animal", "Lion", int.class);
+			int nb_loup = ini.get("Animal", "Loup", int.class);
+			int nb_mouton = ini.get("Animal", "Mouton", int.class);
+			int nb_tigre = ini.get("Animal", "Tigre", int.class);
 			
-			for(int i  = 1; i < nb_bos_taurus; i++) {
+			System.out.println(nb_bos_taurus);
+			for(int i = 1; i <= nb_bos_taurus; i++) {
+				
 				int age = 1;
 				int x = Math_methods.randomWithRange(0, tailleGrille-1);
 				int y = Math_methods.randomWithRange(0, tailleGrille-1);
@@ -698,6 +696,24 @@ public class Zone42 implements Runnable {
 		}        
 	}
 	
+	/**
+	 * Mise à Zéro de la grille (normalement)
+	 */
+	private static void raz() {
+		cycle = 0;
+
+		seuil_faim = 70;
+		seuil_famine = 25;
+		operationnel = false;
+		tailleGrille = 30;
+		grille = Grille.getinstance();
+		list_fabrique_vegetaux = new ArrayList<Fabrique_de_Vegetaux>(1000);
+		list_aliment = new ArrayList<Aliment>(1000);
+		list_herbivore = new ArrayList<Herbivore>(1000);
+		list_carnivore = new ArrayList<Carnivore>(1000);
+		
+	}
+
 	/**
 	 * Methode qui incrément les cycle toutes les
 	 * temps millisecondes
