@@ -45,16 +45,23 @@ public class Loup extends Carnivore{
 		String nom_classe_this = this.getClass().getName().toString();
     	String nom_classe_c = c.getClass().getName().toString();
     	if(nom_classe_this.equals(nom_classe_c) && this.getSexe() != c.getSexe()) {
-    		Case new_emplacement = Grille.getinstance().getCaseProche(this.emplacement, c.emplacement);
-    		Sexe es = Sexe.femelle;
-    		if(Math_methods.randomWithRange(0,1) == 1) 
-    			es = Sexe.male;
-    		Loup l = new Loup(es, Math_methods.randomWithRange(this.getVie()-1, c.getVie()+1),
+    		Case new_emplacement = Grille.getinstance().getCaseProche(this.emplacement);
+    		if(new_emplacement!=null) {
+	    		Sexe es = Sexe.femelle;
+	    		if(Math_methods.randomWithRange(0,1) == 1) 
+	    			es = Sexe.male;
+	    		Loup l = new Loup(es, Math_methods.randomWithRange(this.getVie()-1, c.getVie()+1),
     				new_emplacement, 
     				Math.max(this.getCapacite_maximale_de_deplacement(), c.getCapacite_maximale_de_deplacement()), 0, 
     				Math_methods.randomWithRange(this.getDuree_De_Vie()-1, c.getDuree_De_Vie()+1), 
     				Math_methods.randomWithRange(this.getForce_combat()-1, c.getDuree_De_Vie()+1));
-    		return l;
+	    		Zone42.getInstance().ajout_carnivore(l);
+	    		return l;
+    		}
+    		else {
+    			System.out.println("Pas de case dispo => Avortement");
+    			return null;
+    		}
     	} else {
     		return null;
     	}

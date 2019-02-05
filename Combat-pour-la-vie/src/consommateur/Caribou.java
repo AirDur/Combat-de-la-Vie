@@ -15,7 +15,7 @@ public class Caribou extends Cervide{
 		String nom_classe_this = this.getClass().getName().toString();
     	String nom_classe_c = c.getClass().getName().toString();
     	if(nom_classe_this.equals(nom_classe_c) && this.getSexe() != c.getSexe()) {
-    		Case new_emplacement = Grille.getinstance().getCaseProche(this.emplacement, c.emplacement);
+    		Case new_emplacement = Grille.getinstance().getCaseProche(this.emplacement);
     		Sexe es = Sexe.femelle;
     		if(Math_methods.randomWithRange(0,1) == 1) 
     			es = Sexe.male;

@@ -29,11 +29,11 @@ public class Main {
 
 		
 		Case c7 = zone2.getGrille_info().get_case(2, 2);
-		Loup l = new Loup(Sexe.femelle,100,c7);
+		Loup l = new Loup(Sexe.femelle,100,c7,10,10,10,10);
 		zone2.ajout_carnivore(l);
 		
 		Case c10 = zone2.getGrille_info().get_case(11,11);
-		Loup l2 = new Loup(Sexe.male,100,c10);
+		Loup l2 = new Loup(Sexe.male,100,c10,10,10,10,10);
 		zone2.ajout_carnivore(l2);
 		Loup go_cheufre = (Loup) l2.recherche_reproducteur();
 		
