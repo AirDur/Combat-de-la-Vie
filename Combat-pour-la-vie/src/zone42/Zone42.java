@@ -762,6 +762,7 @@ public class Zone42 implements Runnable {
 	 * @return 1 si ok, 0 si erreur
 	 */
 	public boolean supprime_carnivore(Carnivore c) {
+		c.getEmplacement().setEc(EtatCase.libre);
 		return list_carnivore.remove(c);
 	}
 	
@@ -771,6 +772,7 @@ public class Zone42 implements Runnable {
 	 * @return 1 si ok, 0 si erreur
 	 */
 	public int ajout_herbivore( Herbivore h) {
+		h.getEmplacement().setEc(EtatCase.consommateur);
 		list_herbivore.add(h);
 		return 1;
 	}
@@ -781,6 +783,7 @@ public class Zone42 implements Runnable {
 	 * @return 1 si ok, 0 si erreur
 	 */
 	public boolean supprime_herbivore(Herbivore h) {
+		h.getEmplacement().setEc(EtatCase.consommateur);
 		return list_herbivore.remove(h);
 	}
 	

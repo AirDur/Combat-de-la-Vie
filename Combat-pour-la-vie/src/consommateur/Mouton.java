@@ -19,7 +19,11 @@ public class Mouton extends Herbivore {
     		Sexe es = Sexe.femelle;
     		if(Math_methods.randomWithRange(0,1) == 1) 
     			es = Sexe.male;
-    		return new Mouton(es, 7, new_emplacement);
+    		return new Mouton(es, Math_methods.randomWithRange(this.getVie()-1, c.getVie()+1),
+    				new_emplacement, 
+    				Math.max(this.getCapacite_maximale_de_deplacement(), c.getCapacite_maximale_de_deplacement()), 0, 
+    				Math_methods.randomWithRange(this.getDuree_De_Vie()-1, c.getDuree_De_Vie()+1), 
+    				Math_methods.randomWithRange(this.getForce_combat()-1, c.getDuree_De_Vie()+1));
     	} else {
     		return null;
     	}

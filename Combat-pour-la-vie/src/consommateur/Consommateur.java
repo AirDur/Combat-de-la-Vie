@@ -250,4 +250,20 @@ public abstract class Consommateur {
 	public Case getEmplacement() {
 		return emplacement;
 	}
+
+	protected Integer getCapacite_maximale_de_deplacement() {
+		return capacite_maximale_de_deplacement;
+	}
+
+	protected void setCapacite_maximale_de_deplacement(Integer capacite_maximale_de_deplacement) {
+		this.capacite_maximale_de_deplacement = capacite_maximale_de_deplacement;
+	}
+	
+	protected Integer getDuree_De_Vie() {
+		return duree_de_vie;
+	}
+	
+	protected Integer getVie() {
+		return vie;
+	}
 }
