@@ -165,44 +165,52 @@ public class Zone42 implements Runnable {
 			}
 			
 			int valeur_ener_Foin = ini.get("Foin", "valeur_energetique", int.class);
-			if(valeur_ener_Foin < 1 || valeur_ener_Foin > 1000)
+			if(valeur_ener_Foin < 1 || valeur_ener_Foin > 1000) {
 				valeur_ener_Foin = 10;
 				no_problem = 10;
+			}
 
 			int valeur_decompo_Foin = ini.get("Foin", "temps_decomposition", int.class);
-			if(valeur_decompo_Foin < 1 || valeur_decompo_Foin > 1000)
+			if(valeur_decompo_Foin < 1 || valeur_decompo_Foin > 1000) {
 				valeur_decompo_Foin = 10;
 				no_problem = 11;
+			}	
 			
 			int valeur_ener_Herbe = ini.get("Herbe", "valeur_energetique", int.class);
-			if(valeur_ener_Herbe < 1 || valeur_ener_Herbe > 1000)
+			if(valeur_ener_Herbe < 1 || valeur_ener_Herbe > 1000) {
 				valeur_ener_Herbe = 10;
 				no_problem = 12;
+			}	
 				
 			int valeur_decompo_Herbe = ini.get("Herbe", "temps_decomposition", int.class);
-			if(valeur_decompo_Herbe < 1 || valeur_decompo_Herbe > 1000)
+			if(valeur_decompo_Herbe < 1 || valeur_decompo_Herbe > 1000) {
 				valeur_decompo_Herbe = 10;
 				no_problem = 13;
+			}
 			
 			int valeur_ener_Plante = ini.get("Plante", "valeur_energetique", int.class);
-			if(valeur_ener_Plante < 1 || valeur_ener_Plante > 1000)
+			if(valeur_ener_Plante < 1 || valeur_ener_Plante > 1000 ) {
 				valeur_ener_Plante = 10;
 				no_problem = 14;
-
+			}
+				
 			int valeur_decompo_Plante = ini.get("Plante", "temps_decomposition", int.class);
-			if(valeur_decompo_Plante < 1 || valeur_decompo_Plante > 1000)
+			if(valeur_decompo_Plante < 1 || valeur_decompo_Plante > 1000) {
 				valeur_decompo_Plante = 10;
 				no_problem = 15;
-			
+			}
+				
 			int valeur_ener_Pomme = ini.get("Pomme", "valeur_energetique", int.class);
-			if(valeur_ener_Pomme < 1 || valeur_ener_Pomme > 1000)
+			if(valeur_ener_Pomme < 1 || valeur_ener_Pomme > 1000) {
 				valeur_ener_Pomme = 10;
 				no_problem = 16;
-				
+			}
+					
 			int valeur_decompo_Pomme = ini.get("Pomme", "temps_decomposition", int.class);
-			if(valeur_decompo_Pomme < 1 || valeur_decompo_Pomme > 1000)
+			if(valeur_decompo_Pomme < 1 || valeur_decompo_Pomme > 1000) {
 				valeur_decompo_Pomme = 10;
 				no_problem = 17;
+			}	
 				
 			Foin.setProprieteNutritive(valeur_ener_Foin);
 			Herbe.setProprieteNutritive(valeur_ener_Herbe);
