@@ -18,26 +18,10 @@ public class ActionLaunch implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent evt) {
-    	
-    	//verifier si Zone42 est opérationel puis le lancer.
     	if(Zone42.isOperationnel()) {
     		gg.setEn_cours(true);
-    		play();
+    		Fenetre.timer.start();
     	}
     }
     
-    private void play() {
-    	try {
-			while(gg.isEn_cours()) {
-				System.out.println("en cours");
-				gg.repaint();
-				Thread.sleep(Zone42.getTemps_cycle());
-				Zone42.faire_passer_le_temps();	
-			}
-		}catch(InterruptedException e) {
-			gg.setEn_cours(false);
-			System.out.println("Thread interrupted.");
-		}
-    }
 }
-

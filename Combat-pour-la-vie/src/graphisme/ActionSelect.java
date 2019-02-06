@@ -32,6 +32,7 @@ public class ActionSelect implements ActionListener {
         	} else {
         		JOptionPane.showMessageDialog(null, "Fichier d'initialisation chargé", "Chargement complet", JOptionPane.INFORMATION_MESSAGE);
         	}
+        	Fenetre.changeTimer(Zone42.getTemps_cycle());
         }
         gg.repaint();
     }

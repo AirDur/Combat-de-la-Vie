@@ -31,21 +31,6 @@ public class Main {
 		Fenetre fen_jeu = Fenetre.CreerFenetre(zone2.getTaille(), zone2);
 		Grille g = zone2.getGrille_info();
 		
-		//public Loup(Sexe s, int v, Case c, int cmc, int a, int ddv, int fc) {
-		Loup l = new Loup(Sexe.male, 20, g.get_case(1, 1), 2,10,10,10 );
-		zone2.ajout_carnivore(l);
-		
-		Mouton m = new Mouton(Sexe.femelle,20, g.get_case(10, 2),10,10,10,10 );
-		zone2.ajout_herbivore(m);
-		
-		while(true) {
-		
-			l.faire_passer_le_temps();
-			fen_jeu.repaint();
-			Thread.sleep(500);
-			
-		}
-		
 	}
 	
 }

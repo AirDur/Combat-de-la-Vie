@@ -282,7 +282,7 @@ public class Zone42 implements Runnable {
 				try {
 					Bos_taurus bt = new Bos_taurus(sexe, pv, c, capacite_maximale_de_deplacement, age, duree_de_vie, force_de_combat);
 					list_herbivore.add(bt);
-					Grille.getinstance().setEtat(EtatCase.consommateur, c);
+					Grille.getinstance().setEtat(EtatCase.herbivore, c);
 				} catch(Exception e){
 					System.out.println(e);
 				}
@@ -348,7 +348,7 @@ public class Zone42 implements Runnable {
 				try {
 					Caribou bt = new Caribou(sexe, pv, c, capacite_maximale_de_deplacement, age, duree_de_vie, force_de_combat);
 					list_herbivore.add(bt);
-					Grille.getinstance().setEtat(EtatCase.consommateur, c);
+					Grille.getinstance().setEtat(EtatCase.herbivore, c);
 				} catch(Exception e){
 					System.out.println(e);
 				}
@@ -414,7 +414,7 @@ public class Zone42 implements Runnable {
 				try {
 					Chevreuil bt = new Chevreuil(sexe, pv, c, capacite_maximale_de_deplacement, age, duree_de_vie, force_de_combat);
 					list_herbivore.add(bt);
-					Grille.getinstance().setEtat(EtatCase.consommateur, c);
+					Grille.getinstance().setEtat(EtatCase.herbivore, c);
 				} catch(Exception e){
 					System.out.println(e);
 				}
@@ -480,7 +480,7 @@ public class Zone42 implements Runnable {
 				try {
 					Lion bt = new Lion(sexe, pv, c, capacite_maximale_de_deplacement, age, duree_de_vie, force_de_combat);
 					list_carnivore.add(bt);
-					Grille.getinstance().setEtat(EtatCase.consommateur, c);
+					Grille.getinstance().setEtat(EtatCase.carnivore, c);
 				} catch(Exception e){
 					System.out.println(e);
 				}
@@ -546,7 +546,7 @@ public class Zone42 implements Runnable {
 				try {
 					Loup bt = new Loup(sexe, pv, c, capacite_maximale_de_deplacement, age, duree_de_vie, force_de_combat);
 					list_carnivore.add(bt);
-					Grille.getinstance().setEtat(EtatCase.consommateur, c);
+					Grille.getinstance().setEtat(EtatCase.carnivore, c);
 				} catch(Exception e){
 					System.out.println(e);
 				}
@@ -612,7 +612,7 @@ public class Zone42 implements Runnable {
 				try {
 					Mouton bt = new Mouton(sexe, pv, c, capacite_maximale_de_deplacement, age, duree_de_vie, force_de_combat);
 					list_herbivore.add(bt);
-					Grille.getinstance().setEtat(EtatCase.consommateur, c);
+					Grille.getinstance().setEtat(EtatCase.herbivore, c);
 				} catch(Exception e){
 					System.out.println(e);
 				}
@@ -678,7 +678,7 @@ public class Zone42 implements Runnable {
 				try {
 					Tigre bt = new Tigre(sexe, pv, c, capacite_maximale_de_deplacement, age, duree_de_vie, force_de_combat);
 					list_carnivore.add(bt);
-					Grille.getinstance().setEtat(EtatCase.consommateur, c);
+					Grille.getinstance().setEtat(EtatCase.carnivore, c);
 				} catch(Exception e){
 					System.out.println(e);
 				}
