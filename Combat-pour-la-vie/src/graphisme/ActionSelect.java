@@ -21,6 +21,7 @@ public class ActionSelect implements ActionListener {
 
 	@Override
     public void actionPerformed(ActionEvent evt) {
+		gg.setEn_cours(false);
         JFileChooser dialogue = new JFileChooser(new File("."));
         File fichier;
         if (dialogue.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
