@@ -1,11 +1,10 @@
 package zone42;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
 class GrilleTest {
 
+	@SuppressWarnings("unused")
 	@Test
 	void test() {
 		Grille lagrille = Grille.getinstance(10, 10);

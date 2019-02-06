@@ -1,38 +1,28 @@
 package graphisme;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import zone42.EtatCase;
-import zone42.Grille;
-import zone42.Zone42;
+import zone42.*;
 
 public class Grille_graphisme extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 	private Integer taille, squareSize;
-	private Zone42 espace_jeu;
 	private JButton b_upload, b_launch, b_pause, b_stop, b_help;
 	private Grille grille_info;
-	Cellule liste_cellule;
+	private boolean en_cours;
 	
 	public Grille_graphisme(int t, int taille_max, Grille grille_jeu) {
 		grille_info = grille_jeu;
 		taille = t;
-		squareSize = taille_max/t;
-		
+		squareSize = taille_max/t;	
 		addButtons();
+		setEn_cours(false);
 	}
-		
-
-	
 	
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);  // Fills the background color.
@@ -75,9 +65,9 @@ public class Grille_graphisme extends JPanel{
 	private void addButtons() {
 		Insets insets = getInsets();
 		b_upload = createButton("Select", "Select a new initialisation file", new ActionSelect(this));
-		b_launch = createButton("Launch", "Launch the animation", new ActionLaunch());
-		b_stop = createButton("Stop", "Stop the animation", new ActionPause());
-		b_pause = createButton("Pause", "Pause the animation", new ActionPause());
+		b_launch = createButton("Launch", "Launch the animation", new ActionLaunch(this));
+		b_stop = createButton("Stop", "Stop the animation", new ActionPause(this));
+		b_pause = createButton("Pause", "Pause the animation", new ActionPause(this));
 		b_help = createButton("Help", "Open an Help window", new ActionStop());
 	    add(b_upload); add(b_launch); add(b_pause); add(b_stop); add(b_help);
 	    
@@ -102,6 +92,14 @@ public class Grille_graphisme extends JPanel{
 		jb.setBackground(Color.white);
 		jb.setToolTipText(tooltip);
 		return jb;
+	}
+
+	public boolean isEn_cours() {
+		return en_cours;
+	}
+
+	public void setEn_cours(boolean ec) {
+		en_cours = ec;
 	}
 	
 	/*public void paintComponent(Graphics g) {

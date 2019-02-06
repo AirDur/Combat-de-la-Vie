@@ -9,12 +9,6 @@ import consommateur.*;
 public class Zone42 implements Runnable {
 	
 	/**
-	 * verrou pour empêcher l'interface graphique de travailler tant que Zone42 n'a pas fini son travail.
-	 */
-	@Deprecated
-	private boolean lock;
-	
-	/**
 	 * Liste de Fabrique d'aliment de la Zone42
 	 */
 	
@@ -730,7 +724,7 @@ public class Zone42 implements Runnable {
 		}
 	}
 	
-	public void faire_passer_le_temps() {
+	public static void faire_passer_le_temps() {
 		// fabriques de végétaux : 
 		for(Fabrique_de_Vegetaux fv : list_fabrique_vegetaux) {
 			ArrayList<Vegetaux> al = fv.utilisation();
@@ -748,26 +742,6 @@ public class Zone42 implements Runnable {
 		
 		// clean (virer aliment périmé et les animaux morts).
 	};
-	
-	@Deprecated
-	public void lock() {
-		setLock(true);
-	}
-	
-	@Deprecated
-	public void delock() {
-		setLock(false);
-	}
-
-	@Deprecated
-	public boolean isLock() {
-		return lock;
-	}
-
-	@Deprecated
-	public void setLock(boolean lock) {
-		this.lock = lock;
-	}
 	
 	/**
 	 * Rajoute un Carnivore à la liste
@@ -867,11 +841,19 @@ public class Zone42 implements Runnable {
 		Zone42.seuil_famine = seuil_famine;
 	}
 
-	protected static boolean isOperationnel() {
+	public static boolean isOperationnel() {
 		return operationnel;
 	}
 
 	protected static void setOperationnel(boolean operationnel) {
 		Zone42.operationnel = operationnel;
+	}
+
+	public static int getTemps_cycle() {
+		return temps_cycle;
+	}
+
+	protected static void setTemps_cycle(int temps_cycle) {
+		Zone42.temps_cycle = temps_cycle;
 	}
 }
