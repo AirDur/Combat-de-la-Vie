@@ -5,5 +5,6 @@ public enum EtatCase {
 	fabriqueVegetaux,
 	vegetal,
 	cadavre,
+	herbivore, carnivore,
 	consommateur
 }

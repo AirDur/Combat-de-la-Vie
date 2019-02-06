@@ -74,7 +74,7 @@ public abstract class Consommateur {
 		sexe = s;
 		vie = v;
 		emplacement = c;
-		compteur_faim = 100;
+		compteur_faim = 44;
 		etat_faim = EtatFaim.satisfait;
 		Grille g = Grille.getinstance();
 		//g.setEtat(EtatCase.consommateur, emplacement);
@@ -95,7 +95,7 @@ public abstract class Consommateur {
 	    	Grille g = Grille.getinstance(0, 0);
 	    	if(vivant && (c.getEc() == EtatCase.libre) ) {
 	    		g.setEtat(EtatCase.libre, emplacement);
-	    		g.setEtat(EtatCase.consommateur, c);
+	    		g.setEtat(EtatCase.carnivore, c);
 	    		emplacement = c;
 	    		return 1;
 	    	} else
@@ -154,34 +154,24 @@ public abstract class Consommateur {
      * @return true s'il a faim ou famine, false sinon.
      */
 	protected boolean check_faim() {
-    	if(etat_faim == EtatFaim.satisfait)
+		this.setCompteur_faim(compteur_faim-1);
+		System.out.println("Compteur faim = "+this.getCompteur_faim());
+		change_etat_faim();
+    	if(etat_faim == EtatFaim.satisfait) {
     		return false;
-    	else 
+    	}else {
+    		System.out.println("c'est la faim");
     		return true;
+    	}
     }
+	
 	
 	/**
 	 * Déplace aléatoirement l'animal dans une zone de rayon r
 	 * @param r rayon maximal de déplacement
 	 * @return Case de déplacement
 	 */
-	protected Case deplacement_aleatoire(int r) {
-		System.out.println("C'est de déplacement aleatoire");
-    	Grille g = Grille.getinstance();
-		ArrayList<Case> al = g.getCaseAutour(emplacement, r);
-		System.out.println("deplacemnt : taille de getcaseautour : " + al.size());
-		if(al.size() > 0) {
-			int i = Math_methods.randomWithRange(0, al.size()-1);
-			Case c = al.get(i);
-			System.out.println(c.toString());
-			g.setEtat(EtatCase.libre, emplacement);
-			emplacement = c;
-			g.setEtat(EtatCase.consommateur, emplacement);
-			return c;
-		} else
-			return emplacement;
-		
-	}
+	protected abstract Case deplacement_aleatoire(int r) ;
 	
 	
 	/**

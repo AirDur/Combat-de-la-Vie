@@ -771,7 +771,7 @@ public class Zone42 implements Runnable {
 	 * @return 1 si ok, 0 si erreur
 	 */
 	public int ajout_herbivore( Herbivore h) {
-		h.getEmplacement().setEc(EtatCase.consommateur);
+		h.getEmplacement().setEc(EtatCase.herbivore);
 		list_herbivore.add(h);
 		return 1;
 	}
@@ -826,7 +826,8 @@ public class Zone42 implements Runnable {
 	}
 	
 	public static Integer getSeuil_faim() {
-		return seuil_faim;
+		//return seuil_faim;
+		return 40;
 	}
 
 	protected void setSeuil_faim(Integer seuil_faim) {
@@ -834,7 +835,8 @@ public class Zone42 implements Runnable {
 	}
 
 	public static Integer getSeuil_famine() {
-		return seuil_famine;
+		//return seuil_famine;
+		return 20;
 	}
 
 	protected void setSeuil_famine(Integer seuil_famine) {

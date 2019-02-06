@@ -6,7 +6,9 @@ import java.util.Iterator;
 import aliment.*;
 import zone42.Astar;
 import zone42.Case;
+import zone42.EtatCase;
 import zone42.Grille;
+import zone42.Math_methods;
 import zone42.Zone42;
 
 public abstract class Carnivore extends Consommateur {
@@ -57,6 +59,7 @@ public abstract class Carnivore extends Consommateur {
     	if(check_faim()) {
     		Aliment ar = recherche_aliment();
     		if(ar != null) {
+    			System.out.println("Aliment trouve");
     			if( this.getEmplacement().proximite(ar.getEmplacement()) ) {
     				manger(ar);
     			}
@@ -65,12 +68,26 @@ public abstract class Carnivore extends Consommateur {
     			Consommateur ac = recherche_proie();
     			
     			if(ac !=  null) {
-    				if(attaquer(ac)) {
-    					ar = recherche_aliment();
-    					manger(ar);
-    				}
+    				System.out.println("proie trouvee");
+    				
+    				
+    				if(this.getEmplacement().proximite(ac.getEmplacement())) {
+    					/*if(attaquer(ac)) {
+        					ar = recherche_aliment();
+        					manger(ar);
+        				}*/
+    					attaquer(ac);
+        			}
+        			else {
+        				Astar as = new Astar(Grille.getinstance(),this.getEmplacement(),ac.getEmplacement());
+        				this.deplacement(as.get_chemin(), this.getCapacite_maximale_de_deplacement());
+        				return null;
+        			}
+    					
+    					
+    				
     			} else {
-    				//se_deplacer(ac);
+    				deplacement_aleatoire(1);
     			}
     		}
     		//se déplace
@@ -86,6 +103,8 @@ public abstract class Carnivore extends Consommateur {
     				this.deplacement(as.get_chemin(), this.getCapacite_maximale_de_deplacement());
     				return null;
     			}
+    		}else {
+    			deplacement_aleatoire(1);
     		}
     	} else {
     		this.set_comprep(get_comprep()-1);
@@ -94,6 +113,22 @@ public abstract class Carnivore extends Consommateur {
     	}
     	return null;
     }
+	
+	protected Case deplacement_aleatoire(int r) {
+    	Grille g = Grille.getinstance();
+		ArrayList<Case> al = g.getCaseAutour(emplacement, r);
+		if(al.size() > 0) {
+			int i = Math_methods.randomWithRange(0, al.size()-1);
+			Case c = al.get(i);
+			g.setEtat(EtatCase.libre, emplacement);
+			emplacement = c;
+			g.setEtat(EtatCase.carnivore, emplacement);
+			return c;
+		} else
+			return emplacement;
+		
+	}
+	
 	
 	private boolean attaquer(Consommateur c) {
 		return c.se_defendre(this);

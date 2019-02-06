@@ -5,12 +5,18 @@ import java.util.Iterator;
 
 import aliment.*;
 import zone42.Case;
+import zone42.EtatCase;
+import zone42.Grille;
+import zone42.Math_methods;
 import zone42.Zone42;
 
 public abstract class Herbivore extends Consommateur {
 	
+	private EtatCase type;
+	
 	public Herbivore(Sexe s, int v, Case c, int cmc, int a, int ddv, int fc) {
 		super(s, v, c, cmc, a, ddv, fc);
+		type=EtatCase.herbivore;
 	}
 
 	@Override
@@ -79,6 +85,21 @@ public abstract class Herbivore extends Consommateur {
     		}
     	}
     }
+	
+	protected Case deplacement_aleatoire(int r) {
+    	Grille g = Grille.getinstance();
+		ArrayList<Case> al = g.getCaseAutour(emplacement, r);
+		if(al.size() > 0) {
+			int i = Math_methods.randomWithRange(0, al.size()-1);
+			Case c = al.get(i);
+			g.setEtat(EtatCase.libre, emplacement);
+			emplacement = c;
+			g.setEtat(EtatCase.consommateur, emplacement);
+			return c;
+		} else
+			return emplacement;
+		
+	}
 
 	@Override
 	public abstract Consommateur se_reproduire(Consommateur c);
