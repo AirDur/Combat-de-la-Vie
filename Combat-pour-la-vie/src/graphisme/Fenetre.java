@@ -6,7 +6,7 @@ import javax.swing.*;
 import zone42.Zone42;
 import zone42.Grille;
 
-public class Fenetre extends JFrame{
+public class Fenetre extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -14,6 +14,9 @@ public class Fenetre extends JFrame{
 	/*private Cellule liste_cellule;
 	private Zone42 espace_jeu;
 	private Integer temps;*/
+	protected static Timer timer;
+	private int count; // Counts the number of sendings done by the timer
+	private boolean running; // Indicates if the timer is started (true) or stopped (false)
 
 	private static Integer taille_max = 500;
 	
@@ -23,6 +26,7 @@ public class Fenetre extends JFrame{
 		grille = new Grille_graphisme(tailleGrille, taille_max, grille_jeu);
 		grille.setLayout(new BorderLayout());
 		add(grille);
+		timer = new Timer(1000, new AnimationTimer(grille));
 	}
 	
 	public static Fenetre CreerFenetre(int tailleGrille, Zone42 espace_jeu) {
@@ -35,5 +39,33 @@ public class Fenetre extends JFrame{
 		fen.setVisible(true);
 		fen.setLayout(null);
 		return fen;
+	}
+
+	public static void changeTimer(int delay) {
+		timer.setDelay(delay);
+	}
+	
+	public Timer getTimer() {
+		return timer;
+	}
+
+	public void setTimer(Timer timer) {
+		timer = timer;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
 	}
 }

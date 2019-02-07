@@ -2,6 +2,8 @@ package graphisme;
 
 import java.awt.event.*;
 
+import zone42.Zone42;
+
 /**
  * Fonctions correspond aux actions d'un bouton
  */
@@ -16,7 +18,11 @@ public class ActionPause implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent evt) {
-    	gg.setEn_cours(false);
+    	if(Fenetre.timer.isRunning() && Zone42.isOperationnel() && gg.isEn_cours()) {
+    		Fenetre.timer.stop();
+    	} else {
+    		Fenetre.timer.start();
+    	}
     }
 }
 
