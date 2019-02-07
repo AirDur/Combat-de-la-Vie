@@ -49,6 +49,9 @@ public class Grille_graphisme extends JPanel{
             		case carnivore: g2.setColor(Color.red);
             						break;
             						
+            		case cadavre: g2.setColor(Color.orange);
+            					break;	
+            		
             		case herbivore: g2.setColor(Color.BLUE);
             		default:
             						break;

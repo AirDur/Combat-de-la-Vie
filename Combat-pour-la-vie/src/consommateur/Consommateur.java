@@ -19,6 +19,8 @@ public abstract class Consommateur {
 	
 	private int compteur_reproduction=15;
 	
+	private boolean est_attaque=false;
+	
 	/**
 	 * Vie de l'animal.
 	 */
@@ -90,18 +92,7 @@ public abstract class Consommateur {
      * @param g grille
      * @return 1 si ça marche, 0 si la case est occupée, trop loin ou le Consommateur mort.
      */
-    public int se_deplacer(Case c) {
-    	if(c!=null) {
-	    	Grille g = Grille.getinstance(0, 0);
-	    	if(vivant && (c.getEc() == EtatCase.libre) ) {
-	    		g.setEtat(EtatCase.libre, emplacement);
-	    		g.setEtat(EtatCase.carnivore, c);
-	    		emplacement = c;
-	    		return 1;
-	    	} else
-	    		return 0;
-    	}else return 0;
-    }
+    public abstract int se_deplacer(Case c);
     
     public int deplacement(ArrayList<Case> l, int nb_case) {
     	
@@ -116,6 +107,18 @@ public abstract class Consommateur {
     	return se_deplacer(c);
     }
     
+	public void est_attaque() {
+		est_attaque=true;
+	}
+	
+	public void non_attaque() {
+		est_attaque=false;
+	}
+    
+	public boolean get_est_attaque() {
+		return est_attaque;
+	}
+	
     /**
      * Si le Consommateur est vivant et ses PV en dessous de zero, alors il devient "mort" (vivant = false)
      * @return 1 s'il meurt, 0 s'il reste vivant
@@ -261,11 +264,23 @@ public abstract class Consommateur {
 		return vie;
 	}
 	
+	protected void setVie(int val) {
+		vie=val;
+	}
+	
 	protected int get_comprep() {
 		return compteur_reproduction;
 	}
 	
 	protected void set_comprep(int val) {
 		compteur_reproduction=val;
+	}
+	
+	protected void augmente_age() {
+		age++;
+	}
+	
+	protected boolean est_vivant() {
+		return vivant;
 	}
 }

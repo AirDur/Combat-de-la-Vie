@@ -25,6 +25,19 @@ public class Zone42 implements Runnable {
 	 */
 	private static ArrayList<Herbivore> list_herbivore;
 	private static ArrayList<Carnivore> list_carnivore;
+	
+	private static ArrayList<Herbivore> list_herbivore_mort= new ArrayList<Herbivore>();
+	
+	private static ArrayList<Carnivore> list_carnivore_mort= new ArrayList<Carnivore>();
+	
+	
+	public static void ajout_carn_mort(Carnivore c) {
+		list_carnivore_mort.add(c);
+	}
+	
+	public static void ajout_herb_mort(Herbivore h) {
+		list_herbivore_mort.add(h);
+	}
 	/**
 	 * taille de la grille de jeu
 	 */
@@ -72,6 +85,14 @@ public class Zone42 implements Runnable {
 	public static Zone42 getInstance() {
 		if (instance == null) instance = new Zone42();
 		return instance;
+	}
+	
+	public static ArrayList<Herbivore> get_list_herbivore_mort(){
+		return list_herbivore_mort;
+	}
+
+	public static ArrayList<Carnivore> get_list_carnivore_mort(){
+		return list_carnivore_mort;
 	}
 	
 	/**
@@ -736,12 +757,46 @@ public class Zone42 implements Runnable {
 				list_aliment.addAll(al);
 			}	
 		}
-		// check herbivore :
 		
+		
+		Iterator<Herbivore> it_h;
+		Iterator<Carnivore> it_c;
+		//liste carnivore nouveaux nees
+		ArrayList<Carnivore> l_cn= new ArrayList<Carnivore>();
+		//liste herbivore nouveaux nees
+		ArrayList<Herbivore> l_hn= new ArrayList<Herbivore>();
+			
 		// check carnivore :
+		it_c = Zone42.get_listeCarnivore().iterator();
+		while(it_c.hasNext()) {
+			Consommateur cn=it_c.next().faire_passer_le_temps();
+			if(cn!=null) l_cn.add((Carnivore) cn);
+		}
+		
+		// check herbivore :
+		it_h = Zone42.get_listeHerbivore().iterator();
+		while(it_h.hasNext()) {
+			Consommateur hn=it_h.next().faire_passer_le_temps();
+			if(hn!=null) l_hn.add((Herbivore) hn);
+		}
 		
 		// clean (virer aliment périmé et les animaux morts).
-	};
+		it_h = Zone42.get_list_herbivore_mort().iterator();
+		while(it_h.hasNext()) {
+			Zone42.supprime_herbivore(it_h.next());
+		}
+		
+		it_c = Zone42.get_list_carnivore_mort().iterator();
+		while(it_c.hasNext()) {
+			Zone42.supprime_carnivore(it_c.next());
+		}
+		
+		//Ajout des nouveaux nees
+		if(l_cn!=null) Zone42.get_listeCarnivore().addAll(l_cn);
+		if(l_hn!=null) Zone42.get_listeHerbivore().addAll(l_hn);
+	
+		
+	}
 	
 	/**
 	 * Rajoute un Carnivore à la liste
@@ -759,10 +814,13 @@ public class Zone42 implements Runnable {
 	 * Supprime un Carnivore à la liste
 	 * @param c Carnivore à rajouter
 	 * @return 1 si ok, 0 si erreur
-	 */
-	public boolean supprime_carnivore(Carnivore c) {
-		c.getEmplacement().setEc(EtatCase.libre);
+	 */	
+	public static boolean supprime_carnivore(Carnivore c) {
+		c.getEmplacement().setEc(EtatCase.cadavre);
+		
+		list_aliment.add(new Cadavre(c.getEmplacement()) );
 		return list_carnivore.remove(c);
+		
 	}
 	
 	/**
@@ -770,7 +828,7 @@ public class Zone42 implements Runnable {
 	 * @param h Herbivore à rajouter
 	 * @return 1 si ok, 0 si erreur
 	 */
-	public int ajout_herbivore( Herbivore h) {
+	public static int ajout_herbivore( Herbivore h) {
 		h.getEmplacement().setEc(EtatCase.herbivore);
 		list_herbivore.add(h);
 		return 1;
@@ -781,9 +839,17 @@ public class Zone42 implements Runnable {
 	 * @param h Herbivore à supprimer
 	 * @return 1 si ok, 0 si erreur
 	 */
-	public boolean supprime_herbivore(Herbivore h) {
-		h.getEmplacement().setEc(EtatCase.consommateur);
+	public static boolean supprime_herbivore(Herbivore h) {
+		h.getEmplacement().setEc(EtatCase.cadavre);
+		
+		list_aliment.add(new Cadavre(h.getEmplacement()) );
 		return list_herbivore.remove(h);
+		
+	}
+	
+	public static void supprime_aliment(Aliment a) {
+		a.getEmplacement().setEc(EtatCase.libre);
+		list_aliment.remove(a);
 	}
 	
 	/**
@@ -792,6 +858,9 @@ public class Zone42 implements Runnable {
 	 * @return 1 si ok, 0 si erreur
 	 */
 	public int ajout_aliment(Aliment a) {
+		if( a instanceof Vegetaux) {
+			a.getEmplacement().setEc(EtatCase.vegetal);
+		}
 		list_aliment.add(a);
 		
 		return 1;

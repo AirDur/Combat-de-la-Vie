@@ -23,6 +23,7 @@ public abstract class Carnivore extends Consommateur {
 			int n = a.getPropriete_nutritive();
 			setCompteur_faim(getCompteur_faim() + n);
 			change_etat_faim();
+			Zone42.supprime_aliment(a);
 			return true;
 		}
 		else {
@@ -56,6 +57,9 @@ public abstract class Carnivore extends Consommateur {
 	
 	@Override
 	public Consommateur faire_passer_le_temps() {
+		Consommateur ret=null;
+		
+		//S il a faim
     	if(check_faim()) {
     		Aliment ar = recherche_aliment();
     		if(ar != null) {
@@ -63,7 +67,7 @@ public abstract class Carnivore extends Consommateur {
     			if( this.getEmplacement().proximite(ar.getEmplacement()) ) {
     				manger(ar);
     			}
-    			
+    		//Pas aliment cherche un proie et se bat avec
     		} else {
     			Consommateur ac = recherche_proie();
     			
@@ -72,16 +76,18 @@ public abstract class Carnivore extends Consommateur {
     				
     				
     				if(this.getEmplacement().proximite(ac.getEmplacement())) {
-    					/*if(attaquer(ac)) {
-        					ar = recherche_aliment();
-        					manger(ar);
-        				}*/
-    					attaquer(ac);
+    					System.out.println("a proximité");
+    					if(attaquer(ac)) {
+    						
+    						if(ac instanceof Herbivore) {
+    							System.out.println("Herbivore mort");
+    							Zone42.supprime_herbivore((Herbivore) ac);
+    						}
+    					};
         			}
         			else {
         				Astar as = new Astar(Grille.getinstance(),this.getEmplacement(),ac.getEmplacement());
         				this.deplacement(as.get_chemin(), this.getCapacite_maximale_de_deplacement());
-        				return null;
         			}
     					
     					
@@ -90,18 +96,16 @@ public abstract class Carnivore extends Consommateur {
     				deplacement_aleatoire(1);
     			}
     		}
-    		//se déplace
-    		return null;
+    	//Sinon se reproduit
     	} else if(this.get_comprep()==0){
     		Consommateur r = recherche_reproducteur();
     		if(r != null) {
     			if(this.getEmplacement().proximite(r.getEmplacement())) {
-    				return se_reproduire(r);
+    				ret= se_reproduire(r);
     			}
     			else {
     				Astar as = new Astar(Grille.getinstance(),this.getEmplacement(),r.getEmplacement());
     				this.deplacement(as.get_chemin(), this.getCapacite_maximale_de_deplacement());
-    				return null;
     			}
     		}else {
     			deplacement_aleatoire(1);
@@ -109,9 +113,26 @@ public abstract class Carnivore extends Consommateur {
     	} else {
     		this.set_comprep(get_comprep()-1);
 			deplacement_aleatoire(1);
-			return null;
     	}
-    	return null;
+    	this.augmente_age();
+    	if(meurt()) {
+    		System.out.println("Carnivore mort");
+			Zone42.ajout_carn_mort((Carnivore) this );
+    	}
+    	return ret;
+    }
+	
+	public int se_deplacer(Case c) {
+    	if(c!=null) {
+	    	Grille g = Grille.getinstance(0, 0);
+	    	if( this.est_vivant() && (c.getEc() == EtatCase.libre) ) {
+	    		g.setEtat(EtatCase.libre, emplacement);
+	    		g.setEtat(EtatCase.carnivore, c);
+	    		emplacement = c;
+	    		return 1;
+	    	} else
+	    		return 0;
+    	}else return 0;
     }
 	
 	protected Case deplacement_aleatoire(int r) {
@@ -130,8 +151,14 @@ public abstract class Carnivore extends Consommateur {
 	}
 	
 	
-	private boolean attaquer(Consommateur c) {
-		return c.se_defendre(this);
+	private boolean attaquer(Consommateur h) {
+		h.est_attaque();
+		//h.prend_coup(this.getForce_combat());
+		boolean ret = h.se_defendre(this);
+		int v = h.getVie();
+		System.out.println("Il reste +"+v+" point de vie a herbivore");
+		System.out.println("Il reste +"+this.getVie()+" point de vie a Carnivore");
+		return ret;
 	}
 
 	private Consommateur recherche_proie() {
