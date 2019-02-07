@@ -17,7 +17,7 @@ public abstract class Herbivore extends Consommateur {
 	
 	public Herbivore(Sexe s, int v, Case c, int cmc, int a, int ddv, int fc) {
 		super(s, v, c, cmc, a, ddv, fc);
-		type=EtatCase.herbivore;
+		type = EtatCase.herbivore;
 	}
 	
 	
@@ -76,8 +76,7 @@ public abstract class Herbivore extends Consommateur {
 			non_attaque();
 			return null;
 		}
-		//else if(check_faim()) {
-		else if(false) {
+		else if(check_faim()) {
     		Aliment ar = recherche_aliment();
     		if(ar != null) {
     			System.out.println("Aliment trouve");
@@ -87,7 +86,9 @@ public abstract class Herbivore extends Consommateur {
     			}
     			else {
         			Astar as = new Astar(Grille.getinstance(),this.getEmplacement(),ar.getEmplacement());
-    				this.deplacement(as.get_chemin(), this.getCapacite_maximale_de_deplacement());
+        			ArrayList<Case> chem_herb = as.get_chemin();
+        			if(chem_herb!=null)
+        				this.deplacement(chem_herb, this.getCapacite_maximale_de_deplacement());
     			
         		}
     		}else deplacement_aleatoire(1);
@@ -104,7 +105,9 @@ public abstract class Herbivore extends Consommateur {
     			}
     			else {
     				Astar as = new Astar(Grille.getinstance(),this.getEmplacement(),r.getEmplacement());
-    				this.deplacement(as.get_chemin(), this.getCapacite_maximale_de_deplacement());
+    				ArrayList<Case> chem_herb = as.get_chemin();
+    				if(chem_herb!=null)
+        				this.deplacement(chem_herb, this.getCapacite_maximale_de_deplacement());
     			}
     		}else {
     			deplacement_aleatoire(1);
@@ -114,7 +117,7 @@ public abstract class Herbivore extends Consommateur {
 			deplacement_aleatoire(1);
     	}
     	this.augmente_age();
-    	if(false) {
+    	if(meurt()) {
     		System.out.println("Herbivore mort");
 			Zone42.ajout_herb_mort((Herbivore) this );
     	}

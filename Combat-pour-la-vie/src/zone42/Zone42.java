@@ -35,6 +35,11 @@ public class Zone42 implements Runnable {
 		list_carnivore_mort.add(c);
 	}
 	
+	public static void rst_liste_mort() {
+		list_herbivore_mort= new ArrayList<Herbivore>();
+		list_carnivore_mort= new ArrayList<Carnivore>();
+	}
+	
 	public static void ajout_herb_mort(Herbivore h) {
 		list_herbivore_mort.add(h);
 	}
@@ -309,7 +314,7 @@ public class Zone42 implements Runnable {
 				}
 			}
 			
-			for(int i  = 1; i < nb_caribou; i++) {
+			for(int i  = 1; i <= nb_caribou; i++) {
 				int age = 1;
 				int x = Math_methods.randomWithRange(0, tailleGrille-1);
 				int y = Math_methods.randomWithRange(0, tailleGrille-1);
@@ -375,7 +380,7 @@ public class Zone42 implements Runnable {
 				}
 			}
 			
-			for(int i  = 1; i < nb_chevreuil; i++) {
+			for(int i  = 1; i <= nb_chevreuil; i++) {
 				int age = 1;
 				int x = Math_methods.randomWithRange(0, tailleGrille-1);
 				int y = Math_methods.randomWithRange(0, tailleGrille-1);
@@ -441,7 +446,9 @@ public class Zone42 implements Runnable {
 				}
 			}
 			
-			for(int i  = 1; i < nb_lion; i++) {
+			for(int i  = 1; i <= nb_lion; i++) {
+
+				System.out.println("un lion");
 				int age = 1;
 				int x = Math_methods.randomWithRange(0, tailleGrille-1);
 				int y = Math_methods.randomWithRange(0, tailleGrille-1);
@@ -501,13 +508,15 @@ public class Zone42 implements Runnable {
 				try {
 					Lion bt = new Lion(sexe, pv, c, capacite_maximale_de_deplacement, age, duree_de_vie, force_de_combat);
 					list_carnivore.add(bt);
+					System.out.println(bt.toString());
 					Grille.getinstance().setEtat(EtatCase.carnivore, c);
 				} catch(Exception e){
 					System.out.println(e);
 				}
 			}
 			
-			for(int i  = 1; i < nb_loup; i++) {
+			for(int i  = 1; i <= nb_loup; i++) {
+				System.out.println("un loup");
 				int age = 1;
 				int x = Math_methods.randomWithRange(0, tailleGrille-1);
 				int y = Math_methods.randomWithRange(0, tailleGrille-1);
@@ -567,13 +576,14 @@ public class Zone42 implements Runnable {
 				try {
 					Loup bt = new Loup(sexe, pv, c, capacite_maximale_de_deplacement, age, duree_de_vie, force_de_combat);
 					list_carnivore.add(bt);
+					System.out.println(bt);
 					Grille.getinstance().setEtat(EtatCase.carnivore, c);
 				} catch(Exception e){
 					System.out.println(e);
 				}
 			}
 			
-			for(int i  = 1; i < nb_mouton; i++) {
+			for(int i  = 1; i <= nb_mouton; i++) {
 				int age = 1;
 				int x = Math_methods.randomWithRange(0, tailleGrille-1);
 				int y = Math_methods.randomWithRange(0, tailleGrille-1);
@@ -639,7 +649,7 @@ public class Zone42 implements Runnable {
 				}
 			}
 			
-			for(int i  = 1; i < nb_tigre; i++) {
+			for(int i  = 1; i <= nb_tigre; i++) {
 				int age = 1;
 				int x = Math_methods.randomWithRange(0, tailleGrille-1);
 				int y = Math_methods.randomWithRange(0, tailleGrille-1);
@@ -794,6 +804,8 @@ public class Zone42 implements Runnable {
 		//Ajout des nouveaux nees
 		if(l_cn!=null) Zone42.get_listeCarnivore().addAll(l_cn);
 		if(l_hn!=null) Zone42.get_listeHerbivore().addAll(l_hn);
+		
+		Zone42.rst_liste_mort();
 	
 		
 	}
@@ -819,6 +831,7 @@ public class Zone42 implements Runnable {
 		c.getEmplacement().setEc(EtatCase.cadavre);
 		
 		list_aliment.add(new Cadavre(c.getEmplacement()) );
+		System.out.println("=================Ajout du cadavre en "+ c.getEmplacement());
 		return list_carnivore.remove(c);
 		
 	}

@@ -8,7 +8,7 @@ public class Astar {
 	
 	public Case depart; 
 	private Case arrive;
-	private int nb_case = 500;
+	private int nb_case = 10000;
 	private int nb_elts = 0;
 	private Grille grille;
 	private Case [] tab= new Case[nb_case];
@@ -136,18 +136,20 @@ public class Astar {
 		if(depart!=arrive) {
 			
 			Case current = depart;
+			boolean bug=false;
 			
 			current.setValH(current.distance(arrive));
 			Noeud start = new Noeud(current, null);
 			liste_noeud.add(start);
 			
-			while(current !=null && current.getValH()!=0){
+			while(current !=null && current.getValH()!=0 && !bug){
+				if(nb_elts>2500) bug=true;
 				fait_fils(current);
 				come_from.add(current);
 				current = remove();
 			}
 			
-			if(current==null) return null;
+			if(current==null || bug) return null;
 			else{
 				retrace_chemin(current);
 				return chemin;

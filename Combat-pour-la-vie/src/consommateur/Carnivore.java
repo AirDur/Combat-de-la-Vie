@@ -60,15 +60,25 @@ public abstract class Carnivore extends Consommateur {
 		Consommateur ret=null;
 		
 		//S il a faim
+		System.out.println("tour Carnivore ");
     	if(check_faim()) {
+    		System.out.println("Le Carnivore a faim ");
     		Aliment ar = recherche_aliment();
     		if(ar != null) {
     			System.out.println("Aliment trouve");
     			if( this.getEmplacement().proximite(ar.getEmplacement()) ) {
     				manger(ar);
     			}
+    			else {
+    				Astar as = new Astar(Grille.getinstance(),this.getEmplacement(),ar.getEmplacement());
+    				ArrayList<Case> chem_c = as.get_chemin();
+    				if(chem_c!=null)
+    					this.deplacement(chem_c, this.getCapacite_maximale_de_deplacement());
+    			}
+    			
     		//Pas aliment cherche un proie et se bat avec
     		} else {
+    			System.out.println("Carnivore cherche proie ");
     			Consommateur ac = recherche_proie();
     			
     			if(ac !=  null) {
@@ -87,7 +97,9 @@ public abstract class Carnivore extends Consommateur {
         			}
         			else {
         				Astar as = new Astar(Grille.getinstance(),this.getEmplacement(),ac.getEmplacement());
-        				this.deplacement(as.get_chemin(), this.getCapacite_maximale_de_deplacement());
+        				ArrayList<Case> chem_c = as.get_chemin();
+        				if(chem_c!=null)
+        					this.deplacement(chem_c, this.getCapacite_maximale_de_deplacement());
         			}
     					
     					
@@ -98,6 +110,7 @@ public abstract class Carnivore extends Consommateur {
     		}
     	//Sinon se reproduit
     	} else if(this.get_comprep()==0){
+    		System.out.println("Carnivore reproduction");
     		Consommateur r = recherche_reproducteur();
     		if(r != null) {
     			if(this.getEmplacement().proximite(r.getEmplacement())) {
@@ -105,7 +118,9 @@ public abstract class Carnivore extends Consommateur {
     			}
     			else {
     				Astar as = new Astar(Grille.getinstance(),this.getEmplacement(),r.getEmplacement());
-    				this.deplacement(as.get_chemin(), this.getCapacite_maximale_de_deplacement());
+    				ArrayList<Case> chem_c = as.get_chemin();
+    				if(chem_c!=null)
+    					this.deplacement(chem_c, this.getCapacite_maximale_de_deplacement());
     			}
     		}else {
     			deplacement_aleatoire(1);
@@ -114,6 +129,7 @@ public abstract class Carnivore extends Consommateur {
     		this.set_comprep(get_comprep()-1);
 			deplacement_aleatoire(1);
     	}
+    	
     	this.augmente_age();
     	if(meurt()) {
     		System.out.println("Carnivore mort");
