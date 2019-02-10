@@ -756,18 +756,6 @@ public class Zone42 implements Runnable {
 	}
 	
 	public static void faire_passer_le_temps() {
-		// fabriques de végétaux : 
-		for(Fabrique_de_Vegetaux fv : list_fabrique_vegetaux) {
-			ArrayList<Vegetaux> al = fv.utilisation();
-			if(al != null) {
-				for(Vegetaux v : al) {
-					System.out.println("vegetaux x = "+ v.getEmplacement().getVal_x() +"vegetaux y = "+v.getEmplacement().getVal_y());
-					grille.setEtat(EtatCase.vegetal, v.getEmplacement().getVal_x(), v.getEmplacement().getVal_y());
-				}
-				list_aliment.addAll(al);
-			}	
-		}
-		
 		
 		Iterator<Herbivore> it_h;
 		Iterator<Carnivore> it_c;
@@ -807,7 +795,17 @@ public class Zone42 implements Runnable {
 		
 		Zone42.rst_liste_mort();
 	
-		
+		// fabriques de végétaux : 
+			for(Fabrique_de_Vegetaux fv : list_fabrique_vegetaux) {
+				ArrayList<Vegetaux> al = fv.utilisation();
+				if(al != null) {
+					for(Vegetaux v : al) {
+						grille.setEtat(EtatCase.vegetal, v.getEmplacement().getVal_x(), v.getEmplacement().getVal_y());
+					}
+					list_aliment.addAll(al);
+				}	
+			}
+	
 	}
 	
 	/**
@@ -831,7 +829,6 @@ public class Zone42 implements Runnable {
 		c.getEmplacement().setEc(EtatCase.cadavre);
 		
 		list_aliment.add(new Cadavre(c.getEmplacement()) );
-		System.out.println("=================Ajout du cadavre en "+ c.getEmplacement());
 		return list_carnivore.remove(c);
 		
 	}

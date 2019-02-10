@@ -72,14 +72,12 @@ public abstract class Herbivore extends Consommateur {
 		Consommateur ret=null;
 		
 		if(get_est_attaque() ) {
-			System.out.println("Herbivore attaqué !");
 			non_attaque();
 			return null;
 		}
 		else if(check_faim()) {
     		Aliment ar = recherche_aliment();
     		if(ar != null) {
-    			System.out.println("Aliment trouve");
     			if( this.getEmplacement().proximite(ar.getEmplacement()) ) {
     				manger(ar);
     				Zone42.supprime_aliment(ar);
@@ -87,9 +85,10 @@ public abstract class Herbivore extends Consommateur {
     			else {
         			Astar as = new Astar(Grille.getinstance(),this.getEmplacement(),ar.getEmplacement());
         			ArrayList<Case> chem_herb = as.get_chemin();
-        			if(chem_herb!=null)
+        			if(chem_herb!=null) {
         				this.deplacement(chem_herb, this.getCapacite_maximale_de_deplacement());
-    			
+        			}else deplacement_aleatoire(1);
+        			
         		}
     		}else deplacement_aleatoire(1);
     		//se déplace
@@ -99,7 +98,6 @@ public abstract class Herbivore extends Consommateur {
     		Consommateur r = recherche_reproducteur();
     		if(r != null) {
     			
-    			System.out.println("SEX");
     			if(this.getEmplacement().proximite(r.getEmplacement())) {
     				ret= se_reproduire(r);
     			}
@@ -118,7 +116,6 @@ public abstract class Herbivore extends Consommateur {
     	}
     	this.augmente_age();
     	if(meurt()) {
-    		System.out.println("Herbivore mort");
 			Zone42.ajout_herb_mort((Herbivore) this );
     	}
     	return ret;

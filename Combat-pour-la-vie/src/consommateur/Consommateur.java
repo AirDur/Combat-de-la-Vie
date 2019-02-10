@@ -158,12 +158,10 @@ public abstract class Consommateur {
      */
 	protected boolean check_faim() {
 		this.setCompteur_faim(compteur_faim-1);
-		System.out.println("Compteur faim = "+this.getCompteur_faim());
 		change_etat_faim();
     	if(etat_faim == EtatFaim.satisfait) {
     		return false;
     	}else {
-    		System.out.println("c'est la faim");
     		return true;
     	}
     }
