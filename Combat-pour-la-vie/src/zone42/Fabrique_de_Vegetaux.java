@@ -127,7 +127,6 @@ public class Fabrique_de_Vegetaux {
 		ArrayList<Case> alc = Grille.getinstance().getCaseAutour(emplacement, 3);
 		if(alc.size() > 0) {
 			Case c = alc.get(0);
-			System.out.println("On donne la case "+c.getVal_x()+","+c.getVal_y());
 			Vegetaux vegetal = null;
 	        switch(this.type)
 	        {

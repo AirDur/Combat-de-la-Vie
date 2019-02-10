@@ -44,24 +44,24 @@ public class Grille_graphisme extends JPanel{
             	
             	switch(ec) {
             	
-            		case libre: g2.setColor(Color.WHITE); 
-            					break;
-            		case fabriqueVegetaux : g2.setColor(Color.GRAY); 
-											break;
-											
-            		case vegetal: g2.setColor(Color.GREEN);
-            						break;
-            						
-            		case carnivore: g2.setColor(Color.red);
-            						break;
-            						
-            		case cadavre: g2.setColor(Color.orange);
-            					break;	
-            		
-            		case herbivore: g2.setColor(Color.BLUE);
-            		default:
-            						break;
-            	}
+        		case libre: g2.setColor(Color.WHITE); 
+        					break;
+        		case fabriqueVegetaux : g2.setColor(Color.GRAY); 
+										break;
+										
+        		case vegetal: g2.setColor(Color.GREEN);
+        						break;
+        						
+        		case carnivore: g2.setColor(new Color(138, 55, 175));
+        						break;
+        						
+        		case cadavre: g2.setColor(Color.red);
+        					break;	
+        		
+        		case herbivore: g2.setColor(Color.blue);
+        		default:
+        						break;
+        	}
             			
 
             	g2.fillRect(11 + c*squareSize, 11 + r*squareSize, squareSize - 1,
