@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import zone42.Case;
-import zone42.EtatCase;
 import zone42.Grille;
 import zone42.Math_methods;
 import zone42.Zone42;

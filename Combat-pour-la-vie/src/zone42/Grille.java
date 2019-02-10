@@ -288,4 +288,8 @@ public class Grille {
 		return y;
 	}
 	
+	public int getTaille() {
+		return tab.length;
+	}
+	
 }

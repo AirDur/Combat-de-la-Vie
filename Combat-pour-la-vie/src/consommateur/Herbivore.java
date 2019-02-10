@@ -13,11 +13,8 @@ import zone42.Zone42;
 
 public abstract class Herbivore extends Consommateur {
 	
-	private EtatCase type;
-	
 	public Herbivore(Sexe s, int v, Case c, int cmc, int a, int ddv, int fc) {
 		super(s, v, c, cmc, a, ddv, fc);
-		type = EtatCase.herbivore;
 	}
 	
 	
@@ -60,11 +57,7 @@ public abstract class Herbivore extends Consommateur {
 				|| a_test instanceof aliment.Foin || a_test instanceof aliment.Herbe ));
 	}
 	
-	@Override
-	public Consommateur recherche_reproducteur() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract Consommateur recherche_reproducteur();
 	
 	@Override
 	public Consommateur faire_passer_le_temps() {
@@ -72,14 +65,14 @@ public abstract class Herbivore extends Consommateur {
 		Consommateur ret=null;
 		
 		if(get_est_attaque() ) {
-			System.out.println("Herbivore attaqué !");
+			//System.out.println("Herbivore attaqué !");
 			non_attaque();
 			return null;
 		}
 		else if(check_faim()) {
     		Aliment ar = recherche_aliment();
     		if(ar != null) {
-    			System.out.println("Aliment trouve");
+    			//System.out.println("Aliment trouve");
     			if( this.getEmplacement().proximite(ar.getEmplacement()) ) {
     				manger(ar);
     				Zone42.supprime_aliment(ar);
@@ -99,7 +92,7 @@ public abstract class Herbivore extends Consommateur {
     		Consommateur r = recherche_reproducteur();
     		if(r != null) {
     			
-    			System.out.println("SEX");
+    			//System.out.println("SEX");
     			if(this.getEmplacement().proximite(r.getEmplacement())) {
     				ret= se_reproduire(r);
     			}
@@ -118,7 +111,7 @@ public abstract class Herbivore extends Consommateur {
     	}
     	this.augmente_age();
     	if(meurt()) {
-    		System.out.println("Herbivore mort");
+    		//System.out.println("Herbivore mort");
 			Zone42.ajout_herb_mort((Herbivore) this );
     	}
     	return ret;

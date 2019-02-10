@@ -246,7 +246,7 @@ public class Zone42 implements Runnable {
 			int nb_mouton = ini.get("Animal", "Mouton", int.class);
 			int nb_tigre = ini.get("Animal", "Tigre", int.class);
 			
-			System.out.println(nb_bos_taurus);
+			//System.out.println(nb_bos_taurus);
 			for(int i = 1; i <= nb_bos_taurus; i++) {
 				
 				int age = 1;
@@ -761,7 +761,7 @@ public class Zone42 implements Runnable {
 			ArrayList<Vegetaux> al = fv.utilisation();
 			if(al != null) {
 				for(Vegetaux v : al) {
-					System.out.println("vegetaux x = "+ v.getEmplacement().getVal_x() +"vegetaux y = "+v.getEmplacement().getVal_y());
+					//System.out.println("vegetaux x = "+ v.getEmplacement().getVal_x() +"vegetaux y = "+v.getEmplacement().getVal_y());
 					grille.setEtat(EtatCase.vegetal, v.getEmplacement().getVal_x(), v.getEmplacement().getVal_y());
 				}
 				list_aliment.addAll(al);
@@ -831,7 +831,7 @@ public class Zone42 implements Runnable {
 		c.getEmplacement().setEc(EtatCase.cadavre);
 		
 		list_aliment.add(new Cadavre(c.getEmplacement()) );
-		System.out.println("=================Ajout du cadavre en "+ c.getEmplacement());
+		//System.out.println("=================Ajout du cadavre en "+ c.getEmplacement());
 		return list_carnivore.remove(c);
 		
 	}

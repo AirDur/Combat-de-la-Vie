@@ -11,15 +11,16 @@ import zone42.*;
 public class Grille_graphisme extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
-	private Integer taille, squareSize;
-	private JButton b_upload, b_launch, b_pause, b_stop, b_help;
+	private Integer taille, taille_max, squareSize;
+	private JButton b_upload, b_launch, b_pause, b_stop;
 	private Grille grille_info;
 	private boolean en_cours;
 	
-	public Grille_graphisme(int t, int taille_max, Grille grille_jeu) {
+	public Grille_graphisme(int t, int tm, Grille grille_jeu) {
 		grille_info = grille_jeu;
 		taille = t;
-		squareSize = taille_max/t;	
+		taille_max = tm;
+		squareSize = taille_max/taille;	
 		addButtons();
 		setEn_cours(false);
 	}
@@ -28,9 +29,14 @@ public class Grille_graphisme extends JPanel{
         super.paintComponent(g);  // Fills the background color.
         Graphics2D g2 = (Graphics2D) g;
         
+        //recalcul :
+        grille_info = Grille.getinstance();
+        taille = grille_info.getTaille();
+        squareSize = taille_max/taille;
+        
         g2.setColor(Color.DARK_GRAY);
         g2.fillRect(10, 10, (taille*squareSize)+1, (taille*squareSize)+1);
-        grille_info = Grille.getinstance();
+        
         
         for (int r = 0; r < taille; r++) {
             for (int c = 0; c < taille; c++) {
@@ -73,15 +79,13 @@ public class Grille_graphisme extends JPanel{
 		b_launch = createButton("Launch", "Launch the animation", new ActionLaunch(this));
 		b_stop = createButton("Stop", "Stop the animation", new ActionStop(this));
 		b_pause = createButton("Pause", "Pause the animation", new ActionPause(this));
-		b_help = createButton("Help", "Open an Help window", new ActionHelp());
-	    add(b_upload); add(b_launch); add(b_pause); add(b_stop); add(b_help);
+	    add(b_upload); add(b_launch); add(b_pause); add(b_stop);
 	    
-	    int start = (taille*squareSize) + 15;
+	    int start = 515;
 	    b_upload.setBounds(start, 10, 100, b_upload.getPreferredSize().height);
 	    b_launch.setBounds(start, 60 + insets.top, 100, b_upload.getPreferredSize().height);
 	    b_pause.setBounds(start, 110 + insets.top, 100, b_upload.getPreferredSize().height);
 	    b_stop.setBounds(start, 160 + insets.top, 100, b_upload.getPreferredSize().height);
-	    b_help.setBounds(start, 210 + insets.top, 100, b_upload.getPreferredSize().height);
 	}
 	
 	/**
@@ -106,21 +110,5 @@ public class Grille_graphisme extends JPanel{
 	public void setEn_cours(boolean ec) {
 		en_cours = ec;
 	}
-	
-	/*public void paintComponent(Graphics g) {
-        super.paintComponent(g);  // Fills the background color.
-        Graphics2D g2 = (Graphics2D) g;
-        
-        g2.setColor(Color.DARK_GRAY);
-        g2.fillRect(10, 10, columns*squareSize+1, rows*squareSize+1);
 
-        for (int r = 0; r < rows; r++) {
-            for (int c = 0; c < columns; c++) {
-            			g2.setColor(Color.WHITE); 
-
-            	g2.fillRect(11 + c*squareSize, 11 + r*squareSize, squareSize - 1,
-            			squareSize - 1);
-            }
-        }
-    }*/
 }

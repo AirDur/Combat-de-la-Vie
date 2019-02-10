@@ -78,7 +78,6 @@ public abstract class Consommateur {
 		emplacement = c;
 		compteur_faim = 44;
 		etat_faim = EtatFaim.satisfait;
-		Grille g = Grille.getinstance();
 		//g.setEtat(EtatCase.consommateur, emplacement);
 		capacite_maximale_de_deplacement = cmc;
 		age = a;
@@ -106,18 +105,7 @@ public abstract class Consommateur {
     	}
     	return se_deplacer(c);
     }
-    
-	public void est_attaque() {
-		est_attaque=true;
-	}
-	
-	public void non_attaque() {
-		est_attaque=false;
-	}
-    
-	public boolean get_est_attaque() {
-		return est_attaque;
-	}
+
 	
     /**
      * Si le Consommateur est vivant et ses PV en dessous de zero, alors il devient "mort" (vivant = false)
@@ -158,12 +146,12 @@ public abstract class Consommateur {
      */
 	protected boolean check_faim() {
 		this.setCompteur_faim(compteur_faim-1);
-		System.out.println("Compteur faim = "+this.getCompteur_faim());
+		//System.out.println("Compteur faim = "+this.getCompteur_faim());
 		change_etat_faim();
     	if(etat_faim == EtatFaim.satisfait) {
     		return false;
     	}else {
-    		System.out.println("c'est la faim");
+    		//System.out.println("c'est la faim");
     		return true;
     	}
     }
@@ -194,24 +182,32 @@ public abstract class Consommateur {
 	 * recherche un reproducteur proche.
 	 * @return Consommateur
 	 */
-	public Consommateur recherche_reproducteur() {
-    	//retourne autour si un consommateur est de même classe et de sexe opposé.
-    	Sexe sexe_partenaire;
-    	Grille g = Grille.getinstance();
-    	if(sexe == Sexe.femelle) {
-    		sexe_partenaire = Sexe.male;
-    	} else {
-    		sexe_partenaire = Sexe.femelle;
-    	}
-    	return null;
-    }
+	public abstract Consommateur recherche_reproducteur();
 	
+	/**
+	 * Méthode qui permet de trouver un aliment
+	 * @return Aliment trouvé
+	 */
     public abstract Aliment recherche_aliment();
     
+    /**
+     * Méthode qui déclanche les actions d'un consommateur durant un cycle.
+     * @return 
+     */
     public abstract Consommateur faire_passer_le_temps();
     
+    /**
+     * Créer un Consommateur issu de la reproduction entre this et le consommateur passé en paramètre.
+     * @param c le Consommateur
+     * @return un nouveau né
+     */
     public abstract Consommateur se_reproduire(Consommateur c);
     
+    /**
+     * Le consommateur mange l'aliment passé en parametre
+     * @param a
+     * @return true si réussite, false si rien mangé.
+     */
     public abstract boolean manger(Aliment a);
     
 	public String toString() {
@@ -219,6 +215,10 @@ public abstract class Consommateur {
 				+ "Case : " + this.emplacement.toString();
 	}
     
+	/****************
+	 * GETTER ET SETTER
+	 * @return
+	 ****************/
 	protected Sexe getSexe() {
 		return sexe;
 	}
@@ -282,5 +282,17 @@ public abstract class Consommateur {
 	
 	protected boolean est_vivant() {
 		return vivant;
+	}
+    
+	public void est_attaque() {
+		est_attaque=true;
+	}
+	
+	public void non_attaque() {
+		est_attaque=false;
+	}
+    
+	public boolean get_est_attaque() {
+		return est_attaque;
 	}
 }

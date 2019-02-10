@@ -50,7 +50,7 @@ public class Fenetre extends JFrame {
 	}
 
 	public void setTimer(Timer timer) {
-		timer = timer;
+		Fenetre.timer = timer;
 	}
 
 	public int getCount() {

@@ -3,7 +3,6 @@ package consommateur;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import aliment.Aliment;
 import zone42.Case;
 import zone42.Grille;
 import zone42.Math_methods;
